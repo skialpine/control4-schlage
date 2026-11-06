@@ -7,8 +7,10 @@ CORE1 / OS 3.4.3.741643-res test system. Native authentication, discovery,
 renewal, restart recovery, lock/unlock, and live app updates for reported
 external bolt changes are verified. The user has checked both installed driver
 versions and both Documentation tabs. Delivery acceptance (6.3) is complete.
-Three integrated tasks remain: broader hardware/fault tests, outage/recovery,
-and rollback rehearsal. CORE5 / OS 4.3 remains untested.
+Rollback (6.4) was closed by explicit user acceptance. Two tasks remain:
+broader hardware coverage (6.1) and outage/recovery (6.2). The user now reports
+successful loading and basic operation on CORE5 / OS 4.3; advanced checks on
+that controller and its current exact build remain unrecorded.
 
 The sections below retain chronological observations, including superseded
 preview limitations; use the latest result for current acceptance status.
@@ -19,8 +21,8 @@ preview limitations; use the latest result for current acceptance status.
 | --- | --- | --- |
 | Initial controller model | CORE 1 | User confirmed available |
 | Initial Control4 OS version | 3.4.3.741643-res | Active controller confirmed by user and Composer application log |
-| Follow-up controller model | CORE 5 | User confirmed available for subsequent testing |
-| Follow-up Control4 OS version | 4.3.0.766029-res | Discovered in Composer application log; Schlage driver validation has not been run on this target |
+| Follow-up controller model | CORE 5 | User reports successful loading and basic operation, 2026-11-06 |
+| Follow-up Control4 OS version | OS 4.3; previously detected 4.3.0.766029-res | User now reports working operation on OS 4.3; current exact build has not been separately rechecked |
 | Controller test order | CORE 1 on OS 3, then CORE 5 on OS 4.3 | User specified order |
 | Composer Pro available | Yes | User confirmed possession |
 | Planned development access | Installer-managed through Composer Pro on the initial CORE 1 target; project name not recorded | User supplied Composer Pro availability and intended controller |
@@ -905,3 +907,18 @@ explicitly requested marking rollback done and moving to the next task. Task
 feedback, or native restoration result was supplied, so those actions are not
 claimed as independently rehearsed. Progress is 30/32. Remaining tasks are
 6.1 broader hardware coverage and 6.2 outage/fault/recovery validation.
+
+## CORE5 basic operation reported (2026-11-06)
+
+The user reports loading the driver on CORE5 with OS 4.3 and that it works
+fine. This establishes user-reported basic operation on the second target.
+The earlier discovered build was 4.3.0.766029-res; the current exact OS build
+and installed driver revision were not separately supplied in this report.
+Do not infer completed multi-lock isolation, fault, outage/recovery, or timer
+measurements from this general success report. Task 6.1 remains open for its
+remaining explicit cases, and task 6.2 remains open. Progress stays 30/32.
+
+The published v2026110606 documentation predates this CORE5 observation and
+therefore describes that target as untested at publication. This validation
+record records the newer result; revise the packaged support summary on the
+next versioned release rather than replacing assets of the existing release.

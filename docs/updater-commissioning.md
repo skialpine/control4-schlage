@@ -40,8 +40,10 @@ verified locally. The user confirmed automatic installation of 2026110603
 overnight and explicitly verified both installed versions as 2026110606. Both
 Composer Documentation tabs open and read correctly. Native command feedback
 and external locked/unlocked app updates are verified on CORE1 / OS 3.4.3.
-CORE5 / OS 4.3, broader fault/outage tests, and the rollback rehearsal remain
-open. Properties local-time formatting has not been separately reported.
+The user also reports successful loading/basic operation on CORE5 / OS 4.3.
+Its current exact build and broader cases are not separately recorded.
+Fault/outage and remaining hardware tests stay open; rollback is closed by
+explicit user acceptance. Properties local-time formatting has not been separately reported.
 
 ## One-lock rollback rehearsal
 

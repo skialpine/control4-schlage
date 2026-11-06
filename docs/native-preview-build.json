@@ -1,5 +1,5 @@
 {
-  "stage": "Delivery and presentation accepted; rollback task closed by explicit user acceptance; broader hardware and outage/recovery tests remain",
+  "stage": "CORE1 presentation/delivery accepted; CORE5 OS 4.3 basic operation reported working; broader hardware and outage/recovery tests remain",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -54,7 +54,7 @@
     "sha256": "12a6acb68ad665f9a39eeb160e9540b3004306289bcf8b2d22682f7768789a0c"
   },
   "live_lock_control_validated": true,
-  "core5_validated": false,
+  "core5_validated": true,
   "live_composer_observation": {
     "source": "user-supplied Properties screenshots",
     "account_project_id": 31,
@@ -409,5 +409,15 @@
     "binding_switch_command_feedback_and_restore": "No detailed rehearsal result supplied; user accepted closure",
     "completion_basis": "User explicitly requested marking task done after confirming HA integration is available and working",
     "live_binding_switch_restore_verified": false
+  },
+  "core5_validation": {
+    "scope": "user-reported successful installation and basic operation",
+    "os_family": "4.3",
+    "previously_detected_exact_os_build": "4.3.0.766029-res",
+    "current_exact_build_rechecked": false,
+    "current_driver_revision_separately_reported": false,
+    "user_report": "also loaded it on core5 with os 4.3 and it works fine",
+    "multi_lock_isolation_explicitly_verified": false,
+    "fault_outage_recovery_verified": false
   }
 }
