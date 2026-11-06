@@ -25,5 +25,15 @@
   },
   "driverpackager": {
     "commit": "465ecc1cf73a85a4fdaf62fb688e9aed83e6d530"
+  },
+  "control4-lock-sdk": {
+    "repository": "snap-one/drivers-template-code-public",
+    "commit": "50eee83dd690ef6724e4162f7e557d03a57b9b07",
+    "reviewed_files": [
+      "proxies/lock_proxy/lock_proxy_notifies.lua",
+      "proxies/lock_proxy/lock_device_class.lua",
+      "proxies/lock_proxy/lock_reports.lua"
+    ],
+    "use": "Protocol reference for initial status and change notifications; no SDK implementation copied"
   }
 }

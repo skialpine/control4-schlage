@@ -692,3 +692,24 @@ Unauthenticated public package downloads match tag CI artifacts. Both packages
 were copied to the OneDrive Control4 root and Drivers folders, along with the
 updated root bundle and PDFs; checksum checks passed and prior files were
 backed up. Actual local-time formatting on the controller remains to be checked.
+
+## Navigator live-state notification preview (2026-11-06)
+
+The user reported that the app tile did not update until tapped again or
+reopened, while Composer Bolt State followed the physical lock correctly. A
+Composer native lock status screenshot showed the correct Unlocked state but
+a blank Last Action Description. This isolates the reported discrepancy to
+presentation beyond the accepted Schlage state; it does not identify the exact
+Director/app failure by itself.
+
+Review of the official Control4 lock SDK sample at commit
+50eee83dd690ef6724e4162f7e557d03a57b9b07 found a distinct initial-status
+notification and change messages containing description/source/manual fields.
+The prior adapter sent only LOCK_STATUS_CHANGED with LOCK_STATUS on every
+snapshot, omitted initialization, and supplied no action description. Preview
+2026110605 aligns initialization, change-only notifications, and public metadata
+with that sample. Tests cover first sync, later lock/unlock, duplicates,
+telemetry, offline state, fault/unknown, native rebind, reload, and reassignment.
+Live app-tile refresh and Last Action Description remain acceptance checks;
+the local shim cannot prove Director or mobile-app subscriptions. Task 5.4
+remains open until those presentation checks and its remaining cases pass.

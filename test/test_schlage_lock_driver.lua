@@ -76,16 +76,55 @@ local function handoff(bolt, connected, battery, low)
 end
 T.section("Proxy dispatch uses its account binding and no optimistic state")
 handoff("locked", true, 88, false)
-T.eq("known lock proxy state", last("LOCK_STATUS_CHANGED").params.LOCK_STATUS, "locked")
+T.eq(
+  "first observed lock state initializes the native proxy",
+  last("LOCK_STATUS_INITIALIZE").params.LOCK_STATUS,
+  "locked"
+)
+T.eq("initial synchronization creates no native movement event", count("LOCK_STATUS_CHANGED"), 0)
 T.eq("online variable independent", variables.ONLINE, "1")
 T.eq("valid battery", variables.BATTERY_PERCENT, "88")
 T.eq("normal coarse battery", variables.LOW_BATTERY_STATE, "normal")
+handoff("locked", true, 87, false)
+T.eq("telemetry-only snapshots do not emit lock movement", count("LOCK_STATUS_CHANGED"), 0)
+T.eq("telemetry still updates independently", variables.BATTERY_PERCENT, "87")
 ReceivedFromProxy(5001, "UNLOCK")
 T.eq("unlock goes through account binding", last("LOCK_INTENT").binding, 5002)
 T.eq("explicit unlock intent", last("LOCK_INTENT").params.ACTION, "UNLOCK")
 T.eq("command is scoped to current subscription", last("LOCK_INTENT").params.NONCE, nonce)
 T.eq("request does not change reported bolt", variables.BOLT_STATE, "locked")
-local before = count("LOCK_INTENT")
+T.eq("request alone does not notify a successful movement", count("LOCK_STATUS_CHANGED"), 0)
+handoff("unlocked", true, 87, false)
+T.eq("reported unlock emits a live native state change", last("LOCK_STATUS_CHANGED").params.LOCK_STATUS, "unlocked")
+T.eq(
+  "native change supplies the Last Action description",
+  last("LOCK_STATUS_CHANGED").params.LAST_ACTION_DESCRIPTION,
+  "Reported lock state: unlocked"
+)
+T.eq("native change uses a fixed public source", last("LOCK_STATUS_CHANGED").params.SOURCE, "Schlage Home")
+T.eq("REST observation does not claim a manual cause", last("LOCK_STATUS_CHANGED").params.MANUAL, false)
+T.eq(
+  "native update targets the lock proxy as a notification",
+  { last("LOCK_STATUS_CHANGED").binding, last("LOCK_STATUS_CHANGED").kind },
+  { 5001, "NOTIFY" }
+)
+local before = count("LOCK_STATUS_CHANGED")
+handoff("unlocked", true, 87, false)
+T.eq("duplicate observed position produces no duplicate movement", count("LOCK_STATUS_CHANGED"), before)
+OnBindingChanged(5001)
+T.eq(
+  "rebinding the native proxy initializes the current observed state",
+  last("LOCK_STATUS_INITIALIZE").params.LOCK_STATUS,
+  "unlocked"
+)
+T.eq("native proxy rebind creates no movement event", count("LOCK_STATUS_CHANGED"), before)
+handoff("locked", true, 87, false)
+T.eq(
+  "subsequent reported lock also emits a live native change",
+  last("LOCK_STATUS_CHANGED").params.LOCK_STATUS,
+  "locked"
+)
+before = count("LOCK_INTENT")
 ReceivedFromProxy(5002, "LOCK")
 T.eq("wrong proxy binding is ignored", count("LOCK_INTENT"), before)
 ReceivedFromProxy(5001, "LOCK")
@@ -94,7 +133,9 @@ ReceivedFromProxy(5001, "TOGGLE")
 T.eq("known toggle routed to authoritative account", last("LOCK_INTENT").params.ACTION, "TOGGLE")
 
 T.section("Telemetry, disconnect, unknown and jam do not fabricate success")
+local movement_count = count("LOCK_STATUS_CHANGED")
 handoff("locked", false, 0, true)
+T.eq("disconnect with unchanged position creates no movement event", count("LOCK_STATUS_CHANGED"), movement_count)
 T.eq("disconnection with unchanged bolt is reported", last("ONLINE_CHANGED").params.STATE, false)
 T.eq("disconnection does not move bolt", variables.BOLT_STATE, "locked")
 T.eq("zero battery remains known", { variables.BATTERY_PERCENT, variables.BATTERY_KNOWN }, { "0", "1" })
@@ -191,6 +232,12 @@ local function menu_snapshot(id)
 end
 menu_snapshot("front")
 T.eq("selected physical lock becomes online", variables.ONLINE, "1")
+T.eq(
+  "restart initializes the native proxy instead of replaying movement",
+  last("LOCK_STATUS_INITIALIZE").params.LOCK_STATUS,
+  "locked"
+)
+movement_count = count("LOCK_STATUS_CHANGED")
 Properties.Lock = "Garage Door"
 OnPropertyChanged("Lock")
 T.truthy("changing selection releases old pending work", sent("SCHLAGE_RELEASE_LOCK"))
@@ -203,5 +250,11 @@ menu_snapshot("front")
 T.eq("old lock cannot reactivate companion after reselection", variables.ONLINE, "0")
 menu_snapshot("garage")
 T.eq("only selected new lock can restore online", variables.ONLINE, "1")
+T.eq(
+  "physical lock reassignment initializes its reported state",
+  last("LOCK_STATUS_INITIALIZE").params.LOCK_STATUS,
+  "locked"
+)
+T.eq("physical lock reassignment creates no movement event", count("LOCK_STATUS_CHANGED"), movement_count)
 OnDriverDestroyed()
 T.finish()

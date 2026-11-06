@@ -18,6 +18,15 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026110605-beta.1 - 2026-11-06
+
+### Fixed
+
+- Initialize the native lock proxy on synchronization, reload, and reassignment;
+  send change notifications only when the reported bolt status changes.
+- Include a readable Last Action description and public source in native lock
+  change notifications for Navigator presentation.
+
 ## v2026110604-beta.1 - 2026-11-06
 
 ### Changed

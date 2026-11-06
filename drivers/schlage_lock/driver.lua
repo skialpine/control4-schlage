@@ -9,6 +9,37 @@ local Updates = require("schlage.updates")
 local Diagnostics = require("schlage.diagnostics")
 local Programming = require("schlage.programming")
 local companion, log_timer, selection, updating_selection, update_settings, programming
+local proxy_status, proxy_identity
+
+local function publish_lock_status(state)
+  local status = state.bolt == "jammed" and "fault" or (state.bolt or "unknown")
+  if state.supported == nil then
+    -- Selection is being cleared, or no observation has arrived yet. Clear
+    -- the cached display without inventing a movement/history event.
+    if proxy_status then
+      C4:SendToProxy(5001, "LOCK_STATUS_INITIALIZE", { LOCK_STATUS = "unknown" }, "NOTIFY")
+    end
+    proxy_status, proxy_identity = nil, nil
+    return
+  end
+  local identity = companion and companion.identity or {}
+  local initialize = not proxy_identity or proxy_identity.id ~= identity.id or proxy_identity.scope ~= identity.scope
+  if initialize or proxy_status ~= status then
+    local command = initialize and "LOCK_STATUS_INITIALIZE" or "LOCK_STATUS_CHANGED"
+    local params = { LOCK_STATUS = status }
+    if not initialize then
+      params.LAST_ACTION_DESCRIPTION = "Reported lock state: " .. status
+      params.SOURCE = "Schlage Home"
+      -- REST reports bolt position, not who moved it. Do not claim a manual
+      -- thumbturn/keypad action; false is the proxy's documented default.
+      params.MANUAL = false
+    end
+    log:info("Schlage lock proxy status: %s (%s)", status, command)
+    C4:SendToProxy(5001, command, params, "NOTIFY")
+  end
+  proxy_status = status
+  proxy_identity = { id = identity.id, scope = identity.scope }
+end
 
 local function configure_logging()
   DEBUGPRINT, DEBUG_URL, DEBUG_RFN, DEBUG_WEBSOCKET, DEBUG_TIMER = false, false, false, false, false
@@ -62,12 +93,7 @@ local function present(state)
   C4:SetVariable("COMMAND_OUTCOME", state.outcome or "none")
   C4:SetVariable("REQUESTED_ACTION", state.intent or "")
   C4:SendToProxy(5001, "ONLINE_CHANGED", { STATE = state.online == true }, "NOTIFY")
-  C4:SendToProxy(
-    5001,
-    "LOCK_STATUS_CHANGED",
-    { LOCK_STATUS = state.bolt == "jammed" and "fault" or (state.bolt or "unknown") },
-    "NOTIFY"
-  )
+  publish_lock_status(state)
 end
 
 local function intent(action)
@@ -96,6 +122,7 @@ local function intent(action)
 end
 
 function OnDriverInit()
+  proxy_status, proxy_identity = nil, nil
   update_settings = nil
   programming = nil
   if selection then
@@ -200,6 +227,9 @@ end
 function OnBindingChanged(binding)
   if binding == Registry.INPUT and companion then
     companion:refresh()
+  elseif binding == 5001 and companion then
+    proxy_status, proxy_identity = nil, nil
+    present(companion.state)
   end
 end
 

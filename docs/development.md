@@ -214,3 +214,18 @@ ESPHome lock proxy patterns, pinned pyschlage protocol behavior, official
 [RFC 9110 Retry-After](https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.3).
 No generic Nuheat write-retry or optimistic-state policy is applied to a lock.
 
+
+## Native lock notification lifecycle
+
+The native lock adapter follows the initialization/change split in the official
+[Control4 lock SDK sample](https://github.com/snap-one/drivers-template-code-public/blob/50eee83dd690ef6724e4162f7e557d03a57b9b07/proxies/lock_proxy/lock_device_class.lua).
+The first reported snapshot initializes the native proxy with
+LOCK_STATUS_INITIALIZE. Subsequent observed position/fault changes send
+LOCK_STATUS_CHANGED with LOCK_STATUS, LAST_ACTION_DESCRIPTION, SOURCE, and
+MANUAL=false (the SDK default; REST does not identify a manual cause).
+Repeated snapshots, telemetry-only changes, and HTTP command acceptance do not
+produce movement notifications. A native proxy rebind reinitializes its current
+reported state. Clearing/reassigning a selected lock clears the old display
+without fabricating a movement event. Account polling still determines the
+latency of observations made outside this driver. Actual app subscription
+behavior requires controller validation; the C4 shim does not implement it.

@@ -114,6 +114,15 @@ faults, and recovery remains pending.
 
 The **Last Update** property uses the controller local time and time zone.
 
+The native proxy is initialized from the first reported snapshot after startup
+or physical-lock reassignment. Later bolt changes include a **Last Action
+Description**, such as `Reported lock state: unlocked`, and source
+`Schlage Home`. Repeated polls and telemetry-only changes do not create movement
+events. REST observations do not identify whether a key, keypad, app, or
+automation moved the bolt. Leave the app tile visible when testing live state
+updates. Manual/app changes are detected by polling and may take the configured
+polling interval plus cloud reporting time.
+
 ## Updates and diagnostics
 
 **Automatic Updates** and **Update Channel** are shared with the account and
