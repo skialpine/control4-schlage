@@ -66,7 +66,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 
 - [x] 9.1 Add account-wide settings, fresh-state evaluation for all discovered locks, encrypted per-identity daily suppression, message/status presentation, and a stable Composer event; verify local-date rollover, reload, identity changes, repeated polls, missing/offline data, recovery, invalid settings, and a separately labeled test action.
 - [x] 9.2 Integrate account-wide automatic Control4 push On/Off with verified agent commands and no manual agent configuration; verify missing agent, safe submission, independent daily suppression, and clear status without claiming phone delivery.
-- [ ] 9.3 Document setup for both notification paths, run regression/format/build/package checks, and deliver updated packages to OneDrive; record controller push-delivery validation separately from local tests.
+- [x] 9.3 Document setup for both notification paths, run regression/format/build/package checks, and deliver updated packages to OneDrive; record controller push-delivery validation separately from local tests.
 
 ## Workflow follow-up
 

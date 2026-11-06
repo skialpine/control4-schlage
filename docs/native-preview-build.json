@@ -1,5 +1,5 @@
 {
-  "stage": "Daily battery alerts implemented and locally verified for 2026110607; controller push delivery and outage/recovery validation remain pending",
+  "stage": "2026110607 daily battery alerts published and delivered to OneDrive; controller push delivery and task 6.2 outage/recovery remain pending",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -36,25 +36,25 @@
     "control4_alert_names": "passed: generic Door Lock, native lock proxy, companion, then Schlage fallback"
   },
   "tasks": {
-    "complete": 33,
+    "complete": 34,
     "total": 35
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "d94cafb36e2fdb1166c2f91c2e079f105cb621398c1b6d9d0ecd410c84929de0",
-      "bytes": 238587,
-      "version": "2026110606",
+      "sha256": "63c7dbe9301e18cb360d650d109933defca3031ccc54f0f36c0efc7d02003067",
+      "bytes": 246815,
+      "version": "2026110607",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "ba0d818aa4901ba663e4a5909ee2e6b3bbb07def45d2efdd93032bfe033a4176",
-      "bytes": 107687,
-      "version": "2026110606",
+      "sha256": "1e0cd91e753492788526cbfa39574a7b7a61005e192192b1bff44f9a6460ca5e",
+      "bytes": 108152,
+      "version": "2026110607",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "12a6acb68ad665f9a39eeb160e9540b3004306289bcf8b2d22682f7768789a0c"
+    "sha256": "f8a3cbcec0ff8e6fa088e0e1889ea1349a7be65cf88e7c786160543876580243"
   },
   "live_lock_control_validated": true,
   "core5_validated": true,
@@ -460,6 +460,11 @@
       "name_resolution_assertions": 6,
       "companion_assertions": 63
     },
-    "delivery_status": "Local build verified; CI publication and OneDrive delivery in progress"
+    "delivery_status": "Published CI artifacts copied to OneDrive root and Drivers; both public unauthenticated packages match CI",
+    "tag": "v2026110607-beta.1",
+    "source_commit": "6c12d1b651aa0da9ea5e82786563f3a4fdb28fe9",
+    "tag_build_run": 42276611584,
+    "release_run": 42276611283,
+    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026110607-beta.1"
   }
 }

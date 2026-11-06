@@ -1007,3 +1007,16 @@ passed for the account (110 assertions), daily alert policy (106), native push
 adapter (29), visible name resolver (6), and companion regression (63). Both
 versioned packages and both documentation PDFs built successfully. Live push
 acceptance and the pre-existing task 6.2 outage/recovery check remain pending.
+
+Tag Build 42276611584 and Release 42276611283 passed for
+v2026110607-beta.1, source 6c12d1b651aa0da9ea5e82786563f3a4fdb28fe9.
+The tag runner had a lengthy system-package download delay; tests, formatting,
+build and package/PDF verification subsequently succeeded. Both public
+unauthenticated `.c4z` downloads match the tag CI artifacts. Packaged runtime
+scripts also match the locally tested scripts. Both packages were delivered to
+OneDrive Control4 root and Drivers, with the CI bundle and both documentation
+PDFs in the root; all seven destination files passed checksum verification.
+Earlier files were backed up with a suffix that Composer does not load as a
+driver. The user can now run Check for Updates with Update Channel Prerelease,
+confirm 2026110607, enable Low Battery Push Notifications on the account, and
+run Test Battery Alert. No phone-delivery result has yet been supplied.
