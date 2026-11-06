@@ -824,3 +824,21 @@ movement flag. This proxy classification does not identify a person, keypad,
 or physical cause from REST. The shipped behavior must be retested after
 installation and restart without any one-off Lua notification. Task 5.4
 remains open; progress remains 27/32.
+
+The user also confirmed that closing/reopening the lock view immediately
+shows the correct app state. This supports stale live presentation while the
+reported state is available, rather than a missing Schlage read. It does not
+by itself identify the internal mobile-app/Director notification mechanism.
+
+Tag Build 42257223642 and Release 42257223728 passed for
+v2026110606-beta.1 (source c65336a4edfb66067a8498ed8f95805e7d4dda96).
+All 51 Lua suites (2,161 assertions) and 51 Python tests passed. The bundled
+companion test passed 63 assertions with source imports excluded. Public
+unauthenticated account/lock downloads match tag CI artifacts. Both packages
+were copied with byte verification to OneDrive Control4 root and Drivers, plus
+the updated root bundle and PDFs; previous files were backed up. Version
+2026110606 is now available through the Prerelease updater. After installation
+and test-controller restart, repeat physical-turn changes while keeping the
+app tile visible, before running any one-off Lua notification. Expected
+external transitions log LOCK_STATUS_CHANGED with manual=true. Live restart
+acceptance remains pending, and no remaining hardware task is marked complete.

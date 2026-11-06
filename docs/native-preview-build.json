@@ -1,6 +1,6 @@
 {
-  "stage": "2026110606 external-change fix prepared after restart reproduced the app failure; release publication and live restart acceptance pending",
-  "created_utc": "2026-11-06T16:02:52.652165+00:00",
+  "stage": "Published 2026110606 external native-notification fix copied to OneDrive; post-install restart/manual-turn acceptance pending",
+  "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
     "single_account_automatic": true,
@@ -9,7 +9,7 @@
   },
   "tests": {
     "lua_suites": 51,
-    "lua_assertions": 2153,
+    "lua_assertions": 2161,
     "python_tests": 51,
     "format_and_project_checks": "passed",
     "packaged_account_lifecycle": "passed without source imports",
@@ -29,7 +29,8 @@
     "discovery_command_reconciliation": "passed with real client revision filtering, including bundled code",
     "bounded_confirmation_cadence": "passed: seven maximum reads, no overlap, skipped elapsed offsets",
     "native_proxy_initialization_and_transition_metadata": "passed: initialization, later state changes, duplicates, telemetry, offline, fault/unknown, rebind, reload and reassignment",
-    "packaged_native_proxy_adapter_without_source_imports": "passed: 55 assertions"
+    "packaged_native_proxy_adapter_without_source_imports": "passed: 63 assertions",
+    "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
   },
   "tasks": {
     "complete": 27,
@@ -37,20 +38,20 @@
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "57f3ac01627418c2d32da9f94ab28d9e30a5b8f2652229f4021840236de6aaa5",
-      "bytes": 238586,
-      "version": "2026110605",
+      "sha256": "d94cafb36e2fdb1166c2f91c2e079f105cb621398c1b6d9d0ecd410c84929de0",
+      "bytes": 238587,
+      "version": "2026110606",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "31773d5fd433f802eaf4de5bd81d9bb83415b8f374cfab27ab1ea1e442914fec",
-      "bytes": 107410,
-      "version": "2026110605",
+      "sha256": "ba0d818aa4901ba663e4a5909ee2e6b3bbb07def45d2efdd93032bfe033a4176",
+      "bytes": 107687,
+      "version": "2026110606",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "77d4e1f9888faffc218e7f29cda99fc84aba3b590f25fbf36481da9eba4d052a"
+    "sha256": "12a6acb68ad665f9a39eeb160e9540b3004306289bcf8b2d22682f7768789a0c"
   },
   "live_lock_control_validated": true,
   "core5_validated": false,
@@ -190,6 +191,17 @@
   "artifact_role": "Published CI release files in OneDrive root and Drivers; optional older bootstrap in Bootstrap-2026110601",
   "release_target": {
     "repository": "skialpine/control4-schlage",
+    "tag": "v2026110606-beta.1",
+    "version": "2026110606",
+    "publication_verified": true,
+    "controller_install_verified": false,
+    "public_unauthenticated_downloads_verified": true,
+    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223642",
+    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223728",
+    "source_commit": "c65336a4edfb66067a8498ed8f95805e7d4dda96"
+  },
+  "previous_release_target": {
+    "repository": "skialpine/control4-schlage",
     "tag": "v2026110605-beta.1",
     "version": "2026110605",
     "publication_verified": true,
@@ -200,19 +212,6 @@
     "source_commit": "345287e35d0fd6c3402f6dd8647b4e2f13e156ca",
     "controller_companion_install_verified": true,
     "controller_companion_install_evidence": "User confirmation and new 2026110605 proxy notification log lines"
-  },
-  "previous_release_target": {
-    "repository": "skialpine/control4-schlage",
-    "tag": "v2026110604-beta.1",
-    "version": "2026110604",
-    "publication_verified": true,
-    "controller_install_verified": false,
-    "public_unauthenticated_downloads_verified": true,
-    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245457978",
-    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245458145",
-    "source_commit": "2a640c8404f081437e6ff4fbfce5e2e8a044b75f",
-    "controller_package_downloads_observed": true,
-    "controller_account_reload_and_renewal_observed": true
   },
   "live_followup_command_timing": {
     "source": "user-supplied CORE1 log; physical motion time not measured",
@@ -279,6 +278,19 @@
       "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734933",
       "source_commit": "a410c93f016e23a7646510775c3a1aa958ac7e71",
       "controller_install_evidence": "User confirmed automatic overnight update to 2026110603; account continued discovering both locks"
+    },
+    {
+      "repository": "skialpine/control4-schlage",
+      "tag": "v2026110604-beta.1",
+      "version": "2026110604",
+      "publication_verified": true,
+      "controller_install_verified": false,
+      "public_unauthenticated_downloads_verified": true,
+      "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245457978",
+      "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245458145",
+      "source_commit": "2a640c8404f081437e6ff4fbfce5e2e8a044b75f",
+      "controller_package_downloads_observed": true,
+      "controller_account_reload_and_renewal_observed": true
     }
   ],
   "properties_timestamps": {
@@ -342,11 +354,12 @@
       5,
       5
     ],
-    "restart_failure_local": "09:54:32 locked: Composer changed and native LOCK_STATUS_CHANGED was sent, but app remained stale"
+    "restart_failure_local": "09:54:32 locked: Composer changed and native LOCK_STATUS_CHANGED was sent, but app remained stale",
+    "baseline_app_cached_detail_correct": true
   },
   "external_change_candidate": {
     "version": "2026110606",
-    "published": false,
+    "published": true,
     "tests": {
       "lua_suites": 51,
       "lua_assertions": 2161,
@@ -357,6 +370,6 @@
     },
     "controller_flag_test": "Direct MANUAL=true notification followed by recovery; restart without the notification reproduced the failure",
     "controller_external_app_fix_verified": false,
-    "status": "restored for delivery after the outside-change failure reproduced on restart"
+    "status": "published as v2026110606-beta.1 after restart reproduced the prior failure"
   }
 }
