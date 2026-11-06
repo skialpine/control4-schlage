@@ -1,5 +1,5 @@
 {
-  "stage": "Published 2026110605 native notification preview copied to OneDrive; live app-tile refresh acceptance pending",
+  "stage": "Live app-state updates verified for 2026110605 notification preview; integrated hardware commissioning remains pending",
   "created_utc": "2026-11-06T16:02:52.652165+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -32,7 +32,7 @@
     "packaged_native_proxy_adapter_without_source_imports": "passed: 55 assertions"
   },
   "tasks": {
-    "complete": 27,
+    "complete": 28,
     "total": 32
   },
   "artifacts": {
@@ -197,7 +197,9 @@
     "public_unauthenticated_downloads_verified": true,
     "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42248292156",
     "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42248292099",
-    "source_commit": "345287e35d0fd6c3402f6dd8647b4e2f13e156ca"
+    "source_commit": "345287e35d0fd6c3402f6dd8647b4e2f13e156ca",
+    "controller_companion_install_verified": true,
+    "controller_companion_install_evidence": "User confirmation and new 2026110605 proxy notification log lines"
   },
   "previous_release_target": {
     "repository": "skialpine/control4-schlage",
@@ -296,6 +298,33 @@
     "initial_status_notification_added": true,
     "change_metadata_added": true,
     "duplicate_movement_notifications_suppressed": true,
-    "live_app_fix_verified": false
+    "live_app_fix_verified": true,
+    "live_app_fix_evidence": "User reports app lock status now changes; companion log shows each observed transition sent LOCK_STATUS_CHANGED and fired its matching movement and confirmed events",
+    "live_last_action_description_check": "Not yet reported separately",
+    "live_observed_transitions": [
+      {
+        "request_local": "09:04:34",
+        "reported_local": "09:04:41",
+        "bolt": "unlocked",
+        "outcome": "confirmed",
+        "request_to_reported_seconds_approx": 7
+      },
+      {
+        "request_local": "09:04:43",
+        "reported_local": "09:04:48",
+        "bolt": "locked",
+        "outcome": "confirmed",
+        "request_to_reported_seconds_approx": 5
+      },
+      {
+        "request_local": "09:04:51",
+        "reported_local": "09:04:56",
+        "bolt": "unlocked",
+        "outcome": "confirmed",
+        "request_to_reported_seconds_approx": 5
+      }
+    ],
+    "live_controller": "CORE1 OS 3.4.3",
+    "live_rapid_opposite_intents_while_pending_tested": false
   }
 }

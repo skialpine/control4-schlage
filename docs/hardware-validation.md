@@ -725,3 +725,32 @@ and prior files were backed up. After updating, leave the tile open, request a
 change or use the thumbturn, allow cloud reporting/polling, and compare native
 Composer Last Action and the tile without a second tap or navigation. The live
 result remains pending; OpenSpec progress remains 27/32 tasks complete.
+
+## Live Navigator notification result (2026-11-06)
+
+After the 2026110605 notification preview, the user confirmed that app lock
+status now changes. The companion log shows three reported transitions with
+matching programming movement and confirmed events:
+
+| Request (controller local) | Reported state / confirmed | Approximate delay |
+| --- | --- | --- |
+| 09:04:34 | 09:04:41 unlocked | 7 seconds |
+| 09:04:43 | 09:04:48 locked | 5 seconds |
+| 09:04:51 | 09:04:56 unlocked | 5 seconds |
+
+Each reported transition sent LOCK_STATUS_CHANGED. The later account log
+continues to discover two devices and contains no error in the supplied
+excerpt. These durations measure request to reported confirmation with
+whole-second log precision, not motor travel or HTTP latency. The requests
+followed completion of the previous request, so rapid opposite actions during
+a pending move remain unverified. The exact physical lock was not identified
+in the companion excerpt. The Last Action Description display and local-time
+Properties formatting were not separately confirmed by this report.
+
+Task 5.4 is complete: the native adapter/state/telemetry/capability fixtures
+pass, Composer follows physical bolt state, and live app-state notification
+behavior is now confirmed on the CORE1 OS 3.4.3 test setup. Progress is 28/32.
+The four integrated hardware/commissioning tasks remain open, including manual
+thumbturn/Schlage-app changes, multiple-lock commands, fault/outage recovery,
+CORE5 coverage, and rollback rehearsal. No additional runtime change or release
+was made for this validation record.
