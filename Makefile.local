@@ -1,0 +1,17 @@
+# Project policy: package only the open-source distribution.
+override DISTRIBUTIONS := oss
+# Preserve CI/command-line overrides; otherwise use the committed release revision.
+ifeq ($(filter environment command,$(origin DRIVER_VERSION)),)
+DRIVER_VERSION := $(shell python3 tools/schlage_version.py current)
+endif
+# Local Lua/OpenSSL modules are development dependencies, never packaged.
+export LUA_CPATH := $(CURDIR)/.lua/lib/lua/5.1/?.so;;
+
+.PHONY: validation-timer
+validation-timer: ## Build the read-only hardware timer probe outside release artifacts
+	python3 tools/build_validation_timer.py
+
+.PHONY: verify-schlage-version
+verify: verify-schlage-version
+verify-schlage-version:
+	python3 tools/package.py check-version oss "$(DRIVER_VERSION)"

@@ -1,0 +1,14 @@
+{
+  "controller": "CORE 1",
+  "os": "3.4.3.741643-res",
+  "source": "User-supplied probe Properties screenshot following requested overlapping account Sign In workflow",
+  "started_utc": "2026-11-05 23:27:55 UTC",
+  "finished_utc": "2026-11-05 23:28:10 UTC",
+  "interval_ms": 100,
+  "callback_count": 150,
+  "maximum_gap_ms": 140,
+  "maximum_extra_delay_ms": 40,
+  "skipped_intervals": 0,
+  "elapsed_ms": 15001,
+  "result": "Separate-driver timer responsiveness accepted for the requested sign-in test; overlap follows the reported workflow rather than independent account-log timestamp correlation."
+}

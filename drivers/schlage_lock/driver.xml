@@ -1,0 +1,99 @@
+<devicedata>
+  <name>Schlage Lock</name>
+  <version/>
+  <manufacturer>Schlage</manufacturer>
+  <model>Schlage Lock</model>
+  <small image_source="c4z">icons/composer_16.png</small>
+  <large image_source="c4z">icons/composer_32.png</large>
+  <creator>control4-schlage contributors</creator>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <copyright>Copyright 2026 control4-schlage contributors. AGPL-3.0.</copyright>
+  <created>01/01/2026 12:00:00 PM</created>
+  <modified/>
+  <minimum_os_version>3.4.1</minimum_os_version>
+  <composer_categories>
+    <category>Lock</category>
+  </composer_categories>
+  <conditionals/>
+  <events/>
+  <config>
+    <script file="driver.lua" jit="1"/>
+    <documentation file="www/documentation/index.html"/>
+    <properties>
+      <property>
+        <name>Driver Settings</name>
+        <type>LABEL</type>
+        <default>Driver Settings</default>
+      </property>
+      <property>
+        <name>Driver Status</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Driver Version</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Log Level</name>
+        <type>LIST</type>
+        <default>3 - Info</default>
+        <items>
+          <item>0 - Fatal</item>
+          <item>1 - Error</item>
+          <item>2 - Warning</item>
+          <item>3 - Info</item>
+          <item>4 - Debug</item>
+          <item>5 - Trace</item>
+          <item>6 - Ultra</item>
+        </items>
+      </property>
+      <property>
+        <name>Log Mode</name>
+        <type>LIST</type>
+        <default>Off</default>
+        <items>
+          <item>Off</item>
+          <item>Print</item>
+          <item>Log</item>
+          <item>Print and Log</item>
+        </items>
+      </property>
+      <property><name>Schlage Account</name><type>LIST</type><default>Select an account</default><items><item>Select an account</item></items><tooltip>Account driver that discovers this lock. A single available account is chosen automatically.</tooltip></property>
+      <property><name>Lock</name><type>LIST</type><default>Select a lock</default><items><item>Select a lock</item></items><tooltip>Choose the physical Schlage lock for this driver. Add another driver for each additional lock, in any room.</tooltip></property>
+      <property><name>Selection Status</name><type>STRING</type><default>Select a lock</default><readonly>true</readonly></property>
+      <property><name>Lock Name</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Lock Model</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Bolt State</name><type>STRING</type><default>unknown</default><readonly>true</readonly></property>
+      <property><name>Battery</name><type>STRING</type><default>Not provided</default><readonly>true</readonly></property>
+      <property><name>Low Battery</name><type>STRING</type><default>Not provided</default><readonly>true</readonly></property>
+      <property><name>Last Update</name><type>STRING</type><default>Not observed</default><readonly>true</readonly></property>
+      <property><name>Command Outcome</name><type>STRING</type><default>none</default><readonly>true</readonly></property>
+      <property><name>Updates</name><type>LABEL</type><default>Updates</default></property>
+      <property><name>Automatic Updates</name><type>LIST</type><default>On</default><items><item>Off</item><item>On</item></items><tooltip>Shared across all Schlage account and lock drivers.</tooltip></property>
+      <property><name>Update Channel</name><type>LIST</type><default>Stable</default><items><item>Stable</item><item>Prerelease</item></items><tooltip>Select Prerelease for published development builds.</tooltip></property>
+    </properties>
+    <actions><action><name>Refresh State</name><command>Refresh_State</command></action><action><name>Refresh Available Locks</name><command>Refresh_Available_Locks</command></action><action><name>Diagnostics Snapshot</name><command>Diagnostics_Snapshot</command></action></actions>
+  </config>
+  <capabilities>
+    <is_management_only>False</is_management_only>
+    <has_admin_code>False</has_admin_code><has_schedule_lockout>False</has_schedule_lockout>
+    <has_auto_lock_time>False</has_auto_lock_time><has_log_item_count>False</has_log_item_count>
+    <has_lock_modes>False</has_lock_modes><has_log_failed_attempts>False</has_log_failed_attempts>
+    <has_wrong_code_attempts>False</has_wrong_code_attempts><has_shutout_timer>False</has_shutout_timer>
+    <has_language>False</has_language><has_volume>False</has_volume><has_one_touch_locking>False</has_one_touch_locking>
+    <has_daily_schedule>False</has_daily_schedule><has_date_range_schedule>False</has_date_range_schedule>
+    <has_settings>False</has_settings><has_custom_settings>False</has_custom_settings><has_internal_history>False</has_internal_history>
+  </capabilities>
+  <proxies><proxy proxybindingid="5001" primary="True" name="Schlage Lock">lock</proxy></proxies>
+  <lock_settings><lock_mode>normal</lock_mode><language>English</language><one_touch_locking>false</one_touch_locking></lock_settings>
+  <connections>
+    <connection><id>5001</id><facing>6</facing><connectionname>Lock</connectionname><type>2</type><consumer>False</consumer><classes><class><classname>LOCK</classname></class></classes><hidden>True</hidden></connection>
+    <connection><id>5002</id><facing>6</facing><connectionname>Schlage Account Lock</connectionname><type>2</type><consumer>True</consumer><classes><class><classname>SCHLAGE_WIFI_LOCK</classname></class></classes></connection>
+  </connections>
+</devicedata>

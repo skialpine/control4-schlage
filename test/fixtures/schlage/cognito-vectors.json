@@ -1,0 +1,138 @@
+{
+  "reference": "https://raw.githubusercontent.com/NabuCasa/pycognito/6b8de182c6918de133f452af30e87e3d8aecc20e/pycognito/aws_srp.py",
+  "source_sha256": "541fb91408182de958edce3df2f892140a07a51d08d7bab69e50f0555e0ebfad",
+  "synthetic": true,
+  "timestamp_epoch": 1793915707,
+  "padding": [
+    {
+      "input": "0",
+      "output": "00"
+    },
+    {
+      "input": "1",
+      "output": "01"
+    },
+    {
+      "input": "7f",
+      "output": "7f"
+    },
+    {
+      "input": "80",
+      "output": "0080"
+    },
+    {
+      "input": "ff",
+      "output": "00ff"
+    },
+    {
+      "input": "abc",
+      "output": "0abc"
+    },
+    {
+      "input": "000001",
+      "output": "000001"
+    },
+    {
+      "input": "0080",
+      "output": "0080"
+    }
+  ],
+  "vectors": [
+    {
+      "name": "leading-zero",
+      "config": {
+        "pool_id": "us-west-2_SYNTHETIC",
+        "client_id": "synthetic-client",
+        "client_secret": "synthetic-client-secret"
+      },
+      "username": "installer@example.invalid",
+      "password": "Synthetic-Passphrase-Only!",
+      "private_hex": "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+      "challenge": {
+        "USERNAME": "internal-canonical-user",
+        "USER_ID_FOR_SRP": "srp-canonical-user",
+        "SALT": "000001",
+        "SRP_B": "80",
+        "SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/"
+      },
+      "timestamp": "Thu Nov 5 21:55:07 UTC 2026",
+      "auth_parameters": {
+        "USERNAME": "installer@example.invalid",
+        "SRP_A": "2",
+        "SECRET_HASH": "VXL5F3AwqNxcoBNKUWsch2XZr2UowrgF1SUt4G9Qt8Q="
+      },
+      "key_hex": "30c6a0bcf0ffc71d3bc98f0c935fe7ac",
+      "response": {
+        "TIMESTAMP": "Thu Nov 5 21:55:07 UTC 2026",
+        "USERNAME": "internal-canonical-user",
+        "PASSWORD_CLAIM_SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/",
+        "PASSWORD_CLAIM_SIGNATURE": "bJGrROR/cNTLkDIX/YBrtUZniowAuJQSnpWDFp4vZlg=",
+        "SECRET_HASH": "3rQXEgNq/x1Om3pJ7byXMOlTSbucgAFIXdN9yffUeHM="
+      }
+    },
+    {
+      "name": "sign-padding",
+      "config": {
+        "pool_id": "us-west-2_SYNTHETIC",
+        "client_id": "synthetic-client",
+        "client_secret": "synthetic-client-secret"
+      },
+      "username": "installer@example.invalid",
+      "password": "Synthetic-Passphrase-Only!",
+      "private_hex": "80a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5",
+      "challenge": {
+        "USERNAME": "internal-canonical-user",
+        "USER_ID_FOR_SRP": "srp-canonical-user",
+        "SALT": "80",
+        "SRP_B": "f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1f1",
+        "SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/"
+      },
+      "timestamp": "Thu Nov 5 21:55:07 UTC 2026",
+      "auth_parameters": {
+        "USERNAME": "installer@example.invalid",
+        "SRP_A": "fc091dd11b75ee11edf7ab2e8d039f3975ac9d193f8948f2e42bfecbc34e3e2dd3d1f26d204102c24854cf4e88d2c0369b7d796299cc4e3f1cd75680ad35d595eb1346c9d0236417d51a1c8cb63d8fb8fa4f23983db906255b35f5d9bf3b71e20e81f1de796e1549368aec2f97cac7605ca53b3d0dc9400c96989ab0e3dae43256438d51971e619f4b3d93b54fdae6e527f84eebb40bff7bf98e51ea1516112c3d118f42305893753a44f4742ff1ff3ae4c303dbb1c7821632b6f6048c199615f272a41fba652f644d1a48fac237910e8df40eb6fc81422114b8e479bae9191f951b1637d5a3513c0b50c0eeb94b54fff38432efc0b8603b50ae4b8bb5c64c2ff7f9d6bf9df01a732e557d6a8216b9cbf23484c884c3d9e008278846ebc134a0ce2b557e7ffc0d3be7f9e43015642f70761a48586bb802370cf2ec190faa482c4ae3814e4c3a99d2730cb4bc3c186c7803ce06b4de52ebfefd8ea006a8ee8354499c768eba760730ad540fec190cd40b01f3362e9cd42e1301d40f9c563e78b2",
+        "SECRET_HASH": "VXL5F3AwqNxcoBNKUWsch2XZr2UowrgF1SUt4G9Qt8Q="
+      },
+      "key_hex": "84a0cd863ae48a9cd30b5066d58e48ae",
+      "response": {
+        "TIMESTAMP": "Thu Nov 5 21:55:07 UTC 2026",
+        "USERNAME": "internal-canonical-user",
+        "PASSWORD_CLAIM_SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/",
+        "PASSWORD_CLAIM_SIGNATURE": "7RmeceDc9LeafjLoj27z7iwaJhL42FSd2IkqLamSPek=",
+        "SECRET_HASH": "3rQXEgNq/x1Om3pJ7byXMOlTSbucgAFIXdN9yffUeHM="
+      }
+    },
+    {
+      "name": "odd-salt",
+      "config": {
+        "pool_id": "us-west-2_SYNTHETIC",
+        "client_id": "synthetic-client",
+        "client_secret": "synthetic-client-secret"
+      },
+      "username": "installer@example.invalid",
+      "password": "Synthetic-Passphrase-Only!",
+      "private_hex": "5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a",
+      "challenge": {
+        "USERNAME": "internal-canonical-user",
+        "USER_ID_FOR_SRP": "srp-canonical-user",
+        "SALT": "abc",
+        "SRP_B": "7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e7e",
+        "SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/"
+      },
+      "timestamp": "Thu Nov 5 21:55:07 UTC 2026",
+      "auth_parameters": {
+        "USERNAME": "installer@example.invalid",
+        "SRP_A": "1fcb51627342733308bd716c3bb94191bc91588b9a0f373b30211c8a75e150c87281ca33009395277660fa585382bd8549a2df75673fa1c9ab5431814c955b583887af8e5149ad5afc9ddca568d905343b13f28d3530c4e83f4a4da0731dac712c2e34db8dd3e549fcd7baa91beeaa189f972fecb9c0b731ae43a94fd1373607484a7c3ab7a504cfeb444ec47ed947e8af104e5422727911c92b560ea4d0f657736bfbb001e9c7b869b38abe44599bbb4315246ced4c7d2d137a64098fc90fbca26d8528407406ad6ea9e87722ad1e0556a947bebff4f7ee87e23aa6c7ceb7851c9f619db07148f99710a95010edc9c8235f673b3bf2ab291182688bfb51f9eccb4a6f5cbaae8600ed7d69666ccd47072eb71d9b0a94e4bc2c2070dfd0b4e606ad201b66088d68760620b6f97b51783be4c10e8d9e1172a4ec05291ab1fbe88d96193a37a4ee71598c7a38db9de116f64e80da2bb3b5bfb43c2ad89680540d8d91917ba4fd1b4021df8b84ffcc47db6660bf26f9691df7a87ebe43c51e2e0b0f",
+        "SECRET_HASH": "VXL5F3AwqNxcoBNKUWsch2XZr2UowrgF1SUt4G9Qt8Q="
+      },
+      "key_hex": "fa41338a5496c2329df381cf43f3e20f",
+      "response": {
+        "TIMESTAMP": "Thu Nov 5 21:55:07 UTC 2026",
+        "USERNAME": "internal-canonical-user",
+        "PASSWORD_CLAIM_SECRET_BLOCK": "U3ludGhldGljIHNlY3JldCBibG9jawD/",
+        "PASSWORD_CLAIM_SIGNATURE": "ukSMfQaHMmZ+aZYQi9zEd3oB51xIAVmGtHRtABhPHf8=",
+        "SECRET_HASH": "3rQXEgNq/x1Om3pJ7byXMOlTSbucgAFIXdN9yffUeHM="
+      }
+    }
+  ]
+}

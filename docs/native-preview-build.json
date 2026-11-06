@@ -1,0 +1,173 @@
+{
+  "stage": "Updater-enabled bootstrap 2026110601; GitHub prerelease publication pending",
+  "created_utc": "2026-11-06T07:16:27.714994+00:00",
+  "commissioning": {
+    "per_companion_lock_dropdown": true,
+    "single_account_automatic": true,
+    "multiple_locks_per_room": true,
+    "bulk_room_placement": false
+  },
+  "tests": {
+    "lua_suites": 51,
+    "lua_assertions": 2116,
+    "python_tests": 51,
+    "format_and_project_checks": "passed",
+    "packaged_account_lifecycle": "passed without source imports",
+    "packaged_dropdown_selection_without_source_imports": "passed",
+    "navigator_metadata_regression": "passed",
+    "command_acknowledgement_queue_regressions": "passed",
+    "identity_persistence_regression": "passed",
+    "packaging_and_pdfs": "passed",
+    "pending_toggle_regressions": "passed",
+    "packaged_command_scheduler_without_source_imports": "passed",
+    "update_coordinator_and_settings": "passed",
+    "local_diagnostics_redaction": "passed",
+    "programming_events_conditions": "passed",
+    "release_version_validation": "passed",
+    "packaged_assets_and_lifecycle": "passed"
+  },
+  "tasks": {
+    "complete": 26,
+    "total": 32
+  },
+  "artifacts": {
+    "schlage_account.c4z": {
+      "sha256": "80814f6f8098ae357254a77e8b24b881a7a20f8d315b09c413cc8c6c7f541509",
+      "bytes": 238107,
+      "version": "2026110601",
+      "standalone_combo": true
+    },
+    "schlage_lock.c4z": {
+      "sha256": "772472f01e8ed84d86dbf0f1030902eb65cc554d6d8665c6cfe4ab97c12ff519",
+      "bytes": 106385,
+      "version": "2026110601",
+      "standalone_combo": false
+    }
+  },
+  "bundle": {
+    "sha256": "6b69780fc3a8bb7e602859be08a659b1710ecc875f315ad2b440b90f8e48b247"
+  },
+  "live_lock_control_validated": true,
+  "core5_validated": false,
+  "live_composer_observation": {
+    "source": "user-supplied Properties screenshots",
+    "account_project_id": 31,
+    "driver_version": "20261105",
+    "locks": [
+      {
+        "name": "Garage Door",
+        "status": "Online",
+        "model": "be499WB",
+        "bolt": "unlocked",
+        "battery_percent": 100,
+        "low_battery": false,
+        "last_update_utc": "2026-11-06 00:48:18",
+        "command_outcome": "none"
+      },
+      {
+        "name": "Front Door",
+        "status": "Online",
+        "model": "be499WB",
+        "bolt": "unlocked",
+        "battery_percent": 100,
+        "low_battery": false,
+        "last_update_utc": "2026-11-06 00:48:48",
+        "command_outcome": "none"
+      }
+    ],
+    "navigator_observed": false,
+    "room_placement_observed": false
+  },
+  "navigator_fix": {
+    "lock_standalone_combo_flag_removed": true,
+    "existing_proxy_query_result": 34,
+    "in_place_update_to_try_first": true,
+    "in_place_update_observation": {
+      "installed_version": "20261106",
+      "driver_id": 34,
+      "returned_proxy_id": 34,
+      "device_filename": "schlage_lock.c4z",
+      "room_name": "Living",
+      "separate_proxy_entries_reported": false,
+      "navigator_visibility_resolved": false
+    },
+    "fresh_instance_test_pending": false,
+    "fresh_instance_observation": {
+      "source": "user-saved Composer project export",
+      "protocol_id": 36,
+      "standard_proxy_id": 37,
+      "standard_proxy_filename": "lock.c4i",
+      "standard_proxy_binding": 5001,
+      "lock_state_relay_output": 1,
+      "is_management_only": false,
+      "room_contact_relay_list_empty": true,
+      "proxy_alone_listed_in_navigator": false
+    },
+    "generic_door_lock_binding_identified_by_user": true,
+    "generic_door_lock_commissioning_documented": true,
+    "live_visibility_confirmed": true
+  },
+  "live_basic_command_observation": {
+    "source": "user report after generic Door Lock binding",
+    "baseline_version": "20261106 before command timing preview",
+    "lock_unlock_match_physical_bolt": true,
+    "bolt_motion_delay": "several seconds, not instrumented",
+    "pending_duration_seconds_approx": 10,
+    "rapid_opposite_actions": "not responsive in baseline preview",
+    "door_name": "not specified"
+  },
+  "command_latency_preview": {
+    "newest_intent_dispatches_after_successful_write_acknowledgement": true,
+    "uncertain_writes_retain_reconciliation_barrier": true,
+    "unchanged_identity_not_repersisted": true,
+    "allowlisted_elapsed_time_diagnostics": true,
+    "live_rapid_command_validation": false,
+    "rapid_toggle_uses_latest_live_target": true,
+    "rapid_toggle_preserves_unknown_state_rejection": true
+  },
+  "live_command_timing_observation": {
+    "source": "user-supplied account timing log",
+    "command_4": {
+      "resolved_action": "lock",
+      "dispatch_ms": 5,
+      "cloud_ack_ms": 130,
+      "readbacks": [
+        {
+          "elapsed_ms": 1111,
+          "bolt": "unlocked"
+        },
+        {
+          "elapsed_ms": 3114,
+          "bolt": "unlocked"
+        }
+      ],
+      "superseded_ms": 3147
+    },
+    "command_5": {
+      "resolved_action": "lock",
+      "dispatch_ms": 8,
+      "cloud_ack_ms": 140,
+      "readbacks": [
+        {
+          "elapsed_ms": 1167,
+          "bolt": "unlocked"
+        },
+        {
+          "elapsed_ms": 3120,
+          "bolt": "locked"
+        }
+      ],
+      "confirmed_ms": 3121
+    },
+    "finding": "Consecutive TOGGLE taps resolved to the same action while observed state lagged; queue dispatch after acknowledgement works"
+  },
+  "template_features": {
+    "github_updates": true,
+    "shared_update_settings": true,
+    "local_allowlisted_diagnostics": true,
+    "stable_programming_events_conditions": true,
+    "independent_composer_icons": true,
+    "external_telemetry": false,
+    "live_controller_update_validated": false
+  }
+}

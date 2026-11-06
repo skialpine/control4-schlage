@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v0.9.74
+_src_path: https://github.com/finitelabs/control4-driver-template.git
+cloud_diagnostics: false
+dc_pid: 0
+extra_build_secrets: ''
+extra_required_checks: ''
+github_org: skialpine
+icon_style: shaped
+primary_color: '#109EFF'
+project_description: Native Schlage Home account and lock drivers for Control4
+project_name: control4-schlage
+readme_build: oss
+readme_driver_slug: schlage_account
+stale_issues: false
+vendor_modules: bitn crypto

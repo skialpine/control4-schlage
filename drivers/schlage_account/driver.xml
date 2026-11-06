@@ -1,0 +1,96 @@
+<devicedata>
+  <name>Schlage Account</name>
+  <version/>
+  <manufacturer>Schlage</manufacturer>
+  <model>Schlage Account</model>
+  <small image_source="c4z">icons/composer_16.png</small>
+  <large image_source="c4z">icons/composer_32.png</large>
+  <creator>control4-schlage contributors</creator>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <copyright>Copyright 2026 control4-schlage contributors. AGPL-3.0.</copyright>
+  <created>01/01/2026 12:00:00 PM</created>
+  <modified/>
+  <combo>true</combo>
+  <minimum_os_version>3.4.1</minimum_os_version>
+  <composer_categories>
+    <category>Other</category>
+  </composer_categories>
+  <conditionals/>
+  <events/>
+  <config>
+    <script file="driver.lua" jit="1"/>
+    <documentation file="www/documentation/index.html"/>
+    <properties>
+      <property>
+        <name>Driver Settings</name>
+        <type>LABEL</type>
+        <default>Driver Settings</default>
+      </property>
+      <property>
+        <name>Driver Status</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Driver Version</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Log Level</name>
+        <type>LIST</type>
+        <default>3 - Info</default>
+        <items>
+          <item>0 - Fatal</item>
+          <item>1 - Error</item>
+          <item>2 - Warning</item>
+          <item>3 - Info</item>
+          <item>4 - Debug</item>
+          <item>5 - Trace</item>
+          <item>6 - Ultra</item>
+        </items>
+      </property>
+      <property>
+        <name>Log Mode</name>
+        <type>LIST</type>
+        <default>Off</default>
+        <items>
+          <item>Off</item>
+          <item>Print</item>
+          <item>Log</item>
+          <item>Print and Log</item>
+        </items>
+      </property>
+      <property><name>Credentials</name><type>STRING</type><default>Not configured</default><readonly>true</readonly><tooltip>Saved credentials are encrypted. Entry fields clear after saving.</tooltip></property>
+      <property><name>Last Session Renewal</name><type>STRING</type><default>Not yet observed</default><readonly>true</readonly><tooltip>UTC time of the last successful refresh-token renewal during this driver run.</tooltip></property>
+      <property><name>Schlage Email</name><type>STRING</type><default/><password>true</password><tooltip>Enter email first. Saved securely; field clears after entry.</tooltip></property>
+      <property><name>Schlage Password</name><type>STRING</type><default/><password>true</password><tooltip>Enter password after email, then run Sign In. Field clears after entry.</tooltip></property>
+      <property><name>Discovered Locks</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Polling Interval (seconds)</name><type>RANGED_INTEGER</type><default>30</default><minimum>15</minimum><maximum>3600</maximum><tooltip>Account read interval. Locks go offline after 120 seconds without a successful read.</tooltip></property>
+      <property><name>Polling Status</name><type>STRING</type><default>Waiting for sign in</default><readonly>true</readonly></property>
+      <property><name>Crypto Status</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>SRP Public Time (ms)</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>SRP Proof Time (ms)</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Updates</name><type>LABEL</type><default>Updates</default></property>
+      <property><name>Automatic Updates</name><type>LIST</type><default>On</default><items><item>Off</item><item>On</item></items><tooltip>Shared across Schlage drivers. Checks published GitHub releases every six hours.</tooltip></property>
+      <property><name>Update Channel</name><type>LIST</type><default>Stable</default><items><item>Stable</item><item>Prerelease</item></items><tooltip>Prerelease includes development releases. Stable excludes them.</tooltip></property>
+      <property><name>Update Status</name><type>STRING</type><default>Not checked</default><readonly>true</readonly></property>
+      <property><name>Last Update Check</name><type>STRING</type><default>Not yet checked</default><readonly>true</readonly></property>
+    </properties>
+    <actions>
+      <action><name>Sign In</name><command>Sign_In</command></action>
+      <action><name>Sign Out</name><command>Sign_Out</command></action>
+      <action><name>Discover Locks</name><command>Discover_Locks</command></action>
+      <action><name>Renew Session</name><command>Renew_Session</command></action>
+      <action><name>Check Crypto</name><command>Check_Crypto</command></action>
+      <action><name>Check for Updates</name><command>Check_for_Updates</command></action>
+      <action><name>Diagnostics Snapshot</name><command>Diagnostics_Snapshot</command></action>
+    </actions>
+  </config>
+  <capabilities/>
+  <connections/>
+</devicedata>

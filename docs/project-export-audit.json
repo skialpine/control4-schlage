@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-05",
+  "source_file": "lock test.c4p",
+  "source_sha256": "26a576639277685125cab7cdc76376f095f8d9e781988be8715d66c06ff75140",
+  "schlage_instances": 1,
+  "entry_fields_empty": {
+    "Schlage Email": true,
+    "Schlage Password": true
+  },
+  "credential_indicator_masked": true,
+  "legacy_json_persistence_empty": true,
+  "persistence": [
+    {
+      "key": "SchlageCredentials",
+      "xml_type": "binary",
+      "transport_base64_layers": 2,
+      "decoded_bytes": 88,
+      "opaque_binary": true,
+      "plaintext_credential_or_jwt_markers": false
+    },
+    {
+      "key": "SchlageSession",
+      "xml_type": "binary",
+      "transport_base64_layers": 2,
+      "decoded_bytes": 5244,
+      "opaque_binary": true,
+      "plaintext_credential_or_jwt_markers": false
+    }
+  ],
+  "embedded_package_sha256": "b82714adf0ab9d6213eef696c3842799d20cd5282e6a26472c9feae2c97c2de0",
+  "embedded_package_matches_local_build": true,
+  "result": "No plaintext installer credentials or session tokens found in the Schlage project entry; persisted values are opaque binary after transport decoding, consistent with SDK encrypted persistence. This is a scoped export inspection, not a cryptographic audit."
+}

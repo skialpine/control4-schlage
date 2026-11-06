@@ -1,0 +1,29 @@
+{
+  "template": {
+    "tag": "v0.9.74",
+    "commit": "4aabee67ddc8ac71602e6d6367b41794e831f022"
+  },
+  "pycognito": {
+    "commit": "6b8de182c6918de133f452af30e87e3d8aecc20e",
+    "license": "Apache-2.0"
+  },
+  "pyschlage": {
+    "commit": "6b31f8bd2cdc15d129855d667b9674ee2ce68120",
+    "license": "Apache-2.0"
+  },
+  "hubitat-schlage": {
+    "commit": "8ed06d1d5f3b886a43b183e6429e0305ce363d16",
+    "license": "MIT"
+  },
+  "control4-nuheat": {
+    "commit": "dabaa1ab8b67abe2af3ab0a14adb522916f5cd27",
+    "license": "AGPL-3.0"
+  },
+  "control4-esphome": {
+    "commit": "5e9e04e2d3007caa0ba7a468ca86353f3d55d9cb",
+    "license": "AGPL-3.0"
+  },
+  "driverpackager": {
+    "commit": "465ecc1cf73a85a4fdaf62fb688e9aed83e6d530"
+  }
+}

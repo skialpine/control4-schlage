@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-05",
+  "source_label": "User-supplied CORE 1 diagnostic snapshot",
+  "source_sha256": "e8044a7f3164740cffd2409cb7a44c74a8f22f37c7d47d30b1f9a228f73b0e35",
+  "runtime_status_events": 0,
+  "runtime_discovery_count_events": 0,
+  "related_files": [
+    {
+      "path": "debug/freeswitch.log",
+      "matching_lines": 3
+    },
+    {
+      "path": "debug/driver_event.log",
+      "matching_lines": 8
+    },
+    {
+      "path": "debug/broker.log",
+      "matching_lines": 1
+    },
+    {
+      "path": "log/project_change.log",
+      "matching_lines": 9
+    }
+  ],
+  "system_version": "Version: 3.4.3.741643-res-r0.0",
+  "result": "Inconclusive for the live Schlage authentication logging check: no Schlage account status or discovery-count diagnostic events are present. Related entries concern discovery/install/system references, not the required verbose authentication/renewal run. No raw log or sensitive values retained.",
+  "later_live_lua_observation": {
+    "source": "User-supplied Schlage Lua output",
+    "log_mode": "Print and Log",
+    "log_level": "6 - Ultra",
+    "print_enabled": true,
+    "controller_log_enabled": true,
+    "successful_srp_signins": 1,
+    "successful_refreshes_with_verbose_output": 2,
+    "discovery_results": [
+      2,
+      2,
+      2
+    ],
+    "encrypted_session_write_traces": 3,
+    "all_session_write_values_redacted": true,
+    "plaintext_credentials_or_tokens_observed": false,
+    "result": "Live highest-level sign-in/renewal output passes the scoped secret-filtering inspection. The earlier snapshot itself contains no corresponding runtime events."
+  }
+}

@@ -1,0 +1,34 @@
+<devicedata>
+  <name>Schlage Validation Timer</name>
+  <version/>
+  <manufacturer>Schlage</manufacturer>
+  <model>Schlage Validation Timer</model>
+  <creator>control4-schlage contributors</creator>
+  <control>lua_gen</control>
+  <controlmethod>ip</controlmethod>
+  <driver>DriverWorks</driver>
+  <copyright>Copyright 2026 control4-schlage contributors. AGPL-3.0.</copyright>
+  <created>11/05/2026 12:00 PM</created>
+  <modified/>
+  <combo>true</combo>
+  <minimum_os_version>3.4.1</minimum_os_version>
+  <composer_categories><category>Other</category></composer_categories>
+  <config>
+    <script file="driver.lua" jit="1"/>
+    <documentation file="www/documentation/index.html"/>
+    <properties>
+      <property><name>Probe Status</name><type>STRING</type><default>Idle</default><readonly>true</readonly></property>
+      <property><name>Started (UTC)</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Finished (UTC)</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Callback Count</name><type>STRING</type><default>0</default><readonly>true</readonly></property>
+      <property><name>Maximum Gap (ms)</name><type>STRING</type><default>0</default><readonly>true</readonly></property>
+      <property><name>Maximum Extra Delay (ms)</name><type>STRING</type><default>0</default><readonly>true</readonly></property>
+      <property><name>Skipped Intervals</name><type>STRING</type><default>0</default><readonly>true</readonly></property>
+      <property><name>Elapsed (ms)</name><type>STRING</type><default>0</default><readonly>true</readonly></property>
+    </properties>
+    <actions>
+      <action><name>Start Probe</name><command>Start_Probe</command></action>
+      <action><name>Stop Probe</name><command>Stop_Probe</command></action>
+    </actions>
+  </config>
+</devicedata>

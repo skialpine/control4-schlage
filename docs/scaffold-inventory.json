@@ -1,0 +1,43 @@
+{
+  "template": "https://github.com/finitelabs/control4-driver-template",
+  "tag": "v0.9.74",
+  "commit": "4aabee67ddc8ac71602e6d6367b41794e831f022",
+  "copier": "9.11.3",
+  "preserved_before": {
+    "openspec/changes/archive/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "openspec/changes/native-schlage-driver/.openspec.yaml": "3e16994612e657a7bbaefe38b70ef46f3e8e9f382f092dcaceb60ebabe7a5da0",
+    "openspec/changes/native-schlage-driver/design.md": "830bd32172ccbaa8a4d84d90046c5f11c62a2b71a85df9f63e5e96e5b2db42ca",
+    "openspec/changes/native-schlage-driver/proposal.md": "0eb87c9f19ddb6d59fe83d28ec7cca8af58d8e44e86923c16c94df914bd8d28b",
+    "openspec/changes/native-schlage-driver/specs/schlage-account/spec.md": "68c7379ffc33aec77a39a6115de233687753f1af1db775b0606e7e22699a10d8",
+    "openspec/changes/native-schlage-driver/specs/schlage-lock-control/spec.md": "1eacb8f33d549806daaf31626325cc5fc2f9d3134daede33f8c1317e30738199",
+    "openspec/changes/native-schlage-driver/tasks.md": "dd43ce96d3b5132df3eb560f618aea6fa53627e379a96a13c9181da3a372daaf",
+    "openspec/config.yaml": "f0082e9c22e8ce1d611c0f3b4d4915ce445e7ff2553cda6b713b6c25f390984c",
+    "openspec/specs/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".agents/skills/.openspec-target": "243b0dc9b847e66c440dca985e10fe0ce9e29c379b018ddd5747ba8948f84cc8",
+    ".agents/skills/openspec-apply-change/SKILL.md": "c190210594f5b0c6b76f1b23d8ea261f94987adeed727ac0864b732ef7cdea75",
+    ".agents/skills/openspec-archive-change/SKILL.md": "c3df5c96f8e829ed16952689de041d215b7d5749b0b261b1531c685d4ee68bed",
+    ".agents/skills/openspec-explore/SKILL.md": "0c97108351cff3bc0b84b53c173cfa6615b5fbcb67742140940bd7f2858e6231",
+    ".agents/skills/openspec-propose/SKILL.md": "3649c686b6afa5743998ae468cae29d343726fb5f27b657fc8bdd66b5a4ea1de",
+    ".agents/skills/openspec-sync-specs/SKILL.md": "6f951016a31d8400669573a1d154bb7275b71aee31e0891b1565c942b0df4a4f",
+    ".agents/skills/openspec-update-change/SKILL.md": "06eec5a4cc52f1ec436cdde3a0207b1ceafc3f1d8c7f6cbb853f3f648c0dbbee"
+  },
+  "preserved_after": {
+    "openspec/changes/archive/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "openspec/changes/native-schlage-driver/.openspec.yaml": "3e16994612e657a7bbaefe38b70ef46f3e8e9f382f092dcaceb60ebabe7a5da0",
+    "openspec/changes/native-schlage-driver/design.md": "830bd32172ccbaa8a4d84d90046c5f11c62a2b71a85df9f63e5e96e5b2db42ca",
+    "openspec/changes/native-schlage-driver/proposal.md": "0eb87c9f19ddb6d59fe83d28ec7cca8af58d8e44e86923c16c94df914bd8d28b",
+    "openspec/changes/native-schlage-driver/specs/schlage-account/spec.md": "68c7379ffc33aec77a39a6115de233687753f1af1db775b0606e7e22699a10d8",
+    "openspec/changes/native-schlage-driver/specs/schlage-lock-control/spec.md": "1eacb8f33d549806daaf31626325cc5fc2f9d3134daede33f8c1317e30738199",
+    "openspec/changes/native-schlage-driver/tasks.md": "dd43ce96d3b5132df3eb560f618aea6fa53627e379a96a13c9181da3a372daaf",
+    "openspec/config.yaml": "f0082e9c22e8ce1d611c0f3b4d4915ce445e7ff2553cda6b713b6c25f390984c",
+    "openspec/specs/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".agents/skills/.openspec-target": "243b0dc9b847e66c440dca985e10fe0ce9e29c379b018ddd5747ba8948f84cc8",
+    ".agents/skills/openspec-apply-change/SKILL.md": "c190210594f5b0c6b76f1b23d8ea261f94987adeed727ac0864b732ef7cdea75",
+    ".agents/skills/openspec-archive-change/SKILL.md": "c3df5c96f8e829ed16952689de041d215b7d5749b0b261b1531c685d4ee68bed",
+    ".agents/skills/openspec-explore/SKILL.md": "0c97108351cff3bc0b84b53c173cfa6615b5fbcb67742140940bd7f2858e6231",
+    ".agents/skills/openspec-propose/SKILL.md": "3649c686b6afa5743998ae468cae29d343726fb5f27b657fc8bdd66b5a4ea1de",
+    ".agents/skills/openspec-sync-specs/SKILL.md": "6f951016a31d8400669573a1d154bb7275b71aee31e0891b1565c942b0df4a4f",
+    ".agents/skills/openspec-update-change/SKILL.md": "06eec5a4cc52f1ec436cdde3a0207b1ceafc3f1d8c7f6cbb853f3f648c0dbbee"
+  },
+  "copied_files": 106
+}
