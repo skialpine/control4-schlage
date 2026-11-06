@@ -21,13 +21,14 @@ connecting the new one. Choose **Select a lock** to clear an assignment.
 **Selection Status** reports whether discovery or a lock choice is needed.
 
 The standard Control4 lock proxy accepts Lock, Unlock, and Toggle through
-Navigator and Composer programming. Keep the existing Home Assistant bridge and
-its bindings available during development. Basic Lock and Unlock have been
-reported working with matching state on CORE 1 / OS 3.4.3 and CORE 5 / OS 4.3.
-Independent two-lock routing, external Schlage-app changes, and matching battery
-percentages have also passed user checks on CORE 5. Rapid command handling and
-outage/recovery still require live validation; jam handling uses documented
-local fault fixtures rather than a forced physical jam.
+Navigator and Composer programming. Save a project backup and retain any
+existing integration until commissioning is complete. Basic Lock and Unlock have
+been reported working with matching state on CORE 1 / OS 3.4.3 and CORE 5 / OS
+4.3. Independent two-lock routing, external Schlage-app changes, and matching
+battery percentages have also passed user checks on CORE 5. Rapid command
+handling and outage/recovery still require live validation, with outage testing
+deferred at the user's request for the initial stable release 2026110608. Jam
+handling uses documented local fault fixtures rather than a forced physical jam.
 
 Properties report online availability, the observed bolt state, name/model,
 battery percentage, coarse low-battery state, and last successful update.

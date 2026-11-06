@@ -44,6 +44,9 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 
 - [x] 6.1 Exercise native lock/unlock, manual thumbturn/app changes, battery reporting, multiple locks when available, and a safely reproducible jam or documented fault fixture; verify observed behavior against the specs and record the tested model/firmware combinations.
 - [ ] 6.2 Exercise controller reboot, network outage, Schlage rejection, stale state, and recovery end to end; verify existing project responsiveness, bounded request volume, accurate offline reporting, and absence of delayed unlocks or leaked credentials.
+
+  Deferred at the user's request on 2026-11-06 because arranging the network-outage test is impractical for now. No new live outage/recovery result was supplied; this acceptance task remains unverified and unchecked.
+
 - [x] 6.3 Run project tests, formatting/static checks, build, and packaging; verify the installable account/lock `.c4z` bundle and generated documentation load in Composer and list only the hardware/OS combinations actually validated.
 - [x] 6.4 Rehearse commissioning and rollback using the delivered documentation in the development project; verify the existing HA bridge can remain available during testing and original bindings can be restored without lock reset or re-enrollment.
 

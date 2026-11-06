@@ -1043,3 +1043,25 @@ delivery on CORE5. No screenshot or private project data is committed. It does
 not establish a real low-battery daily reminder, next-day suppression on hardware,
 or native template modification after a changed message; those policy/lifecycle
 cases remain locally tested rather than independently observed on the controller.
+
+### Outage/recovery testing deferred (2026-11-06)
+
+The user asked to skip outage testing for now because temporarily isolating a
+controller from the internet is not easy in the available setup. The proposed
+test sequence was stopped before any outage result was reported. Task 6.2
+remains unchecked and deferred, not passed. Earlier reboot/session recovery and
+local error/expiry tests remain supporting evidence only. Scheduled battery
+alert follow-up checks also remain unverified on hardware; this deferral supplies
+no additional test results.
+
+### Initial stable release preparation (2026110608)
+
+After deferring outage testing, the user requested an initial release. Version
+2026110608 promotes the 2026110607 runtime to the Stable channel with updated
+documentation. Both locally packaged Lua scripts match the published 2026110607
+scripts exactly. Local release checks passed: 54 Lua suites / 2,312 assertions,
+51 Python tests, formatting/static checks, strict OpenSpec validation, and build
+and PDF generation. No additional controller behavior is inferred from these
+checks. Task 6.2 remains deferred and unchecked; daily alert hardware follow-up
+remains unverified. OAuth work is on hold pending provider replies. The change
+is not archived as fully accepted.

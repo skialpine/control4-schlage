@@ -15,7 +15,7 @@ template source updates remain explicit Copier updates reviewed in this repo.
 | Local diagnostics | Included as Diagnostics Snapshot on both drivers, even with Log Mode Off. Explicit allowlist plus template redactor; no lock IDs, scope hashes, user-defined names, credentials or raw responses. No upload. |
 | Events and conditionals | Included through the template's stable-ID helpers. Online/offline, locked/unlocked/jammed, low battery, command confirmed/failed events; online/locked/unlocked/jammed/low-battery conditions. Initial sync and duplicate snapshots do not claim movement. |
 | Driver icons | Included for account and companion in Composer. Original project artwork; generic Door Lock retains its standard native Navigator icon. Source generator is tools/schlage_icons.py. |
-| Minimum OS / crypto checks | Existing minimum OS 3.4.1 declaration and native acceleration/secure randomness checks retained. CORE 1/3.4.3 is the observed test context; CORE 5 remains untested. |
+| Minimum OS / crypto checks | Minimum OS 3.4.1 declaration and native acceleration/secure randomness checks retained. CORE 1/3.4.3 and CORE 5/4.3 have user-reported live validation; coverage is recorded in hardware-validation.md. |
 | GitHub repository conventions | Apply CI/release workflows, description, squash merges, branch protection/admin bypass, and security alerts where supported. Review new template versions rather than automatically importing them. |
 | Optional cloud diagnostics | Remain disabled, preserving the selected configuration. The template service requires DriverCentral and external service credentials; local diagnostics meet this project's current needs. |
 | DriverCentral licensing / support-code gates | Excluded from the OSS runtime. No commercial service credentials or support-code secret are needed. |
@@ -29,7 +29,9 @@ Runtime update checks begin after 60 seconds and repeat every six hours. A
 pending command delays starting a check; updates can reload drivers, so use
 Automatic Updates Off during controlled testing if needed. A manual check is
 still available. Channels select published GitHub releases, never arbitrary
-commits or template updates. Development releases remain prereleases until
-hardware acceptance is complete. The public release API and both download
-assets are verified, including template release selection against the live
-release metadata. Actual controller download/install still needs verification.
+commits or template updates. Version 2026110608 is the initial stable release
+requested by the user, with outage/recovery testing explicitly deferred. The
+public release API and both download assets are verified, including template
+release selection against live metadata. Automatic controller download/install
+was observed with the earlier prereleases. OAuth through Allegion's partner API
+is a separate potential integration and is on hold pending provider replies.

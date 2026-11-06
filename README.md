@@ -1,23 +1,28 @@
 # Schlage Account
 
-This development driver signs in to Schlage Home directly from Control4,
-discovers locks, and shares polled status with companion drivers. The companion
-exposes native lock/unlock/toggle commands with bounded reported-state readback.
-This is a development preview; basic Lock/Unlock with matching physical state
-has been reported working, while rapid changes and recovery remain under test.
+This driver signs in to Schlage Home directly from Control4, discovers locks,
+and shares polled status with companion drivers. The companion exposes native
+lock/unlock/toggle commands with bounded reported-state readback. The initial
+stable release is version **2026110608**. Control and state feedback have passed
+user testing on the combinations below. It uses Schlage's cloud; there is no
+local Wi-Fi control or Home Assistant runtime dependency.
 
 Native authentication, discovery, renewal, and restart recovery have been tested
 on CORE 1 / OS 3.4.3.741643-res, with two Encode Plus BE499WB locks. Captured
-firmware is main 5.0.1300214 and Wi-Fi 3.22.0.1. Polling, companion installation
-and command recovery still require full live validation. CORE 5 / OS 4.3 has
-also passed user-reported lock/unlock, independent two-lock routing, external
-Schlage-app state changes, and battery comparisons. Outage/recovery validation
-is pending. The account package requires OS 3.4.1 or later.
+firmware is main 5.0.1300214 and Wi-Fi 3.22.0.1. CORE 5 / OS 4.3 has also passed
+user-reported lock/unlock, independent two-lock routing, external Schlage-app
+state changes, and battery comparisons. Outage/recovery validation is deferred
+and has not passed live acceptance. Rapid command handling has local regression
+coverage; full live recovery testing remains incomplete. The account package
+requires OS 3.4.1 or later.
 
 ## Installation and sign-in
 
-1. Keep the current Home Assistant bridge, bindings, and automation available.
-1. Add `schlage_account.c4z` to the intended development Composer Pro project.
+1. Save a project backup and retain any existing integration until commissioning
+   is complete.
+1. Import `schlage_account.c4z` through Composer's **Add or Update Driver**,
+   then add it to the intended project. Let Composer manage its Drivers
+   directory.
 1. Run **Check Crypto**. **Crypto Status** must report native acceleration and
    secure randomness. If it fails, record the status and stop this controller's
    validation.
@@ -75,9 +80,11 @@ entries available for reuse.
 For a delivery check, enable the option and run **Actions → Test Battery
 Alert**. The test is explicitly labeled `TEST`, works without making the battery
 low, does not move a lock, and does not consume the daily allowance. With
-automatic push Off, it only exercises the Composer event. Native template
-creation and phone delivery still need confirmation on the controller for this
-build.
+automatic push Off, it only exercises the Composer event. Driver-owned template
+creation and TEST push delivery have passed on CORE 5, including the visible
+Control4 lock name. Scheduled daily suppression, next-day delivery, and changes
+to an existing notification message have local test coverage but remain
+unverified on hardware.
 
 For custom automation, use the account's **Daily Low Battery Alert** event and
 **BATTERY_ALERT_MESSAGE** variable. This event fires once per qualifying lock
@@ -198,8 +205,10 @@ Updates come from published releases of
 from arbitrary commits or new versions of the source template. A release uses a
 numeric **YYYYMMDDRR** version, where RR increases for successive releases on
 one date. Every stable or prerelease publication gets a new numeric revision.
-Until a public release source is available, checks report a failure and the
-driver remains usable; this is independent of Schlage authentication.
+Version 2026110608 is the initial Stable release. Existing installations using
+Prerelease can also receive it; select Stable to exclude future development
+builds. A failed update check leaves the installed driver usable and is
+independent of Schlage authentication.
 
 ## Local diagnostics
 
