@@ -1,6 +1,6 @@
 {
-  "stage": "Published 2026110602 release copied to OneDrive; live controller update validation pending",
-  "created_utc": "2026-11-06T07:30:21.523633+00:00",
+  "stage": "Published 2026110603 release copied to OneDrive; faster confirmation and controller update acceptance pending",
+  "created_utc": "2026-11-06T07:54:27.825128+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
     "single_account_automatic": true,
@@ -9,7 +9,7 @@
   },
   "tests": {
     "lua_suites": 51,
-    "lua_assertions": 2120,
+    "lua_assertions": 2136,
     "python_tests": 51,
     "format_and_project_checks": "passed",
     "packaged_account_lifecycle": "passed without source imports",
@@ -25,7 +25,9 @@
     "programming_events_conditions": "passed",
     "release_version_validation": "passed",
     "packaged_assets_and_lifecycle": "passed",
-    "controller_filename_fallback_update_order": "passed"
+    "controller_filename_fallback_update_order": "passed",
+    "discovery_command_reconciliation": "passed with real client revision filtering, including bundled code",
+    "bounded_confirmation_cadence": "passed: seven maximum reads, no overlap, skipped elapsed offsets"
   },
   "tasks": {
     "complete": 27,
@@ -33,20 +35,20 @@
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "d9b8619168500355f8d4999dfecc51985dfd5cefa4557b3dc4907a373d61f729",
-      "bytes": 238264,
-      "version": "2026110602",
+      "sha256": "6fbc5567a60b8edef7ce4b2617782aa8117061ca55a298747c5d7592573deb7d",
+      "bytes": 238524,
+      "version": "2026110603",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "18a2ff48f8df1df5ede530dafee5e5be369595acc5f8f2cd3c71d1c1ddf7903e",
+      "sha256": "86084813698d0df17cf21c8ded237572a107ed6bfa16e8aa89b640a90da4bd34",
       "bytes": 106513,
-      "version": "2026110602",
+      "version": "2026110603",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "43ad7a26bb52e57f1c346ae3c56e817e7e1a639c73ea542ceca4058c2535da0e"
+    "sha256": "6a43c9a5f9cc7fb96048138081b8c7a392499ab2d29b91a609c0ba47efbc4d87"
   },
   "live_lock_control_validated": true,
   "core5_validated": false,
@@ -124,7 +126,17 @@
     "allowlisted_elapsed_time_diagnostics": true,
     "live_rapid_command_validation": false,
     "rapid_toggle_uses_latest_live_target": true,
-    "rapid_toggle_preserves_unknown_state_rejection": true
+    "rapid_toggle_preserves_unknown_state_rejection": true,
+    "read_offsets_seconds": [
+      1,
+      3,
+      5,
+      7,
+      11,
+      15,
+      29
+    ],
+    "fresh_post_write_discovery_confirmation": true
   },
   "live_command_timing_observation": {
     "source": "user-supplied account timing log",
@@ -169,10 +181,22 @@
     "stable_programming_events_conditions": true,
     "independent_composer_icons": true,
     "external_telemetry": false,
-    "live_controller_update_validated": false
+    "live_controller_update_validated": false,
+    "live_release_check_up_to_date_observed": true
   },
   "artifact_role": "Published CI release files in OneDrive root and Drivers; optional older bootstrap in Bootstrap-2026110601",
   "release_target": {
+    "repository": "skialpine/control4-schlage",
+    "tag": "v2026110603-beta.1",
+    "version": "2026110603",
+    "publication_verified": true,
+    "controller_install_verified": false,
+    "public_unauthenticated_downloads_verified": true,
+    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734826",
+    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734933",
+    "source_commit": "a410c93f016e23a7646510775c3a1aa958ac7e71"
+  },
+  "previous_release_target": {
     "repository": "skialpine/control4-schlage",
     "tag": "v2026110602-beta.1",
     "version": "2026110602",
@@ -182,5 +206,47 @@
     "template_selection_against_live_release_metadata_verified": true,
     "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42180456907",
     "source_commit": "9e3aab56762e4cd2e46287b884b88fbe512c5264"
+  },
+  "live_followup_command_timing": {
+    "source": "user-supplied CORE1 log; physical motion time not measured",
+    "lock": {
+      "dispatch_ms": 5,
+      "cloud_ack_ms": 148,
+      "readbacks": [
+        {
+          "elapsed_ms": 1117,
+          "bolt": "unlocked"
+        },
+        {
+          "elapsed_ms": 3151,
+          "bolt": "unlocked"
+        },
+        {
+          "elapsed_ms": 7120,
+          "bolt": "locked"
+        }
+      ],
+      "confirmed_ms": 7120
+    },
+    "unlock": {
+      "dispatch_ms": 6,
+      "cloud_ack_ms": 183,
+      "readbacks": [
+        {
+          "elapsed_ms": 1117,
+          "bolt": "locked"
+        },
+        {
+          "elapsed_ms": 3113,
+          "bolt": "locked"
+        },
+        {
+          "elapsed_ms": 7120,
+          "bolt": "unlocked"
+        }
+      ],
+      "confirmed_ms": 7121
+    },
+    "rapid_opposite_taps_tested": false
   }
 }

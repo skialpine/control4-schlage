@@ -2,8 +2,9 @@
 
 The local bootstrap packages are version **2026110601**. The first published
 development release is **v2026110602-beta.1**, packaged as version **2026110602**.
-The bootstrap is built from the same source with an older XML version so the
-release updater can be exercised immediately. It is not a production release.
+The bootstrap shares source with that first release and has an older XML
+version so the release updater can be exercised immediately. It does not contain
+the later confirmation improvements. It is not a production release.
 
 The main OneDrive Control4 folder and Drivers subfolder now contain the latest
 published version **2026110603** for direct installation. The optional older

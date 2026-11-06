@@ -655,3 +655,17 @@ callback. Accepted read sequences and device revisions exclude pre-write and
 superseded data. Local regressions cover rejected/uncertain writes, jams,
 deadlines, cancellation, slow reads, and no mutation replay. Live confirmation
 timing and rapid-tap acceptance for this preview remain pending.
+
+The follow-up preview was published automatically by the tag-triggered Release
+workflow as v2026110603-beta.1 from source commit
+a410c93f016e23a7646510775c3a1aa958ac7e71. Its tag Build run 42183734826
+passed formatting, all 51 Lua suites (2,136 assertions), 51 Python tests, build,
+and packaging verification; Release run 42183734933 passed. Public unauthenticated
+account/companion downloads match the tag CI artifacts byte for byte. Published
+packages, the bundle, and PDFs were copied with checksum verification to the
+OneDrive Control4 folder, with both packages also in Drivers. Prior packages
+were backed up. Bundled account lifecycle, companion selection, command
+scheduling, and real-client revision regressions also pass locally with source
+imports excluded. The user's earlier Up to date output verifies a release
+check on the controller, not download/reload installation. Live upgrade to
+2026110603, confirmation timing, and rapid opposite taps remain pending.
