@@ -37,8 +37,43 @@ last when a controller does not implement GetDriverFileName.
 
 Source tests, packaging checks, and mock Director TCP update ordering are
 verified locally. The user confirmed automatic installation of 2026110603
-overnight, with subsequent account discovery still returning both locks.
-Local-time Properties formatting and live Navigator state notifications on
-2026110606 remain live checks. Repeat the physical-thumbturn check after
-restarting the test controller, before running any one-off Lua notification. Keep the app tile open while moving the bolt,
-and confirm that it updates without a second tap or navigating away.
+overnight and explicitly verified both installed versions as 2026110606. Both
+Composer Documentation tabs open and read correctly. Native command feedback
+and external locked/unlocked app updates are verified on CORE1 / OS 3.4.3.
+CORE5 / OS 4.3, broader fault/outage tests, and the rollback rehearsal remain
+open. Properties local-time formatting has not been separately reported.
+
+## One-lock rollback rehearsal
+
+Use the CORE1 development project and one existing generic Door Lock tile.
+Keep the Schlage account/companions and Home Assistant integration installed.
+The user has confirmed HA is available and working; its current provider and
+connection must be identified from a fresh project before changing wiring.
+
+1. Save the current Composer project as
+   `Projects/lock test-before-rollback-2026110606.c4p` in the OneDrive Control4
+   folder. Keep the older project file as well. The earlier saved export
+   predates the final Navigator setup and is not the rehearsal checkpoint.
+2. Record the generic Door Lock device name/ID and its current relay input,
+   native Schlage provider/output, selected physical lock, and working HA
+   provider/output. Confirm that the HA provider is available in this same
+   project and uses the compatible connection class. Stop before rewiring if
+   that provider is absent; record the actual arrangement first.
+3. Wait until this lock has no queued or pending command. Temporarily connect
+   only the chosen generic Door Lock input to its working HA provider. Retain
+   the native provider details and all existing driver instances/programming.
+4. Through that tile, verify one Lock and Unlock using HA. Confirm the intended
+   physical bolt moves and the tile reports its observed state. Record pass
+   or the exact discrepancy.
+5. Reconnect the same input to the recorded native Schlage output. Verify
+   native Lock/Unlock and a physical-turn state update with the tile visible.
+   Allow polling/cloud time for the physical turn.
+6. Save the restored native project separately as
+   `Projects/lock test-after-rollback-2026110606.c4p`. Record the test lock, HA
+   control/feedback result, native restoration result, and whether enrollment
+   and saved account settings were retained.
+
+Task 6.4 is complete only after the binding switch, HA control/feedback, and
+native restoration have actually passed. Saving a backup or confirming HA
+availability alone does not complete the rehearsal. This procedure uses
+existing driver bindings and does not require resetting or re-enrolling locks.

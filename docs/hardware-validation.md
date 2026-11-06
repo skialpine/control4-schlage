@@ -2,12 +2,16 @@
 
 Change: [native-schlage-driver](../openspec/changes/native-schlage-driver/proposal.md)
 
-Started: 2026-11-05. Status: native sign-in/discovery demonstrated on CORE 1 /
-OS 3.4.3; the remaining hardware gate checks and follow-up CORE 5 tests are pending.
-A read-only native authentication/discovery build is available. User-provided
-controller screenshots confirm successful native sign-in, discovery, and SRP
-timings on CORE 1 / OS 3.4.3. The remaining hardware gate checks are pending;
-no lock command has been implemented or validated.
+Started: 2026-11-05. Current status: v2026110606-beta.1 is installed on the
+CORE1 / OS 3.4.3.741643-res test system. Native authentication, discovery,
+renewal, restart recovery, lock/unlock, and live app updates for reported
+external bolt changes are verified. The user has checked both installed driver
+versions and both Documentation tabs. Delivery acceptance (6.3) is complete.
+Three integrated tasks remain: broader hardware/fault tests, outage/recovery,
+and rollback rehearsal. CORE5 / OS 4.3 remains untested.
+
+The sections below retain chronological observations, including superseded
+preview limitations; use the latest result for current acceptance status.
 
 ## Target installation
 
@@ -867,3 +871,28 @@ locked/unlocked app changes. Progress is 28/32. The remaining integrated tasks
 cover broader manual/app and multi-lock scenarios, faults/outage/recovery,
 CORE5 validation, complete commissioning, and rollback. No new runtime change
 or release is needed for this result; retain v2026110606-beta.1.
+
+## Delivery acceptance and rollback preparation (2026-11-06)
+
+The user explicitly verified that both installed drivers show 2026110606 and
+both Composer Documentation tabs open and read correctly. Local audit confirms
+that account/lock packages in the OneDrive Control4 root and Drivers folders
+match the published tag CI artifacts, have version 2026110606, and include the
+generated HTML documentation and licenses. Delivered PDFs and the bundle
+also match tag CI artifacts. Tag Build 42257223642 passed the 51 Lua suites
+(2,161 assertions), 51 Python tests, formatting, build, and packaging checks.
+Published documentation identifies CORE1 / OS 3.4.3 and the tested BE499WB
+family, identifies captured firmware without asserting a second independent
+firmware capture, and leaves CORE5 / OS 4.3 untested. Task 6.3 is complete;
+progress is 29/32. This does not mark broader fault/outage or CORE5 acceptance
+complete.
+
+The user confirmed the original Home Assistant lock integration remains
+available and working, and accepted the rollback rehearsal. No actual binding
+switch/command/feedback/restoration result has yet been reported, so task 6.4
+is still open. The existing saved project on disk is from 2026-11-05 18:27
+Mac local file timestamp and predates the final Navigator bindings.
+Request a fresh pre-rehearsal project save before recording the current native
+and HA relay providers and temporarily switching one test lock. Keep drivers
+installed and retain the current project; the rehearsal requires no lock reset
+or account re-enrollment.

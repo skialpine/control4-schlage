@@ -1,5 +1,5 @@
 {
-  "stage": "2026110606 external manual-change app updates verified by user and native manual=true logs; integrated commissioning remains pending",
+  "stage": "2026110606 package/documentation acceptance verified on CORE1; one-lock rollback rehearsal preparation underway",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -33,7 +33,7 @@
     "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
   },
   "tasks": {
-    "complete": 28,
+    "complete": 29,
     "total": 32
   },
   "artifacts": {
@@ -194,13 +194,14 @@
     "tag": "v2026110606-beta.1",
     "version": "2026110606",
     "publication_verified": true,
-    "controller_install_verified": false,
+    "controller_install_verified": true,
     "public_unauthenticated_downloads_verified": true,
     "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223642",
     "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223728",
     "source_commit": "c65336a4edfb66067a8498ed8f95805e7d4dda96",
     "controller_companion_install_verified": true,
-    "controller_companion_install_evidence": "New manual=true driver log format and user-confirmed app updates on the requested 2026110606 retest; both packaged version fields were not separately supplied"
+    "controller_companion_install_evidence": "New manual=true driver log format and user-confirmed app updates on the requested 2026110606 retest; both packaged version fields were not separately supplied",
+    "controller_install_evidence": "User explicitly verified both driver versions 2026110606 and both Documentation tabs opening/readable"
   },
   "previous_release_target": {
     "repository": "skialpine/control4-schlage",
@@ -386,5 +387,25 @@
     "controller_flag_test": "Direct MANUAL=true notification followed by recovery; restart without the notification reproduced the failure",
     "controller_external_app_fix_verified": true,
     "status": "published fix; live outside-change app behavior verified by user"
+  },
+  "delivery_acceptance": {
+    "task": "6.3",
+    "complete": true,
+    "version": "2026110606",
+    "controller": "CORE1 OS 3.4.3.741643-res",
+    "composer_version": "2026.10.14.802",
+    "both_installed_versions_verified_by_user": true,
+    "both_documentation_tabs_verified_by_user": true,
+    "onedrive_packages_match_release_ci": true,
+    "onedrive_pdfs_and_bundle_match_release_ci": true,
+    "core5_validated": false
+  },
+  "rollback_rehearsal": {
+    "task": "6.4",
+    "complete": false,
+    "ha_integration_available_and_working": "user confirmed",
+    "rehearsal_accepted_by_user": true,
+    "fresh_project_backup": "pending",
+    "binding_switch_command_feedback_and_restore": "not yet reported"
   }
 }
