@@ -713,3 +713,15 @@ telemetry, offline state, fault/unknown, native rebind, reload, and reassignment
 Live app-tile refresh and Last Action Description remain acceptance checks;
 the local shim cannot prove Director or mobile-app subscriptions. Task 5.4
 remains open until those presentation checks and its remaining cases pass.
+
+Tag Build 42248292156 and Release 42248292099 passed for
+v2026110605-beta.1 (source 345287e35d0fd6c3402f6dd8647b4e2f13e156ca).
+All 51 Lua suites (2,153 assertions) and 51 Python tests passed. The companion
+notification/selection test also passed against bundled code with source
+imports excluded (55 assertions). Public unauthenticated package downloads
+match tag CI artifacts. Both packages were copied to OneDrive Control4 root
+and Drivers, with the updated root bundle and PDFs; checksum checks passed
+and prior files were backed up. After updating, leave the tile open, request a
+change or use the thumbturn, allow cloud reporting/polling, and compare native
+Composer Last Action and the tile without a second tap or navigation. The live
+result remains pending; OpenSpec progress remains 27/32 tasks complete.
