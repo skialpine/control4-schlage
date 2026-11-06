@@ -39,9 +39,9 @@ A valid session is renewed 60 seconds ahead of expiry. **Renew Session**
 exercises renewal on demand. A successful renewal that omits a refresh token
 keeps the existing one. After driver/controller restart, the driver renews from
 encrypted persistence without requesting the password again. **Last Session
-Renewal** records the UTC time of the last successful refresh-token renewal
-during this driver run. It updates on manual renewal, automatic renewal, and
-successful restart recovery. Sign In does not set it. Check this persistent
+Renewal** records the controller local time of the last successful refresh-token
+renewal during this driver run. It updates on manual renewal, automatic renewal,
+and successful restart recovery. Sign In does not set it. Check this persistent
 result after running Renew Session; the brief `renewing` status can complete
 before you return to Properties. SRP timings remain unchanged during renewal.
 The explicit Renew Session action also prints its start and success/failure in
@@ -133,12 +133,13 @@ with the lowest project ID coordinates checks after 60 seconds, then every six
 hours. A pending lock command delays starting a check.
 
 Run **Actions → Check for Updates** for an immediate check, even with automatic
-checking Off. **Update Status** and **Last Update Check** provide lasting
-feedback; the manual action also prints to Lua with logging Off. The updater
-downloads only installed Schlage packages, installs companions first and its own
-account package last, and leaves credentials and lock selections in controller
-persistence. A driver update can interrupt a current readback, and expired
-command intents are never resumed after reload.
+checking Off. Properties timestamps use the controller local time and time zone.
+**Update Status** and **Last Update Check** provide lasting feedback; the manual
+action also prints to Lua with logging Off. The updater downloads only installed
+Schlage packages, installs companions first and its own account package last,
+and leaves credentials and lock selections in controller persistence. A driver
+update can interrupt a current readback, and expired command intents are never
+resumed after reload.
 
 Updates come from published releases of
 [skialpine/control4-schlage](https://github.com/skialpine/control4-schlage), not

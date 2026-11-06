@@ -66,7 +66,7 @@
         </items>
       </property>
       <property><name>Credentials</name><type>STRING</type><default>Not configured</default><readonly>true</readonly><tooltip>Saved credentials are encrypted. Entry fields clear after saving.</tooltip></property>
-      <property><name>Last Session Renewal</name><type>STRING</type><default>Not yet observed</default><readonly>true</readonly><tooltip>UTC time of the last successful refresh-token renewal during this driver run.</tooltip></property>
+      <property><name>Last Session Renewal</name><type>STRING</type><default>Not yet observed</default><readonly>true</readonly><tooltip>Controller local time of the last successful refresh-token renewal during this driver run.</tooltip></property>
       <property><name>Schlage Email</name><type>STRING</type><default/><password>true</password><tooltip>Enter email first. Saved securely; field clears after entry.</tooltip></property>
       <property><name>Schlage Password</name><type>STRING</type><default/><password>true</password><tooltip>Enter password after email, then run Sign In. Field clears after entry.</tooltip></property>
       <property><name>Discovered Locks</name><type>STRING</type><default/><readonly>true</readonly></property>
@@ -79,7 +79,7 @@
       <property><name>Automatic Updates</name><type>LIST</type><default>On</default><items><item>Off</item><item>On</item></items><tooltip>Shared across Schlage drivers. Checks published GitHub releases every six hours.</tooltip></property>
       <property><name>Update Channel</name><type>LIST</type><default>Stable</default><items><item>Stable</item><item>Prerelease</item></items><tooltip>Prerelease includes development releases. Stable excludes them.</tooltip></property>
       <property><name>Update Status</name><type>STRING</type><default>Not checked</default><readonly>true</readonly></property>
-      <property><name>Last Update Check</name><type>STRING</type><default>Not yet checked</default><readonly>true</readonly></property>
+      <property><name>Last Update Check</name><type>STRING</type><default>Not yet checked</default><readonly>true</readonly><tooltip>Controller local time, including its time zone.</tooltip></property>
     </properties>
     <actions>
       <action><name>Sign In</name><command>Sign_In</command></action>

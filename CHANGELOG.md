@@ -18,6 +18,13 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026110604-beta.1 - 2026-11-06
+
+### Changed
+
+- Display Last Session Renewal, Last Update Check, and Last Update in the
+  controller local time with its time-zone abbreviation.
+
 ## v2026110603-beta.1 - 2026-11-06
 
 ### Fixed

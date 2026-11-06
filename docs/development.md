@@ -189,7 +189,9 @@ require hardware validation.
 coalesces only unsent intents. Explicit account/child lifecycle events cancel
 pending work. Native `C4:GetTickCount()` supplies monotonic uptime for queue age,
 confirmation deadlines, polling freshness, and cooldowns. UTC wall time is used
-for token expiry, HTTP-date conversion, and displayed observation timestamps.
+for token expiry and HTTP-date conversion. Properties display controller local
+time with its time-zone abbreviation; the LAST_SUCCESSFUL_UPDATE programming
+variable retains its UTC format.
 
 `client.lua` advances each device's response revision at write dispatch, even
 when that write later times out or is rejected. Reads also carry issue sequence

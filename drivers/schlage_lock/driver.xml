@@ -72,7 +72,7 @@
       <property><name>Bolt State</name><type>STRING</type><default>unknown</default><readonly>true</readonly></property>
       <property><name>Battery</name><type>STRING</type><default>Not provided</default><readonly>true</readonly></property>
       <property><name>Low Battery</name><type>STRING</type><default>Not provided</default><readonly>true</readonly></property>
-      <property><name>Last Update</name><type>STRING</type><default>Not observed</default><readonly>true</readonly></property>
+      <property><name>Last Update</name><type>STRING</type><default>Not observed</default><readonly>true</readonly><tooltip>Controller local time of the last accepted device observation, including its time zone.</tooltip></property>
       <property><name>Command Outcome</name><type>STRING</type><default>none</default><readonly>true</readonly></property>
       <property><name>Updates</name><type>LABEL</type><default>Updates</default></property>
       <property><name>Automatic Updates</name><type>LIST</type><default>On</default><items><item>Off</item><item>On</item></items><tooltip>Shared across all Schlage account and lock drivers.</tooltip></property>

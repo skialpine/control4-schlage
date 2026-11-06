@@ -182,7 +182,7 @@ function OnDriverLateInit()
       C4:UpdateProperty("Update Status", value)
     end,
     checked = function(epoch)
-      C4:UpdateProperty("Last Update Check", os.date("!%Y-%m-%d %H:%M:%S UTC", epoch))
+      C4:UpdateProperty("Last Update Check", os.date("%Y-%m-%d %H:%M:%S %Z", epoch))
     end,
     announce = function(value)
       print("Schlage updates: " .. value)
@@ -229,7 +229,7 @@ function OnDriverLateInit()
     schedule = schedule,
     on_status = status,
     on_refreshed = function(epoch)
-      C4:UpdateProperty("Last Session Renewal", os.date("!%Y-%m-%d %H:%M:%S UTC", epoch))
+      C4:UpdateProperty("Last Session Renewal", os.date("%Y-%m-%d %H:%M:%S %Z", epoch))
     end,
     on_ready = function()
       if poller then

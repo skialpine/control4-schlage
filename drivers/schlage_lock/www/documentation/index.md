@@ -112,6 +112,8 @@ PIN management, schedules, history, door-open status, MQTT, and offline control
 are not advertised or implemented. Full validation of polling, rapid changes,
 faults, and recovery remains pending.
 
+The **Last Update** property uses the controller local time and time zone.
+
 ## Updates and diagnostics
 
 **Automatic Updates** and **Update Channel** are shared with the account and

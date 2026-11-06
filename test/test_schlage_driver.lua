@@ -184,9 +184,9 @@ local ok, err, output = T.capture(function()
   Properties["Log Mode"] = "Print and Log"
   OnPropertyChanged("Log Mode")
   T.eq(
-    "successful renewal leaves a visible UTC timestamp",
+    "successful renewal leaves a visible controller-local timestamp",
     properties["Last Session Renewal"],
-    os.date("!%Y-%m-%d %H:%M:%S UTC")
+    os.date("%Y-%m-%d %H:%M:%S %Z")
   )
   T.eq("renewed session returns to signed in", properties["Driver Status"], "signed_in")
   requests[#requests].callback(nil, 200, {}, JSON:newArray({}))

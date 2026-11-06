@@ -43,7 +43,7 @@ local function present(state)
   C4:UpdateProperty("Low Battery", state.low_battery == nil and "Not provided" or (state.low_battery and "Yes" or "No"))
   C4:UpdateProperty(
     "Last Update",
-    state.updated_at and os.date("!%Y-%m-%d %H:%M:%S UTC", state.updated_at) or "Not observed"
+    state.updated_at and os.date("%Y-%m-%d %H:%M:%S %Z", state.updated_at) or "Not observed"
   )
   C4:UpdateProperty("Command Outcome", state.outcome or "none")
   C4:SetVariable("ONLINE", state.online and "1" or "0")
