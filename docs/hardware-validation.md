@@ -896,3 +896,12 @@ Request a fresh pre-rehearsal project save before recording the current native
 and HA relay providers and temporarily switching one test lock. Keep drivers
 installed and retain the current project; the rehearsal requires no lock reset
 or account re-enrollment.
+
+## Rollback task accepted by user (2026-11-06)
+
+After confirming the HA integration is available and working, the user
+explicitly requested marking rollback done and moving to the next task. Task
+6.4 is closed by user acceptance. No fresh backup, binding-switch, HA command
+feedback, or native restoration result was supplied, so those actions are not
+claimed as independently rehearsed. Progress is 30/32. Remaining tasks are
+6.1 broader hardware coverage and 6.2 outage/fault/recovery validation.

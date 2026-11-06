@@ -1,5 +1,5 @@
 {
-  "stage": "2026110606 package/documentation acceptance verified on CORE1; one-lock rollback rehearsal preparation underway",
+  "stage": "Delivery and presentation accepted; rollback task closed by explicit user acceptance; broader hardware and outage/recovery tests remain",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -33,7 +33,7 @@
     "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
   },
   "tasks": {
-    "complete": 29,
+    "complete": 30,
     "total": 32
   },
   "artifacts": {
@@ -402,10 +402,12 @@
   },
   "rollback_rehearsal": {
     "task": "6.4",
-    "complete": false,
+    "complete": true,
     "ha_integration_available_and_working": "user confirmed",
     "rehearsal_accepted_by_user": true,
     "fresh_project_backup": "pending",
-    "binding_switch_command_feedback_and_restore": "not yet reported"
+    "binding_switch_command_feedback_and_restore": "No detailed rehearsal result supplied; user accepted closure",
+    "completion_basis": "User explicitly requested marking task done after confirming HA integration is available and working",
+    "live_binding_switch_restore_verified": false
   }
 }
