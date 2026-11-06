@@ -1,5 +1,5 @@
 {
-  "stage": "Live app-state updates verified for 2026110605 notification preview; integrated hardware commissioning remains pending",
+  "stage": "Published 2026110605 recovered live app updates after a manual status-only notification; external-change stability after reload remains pending",
   "created_utc": "2026-11-06T16:02:52.652165+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -32,7 +32,7 @@
     "packaged_native_proxy_adapter_without_source_imports": "passed: 55 assertions"
   },
   "tasks": {
-    "complete": 28,
+    "complete": 27,
     "total": 32
   },
   "artifacts": {
@@ -298,8 +298,8 @@
     "initial_status_notification_added": true,
     "change_metadata_added": true,
     "duplicate_movement_notifications_suppressed": true,
-    "live_app_fix_verified": true,
-    "live_app_fix_evidence": "User reports app lock status now changes; companion log shows each observed transition sent LOCK_STATUS_CHANGED and fired its matching movement and confirmed events",
+    "live_app_fix_verified": false,
+    "live_app_fix_evidence": "External/manual app updates initially failed; user ran one status-only MANUAL=true notification and then reported correct app updates. Subsequent logs include outside unlock observations. Persistence across reload is unverified.",
     "live_last_action_description_check": "Not yet reported separately",
     "live_observed_transitions": [
       {
@@ -325,6 +325,37 @@
       }
     ],
     "live_controller": "CORE1 OS 3.4.3",
-    "live_rapid_opposite_intents_while_pending_tested": false
+    "live_rapid_opposite_intents_while_pending_tested": false,
+    "live_command_driven_app_update_verified": true,
+    "live_external_change_app_update_verified": true,
+    "direct_manual_flag_notification_executed": true,
+    "direct_manual_flag_notification_followed_by_recovery": true,
+    "reload_external_app_updates_verified": false,
+    "later_external_unlock_observations_local": [
+      "09:40:48",
+      "09:41:49",
+      "09:42:19"
+    ],
+    "later_command_confirmations_seconds_approx": [
+      8,
+      7,
+      5,
+      5
+    ]
+  },
+  "external_change_candidate": {
+    "version": "2026110606",
+    "published": false,
+    "tests": {
+      "lua_suites": 51,
+      "lua_assertions": 2158,
+      "lua_failures": 0,
+      "python_tests": 51,
+      "format_and_packaging_checks": "passed",
+      "bundled_companion": "passed with source imports excluded"
+    },
+    "controller_flag_test": "User ran direct MANUAL=true status notification before reporting recovery",
+    "controller_external_app_fix_verified": false,
+    "status": "withdrawn locally, not published; patch retained separately pending further evidence"
   }
 }

@@ -754,3 +754,55 @@ The four integrated hardware/commissioning tasks remain open, including manual
 thumbturn/Schlage-app changes, multiple-lock commands, fault/outage recovery,
 CORE5 coverage, and rollback rehearsal. No additional runtime change or release
 was made for this validation record.
+
+## External-change presentation failure (2026-11-06)
+
+The next outside-Control4 change updated Composer but did not update the app.
+The earlier success established command-driven app updates only. Task 5.4 is
+reopened and progress returns to 27/32; the full app fix is not verified. The
+external-change companion log and specific method of changing the lock are
+needed to distinguish a missed native notification, initialization reset, and
+a generic Door Lock/proxy state-propagation issue. No runtime cause is inferred
+from the Composer result alone.
+
+The user then confirmed the outside change was a physical thumbturn. Composer
+noticed it in about 20 seconds, consistent with the 30-second poll cadence.
+The companion log fired Unlocked and emitted LOCK_STATUS_CHANGED at that
+observation, but the app stayed stale until reopened. Version 2026110605
+therefore sends a native change for the outside observation; it is not simply
+a missed account snapshot or a repeated initializer. Its MANUAL flag is always
+false. A direct status-only MANUAL=true test was requested before publishing
+the next candidate.
+
+A local 2026110606 draft sets MANUAL=true for online locked/unlocked changes
+outside a matching pending Control4 action, retaining false for the pending
+target and fault/unknown states. This is a proxy classification relative to a
+pending action, not evidence of the actual physical actor. Local regression
+tests cover matching targets, later outside changes despite sticky confirmed
+outcomes, no pending action, opposite observations, and expired outcomes.
+The direct controller flag test and complete outside-change app validation
+remain pending. No 2026110606 release has been published at this point.
+
+## Recovery after a direct native status notification (2026-11-06)
+
+The user reported that app updates started working and confirmed executing the
+requested status-only LOCK_STATUS_CHANGED notification with MANUAL=true first.
+No driver release or controller installation occurred during this experiment;
+the running log format is still the 2026110605 format. The direct notification
+reported the already observed unlocked position and issued no lock mutation.
+It may have resynchronized native proxy/relay/app state; the sequence does not
+establish the specific Director/app mechanism or prove that every outside
+change needs MANUAL=true.
+
+The later log includes outside unlock observations at controller-local
+09:40:48, 09:41:49, and 09:42:19 without nearby received commands or Command
+Confirmed events, alongside command-driven confirmations at approximately
+8, 7, 5, and 5 seconds. The user reports app updates now work. External-change
+stability after driver reload/reconnect remains unverified, so task 5.4 stays
+open and overall progress stays 27/32.
+
+The unpublished 2026110606 draft was withdrawn from the working source and
+saved separately as a local patch. VERSION and runtime source remain at the
+published 2026110605 baseline. No candidate package was copied over OneDrive
+or published. Retain the current release until repeat external-state testing
+and reload behavior establish whether a runtime change is needed.
