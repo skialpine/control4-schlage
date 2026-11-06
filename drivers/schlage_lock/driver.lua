@@ -30,11 +30,14 @@ local function publish_lock_status(state)
     if not initialize then
       params.LAST_ACTION_DESCRIPTION = "Reported lock state: " .. status
       params.SOURCE = "Schlage Home"
-      -- REST reports bolt position, not who moved it. Do not claim a manual
-      -- thumbturn/keypad action; false is the proxy's documented default.
-      params.MANUAL = false
+      local requested = status == "locked" and "lock" or "unlock"
+      local commanded = state.outcome == "pending" and state.intent == requested
+      -- Mark observations outside a matching pending Control4 command as
+      -- external to that command. REST cannot identify the actual actor or
+      -- distinguish thumbturn, keypad, Schlage app, and another automation.
+      params.MANUAL = state.online == true and (status == "locked" or status == "unlocked") and not commanded
     end
-    log:info("Schlage lock proxy status: %s (%s)", status, command)
+    log:info("Schlage lock proxy status: %s (%s; manual=%s)", status, command, tostring(params.MANUAL))
     C4:SendToProxy(5001, command, params, "NOTIFY")
   end
   proxy_status = status

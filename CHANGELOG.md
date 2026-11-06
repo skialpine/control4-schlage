@@ -18,6 +18,14 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026110606-beta.1 - 2026-11-06
+
+### Fixed
+
+- Distinguish observed changes outside a matching pending Control4 command when
+  setting the native lock notification MANUAL flag. Keep initialization,
+  fault/unknown, duplicate-state, and command-confirmation behavior separate.
+
 ## v2026110605-beta.1 - 2026-11-06
 
 ### Fixed

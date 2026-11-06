@@ -222,7 +222,11 @@ The native lock adapter follows the initialization/change split in the official
 The first reported snapshot initializes the native proxy with
 LOCK_STATUS_INITIALIZE. Subsequent observed position/fault changes send
 LOCK_STATUS_CHANGED with LOCK_STATUS, LAST_ACTION_DESCRIPTION, SOURCE, and
-MANUAL=false (the SDK default; REST does not identify a manual cause).
+the MANUAL flag. A reported locked/unlocked position outside a matching pending
+Control4 action uses MANUAL=true; the matching pending target and fault/unknown
+states use false. This classifies an observation relative to a pending
+Control4 action and does not establish a physical thumbturn, person, keypad, or
+Schlage-app cause.
 Repeated snapshots, telemetry-only changes, and HTTP command acceptance do not
 produce movement notifications. A native proxy rebind reinitializes its current
 reported state. Clearing/reassigning a selected lock clears the old display

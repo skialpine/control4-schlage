@@ -50,7 +50,7 @@ T.eq("startup asks its account for public state", last("REFRESH_STATE").binding,
 local nonce = last("REFRESH_STATE").params.NONCE
 local JSON = require("JSON")
 local sequence = 0
-local function handoff(bolt, connected, battery, low)
+local function handoff(bolt, connected, battery, low, outcome, intent)
   sequence = sequence + 1
   ExecuteCommand("SCHLAGE_SNAPSHOT", {
     SOURCE = "42",
@@ -68,7 +68,8 @@ local function handoff(bolt, connected, battery, low)
       battery = battery,
       low_battery = low,
       updated_at = 1,
-      outcome = "none",
+      outcome = outcome or "none",
+      intent = intent or "",
       CAT = "sentinel-CAT",
       PIN = "sentinel-PIN",
     }),
@@ -82,6 +83,7 @@ T.eq(
   "locked"
 )
 T.eq("initial synchronization creates no native movement event", count("LOCK_STATUS_CHANGED"), 0)
+T.eq("initialization is not labeled as an external movement", last("LOCK_STATUS_INITIALIZE").params.MANUAL, nil)
 T.eq("online variable independent", variables.ONLINE, "1")
 T.eq("valid battery", variables.BATTERY_PERCENT, "88")
 T.eq("normal coarse battery", variables.LOW_BATTERY_STATE, "normal")
@@ -94,7 +96,8 @@ T.eq("explicit unlock intent", last("LOCK_INTENT").params.ACTION, "UNLOCK")
 T.eq("command is scoped to current subscription", last("LOCK_INTENT").params.NONCE, nonce)
 T.eq("request does not change reported bolt", variables.BOLT_STATE, "locked")
 T.eq("request alone does not notify a successful movement", count("LOCK_STATUS_CHANGED"), 0)
-handoff("unlocked", true, 87, false)
+handoff("locked", true, 87, false, "pending", "unlock")
+handoff("unlocked", true, 87, false, "pending", "unlock")
 T.eq("reported unlock emits a live native state change", last("LOCK_STATUS_CHANGED").params.LOCK_STATUS, "unlocked")
 T.eq(
   "native change supplies the Last Action description",
@@ -102,14 +105,18 @@ T.eq(
   "Reported lock state: unlocked"
 )
 T.eq("native change uses a fixed public source", last("LOCK_STATUS_CHANGED").params.SOURCE, "Schlage Home")
-T.eq("REST observation does not claim a manual cause", last("LOCK_STATUS_CHANGED").params.MANUAL, false)
+T.eq(
+  "matching pending Control4 action uses the commanded notification path",
+  last("LOCK_STATUS_CHANGED").params.MANUAL,
+  false
+)
 T.eq(
   "native update targets the lock proxy as a notification",
   { last("LOCK_STATUS_CHANGED").binding, last("LOCK_STATUS_CHANGED").kind },
   { 5001, "NOTIFY" }
 )
 local before = count("LOCK_STATUS_CHANGED")
-handoff("unlocked", true, 87, false)
+handoff("unlocked", true, 87, false, "confirmed", "unlock")
 T.eq("duplicate observed position produces no duplicate movement", count("LOCK_STATUS_CHANGED"), before)
 OnBindingChanged(5001)
 T.eq(
@@ -118,12 +125,29 @@ T.eq(
   "unlocked"
 )
 T.eq("native proxy rebind creates no movement event", count("LOCK_STATUS_CHANGED"), before)
-handoff("locked", true, 87, false)
+handoff("locked", true, 87, false, "confirmed", "unlock")
 T.eq(
   "subsequent reported lock also emits a live native change",
   last("LOCK_STATUS_CHANGED").params.LOCK_STATUS,
   "locked"
 )
+T.eq(
+  "outside change is not attributed to the previous confirmed command",
+  last("LOCK_STATUS_CHANGED").params.MANUAL,
+  true
+)
+handoff("unlocked", true, 87, false)
+T.eq(
+  "outside change with no pending action uses the external notification path",
+  last("LOCK_STATUS_CHANGED").params.MANUAL,
+  true
+)
+handoff("locked", true, 87, false, "pending", "lock")
+T.eq("a later matching Control4 lock uses the commanded path", last("LOCK_STATUS_CHANGED").params.MANUAL, false)
+handoff("unlocked", true, 87, false, "pending", "lock")
+T.eq("observed opposite position is not claimed as the pending target", last("LOCK_STATUS_CHANGED").params.MANUAL, true)
+handoff("locked", true, 87, false, "unconfirmed", "lock")
+T.eq("expired command result cannot own a later observed change", last("LOCK_STATUS_CHANGED").params.MANUAL, true)
 before = count("LOCK_INTENT")
 ReceivedFromProxy(5002, "LOCK")
 T.eq("wrong proxy binding is ignored", count("LOCK_INTENT"), before)
@@ -150,11 +174,13 @@ T.eq(
   { "-1", "0", "unknown" }
 )
 T.eq("unknown bolt reports unknown proxy status", last("LOCK_STATUS_CHANGED").params.LOCK_STATUS, "unknown")
+T.eq("unknown position is not labeled as an external movement", last("LOCK_STATUS_CHANGED").params.MANUAL, false)
 before = count("LOCK_INTENT")
 ReceivedFromProxy(5001, "TOGGLE")
 T.eq("unknown-state toggle rejected", count("LOCK_INTENT"), before)
 handoff("jammed", true)
 T.eq("jam uses standard fault proxy status", last("LOCK_STATUS_CHANGED").params.LOCK_STATUS, "fault")
+T.eq("fault is not labeled as an external locked/unlocked movement", last("LOCK_STATUS_CHANGED").params.MANUAL, false)
 T.eq("jam available for programming", variables.JAMMED, "1")
 T.excludes("raw cloud secrets never enter programming state", JSON:encode(variables), "sentinel")
 provider = 0

@@ -806,3 +806,21 @@ saved separately as a local patch. VERSION and runtime source remain at the
 published 2026110605 baseline. No candidate package was copied over OneDrive
 or published. Retain the current release until repeat external-state testing
 and reload behavior establish whether a runtime change is needed.
+
+## Restart reproduces the outside-change app failure (2026-11-06)
+
+After the requested restart test, Composer updated but the app did not. The
+companion logged Locked and LOCK_STATUS_CHANGED at controller-local 09:54:32,
+with no accompanying Control4 command in the supplied excerpt. Together with
+the earlier recovery after a direct MANUAL=true notification, this supplies
+repeatable evidence for the external native-notification path. The precise
+Director/relay mechanism is still inferred, not observed internally.
+
+The 2026110606 external-change candidate was restored for delivery. It sets
+MANUAL=true for reported online locked/unlocked changes outside a matching
+pending Control4 action, and false for the matching pending target, fault, and
+unknown. Initialization still uses LOCK_STATUS_INITIALIZE without a manual
+movement flag. This proxy classification does not identify a person, keypad,
+or physical cause from REST. The shipped behavior must be retested after
+installation and restart without any one-off Lua notification. Task 5.4
+remains open; progress remains 27/32.

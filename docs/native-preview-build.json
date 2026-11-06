@@ -1,5 +1,5 @@
 {
-  "stage": "Published 2026110605 recovered live app updates after a manual status-only notification; external-change stability after reload remains pending",
+  "stage": "2026110606 external-change fix prepared after restart reproduced the app failure; release publication and live restart acceptance pending",
   "created_utc": "2026-11-06T16:02:52.652165+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -299,7 +299,7 @@
     "change_metadata_added": true,
     "duplicate_movement_notifications_suppressed": true,
     "live_app_fix_verified": false,
-    "live_app_fix_evidence": "External/manual app updates initially failed; user ran one status-only MANUAL=true notification and then reported correct app updates. Subsequent logs include outside unlock observations. Persistence across reload is unverified.",
+    "live_app_fix_evidence": "2026110605 external-change failure returned after restart; 2026110606 must be retested after installation and restart",
     "live_last_action_description_check": "Not yet reported separately",
     "live_observed_transitions": [
       {
@@ -327,7 +327,7 @@
     "live_controller": "CORE1 OS 3.4.3",
     "live_rapid_opposite_intents_while_pending_tested": false,
     "live_command_driven_app_update_verified": true,
-    "live_external_change_app_update_verified": true,
+    "live_external_change_app_update_verified": false,
     "direct_manual_flag_notification_executed": true,
     "direct_manual_flag_notification_followed_by_recovery": true,
     "reload_external_app_updates_verified": false,
@@ -341,21 +341,22 @@
       7,
       5,
       5
-    ]
+    ],
+    "restart_failure_local": "09:54:32 locked: Composer changed and native LOCK_STATUS_CHANGED was sent, but app remained stale"
   },
   "external_change_candidate": {
     "version": "2026110606",
     "published": false,
     "tests": {
       "lua_suites": 51,
-      "lua_assertions": 2158,
+      "lua_assertions": 2161,
       "lua_failures": 0,
       "python_tests": 51,
       "format_and_packaging_checks": "passed",
-      "bundled_companion": "passed with source imports excluded"
+      "bundled_companion": "63 assertions passed with source imports excluded"
     },
-    "controller_flag_test": "User ran direct MANUAL=true status notification before reporting recovery",
+    "controller_flag_test": "Direct MANUAL=true notification followed by recovery; restart without the notification reproduced the failure",
     "controller_external_app_fix_verified": false,
-    "status": "withdrawn locally, not published; patch retained separately pending further evidence"
+    "status": "restored for delivery after the outside-change failure reproduced on restart"
   }
 }

@@ -118,7 +118,10 @@ The native proxy is initialized from the first reported snapshot after startup
 or physical-lock reassignment. Later bolt changes include a **Last Action
 Description**, such as `Reported lock state: unlocked`, and source
 `Schlage Home`. Repeated polls and telemetry-only changes do not create movement
-events. REST observations do not identify whether a key, keypad, app, or
+events. A reported position matching a pending Control4 action uses
+MANUAL=false. Other online locked/unlocked changes use MANUAL=true to mark an
+observation outside that pending action. This is an inferred external-change
+classification; REST does not identify whether a key, keypad, app, or another
 automation moved the bolt. Leave the app tile visible when testing live state
 updates. Manual/app changes are detected by polling and may take the configured
 polling interval plus cloud reporting time.
