@@ -922,3 +922,15 @@ The published v2026110606 documentation predates this CORE5 observation and
 therefore describes that target as untested at publication. This validation
 record records the newer result; revise the packaged support summary on the
 next versioned release rather than replacing assets of the existing release.
+
+## CORE5 two-lock routing passed (2026-11-06)
+
+The user replied “both pass” to the explicit CORE5 / OS 4.3 routing check:
+Front Door Lock/Unlock moved the correct physical bolt and app tile while
+Garage Door stayed unchanged; Garage Door Lock/Unlock likewise left Front Door
+unchanged. This verifies independent native command routing and app feedback
+for both available BE499WB locks on the second controller. Task 6.1 remains
+open for its remaining cases, including a separately reported Schlage-app
+external-change test and current battery comparison. Fault mapping already has
+local documented fixture coverage, which is distinct from a physical jam.
+Progress remains 30/32; outage/recovery task 6.2 is also still open.

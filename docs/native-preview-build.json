@@ -417,7 +417,22 @@
     "current_exact_build_rechecked": false,
     "current_driver_revision_separately_reported": false,
     "user_report": "also loaded it on core5 with os 4.3 and it works fine",
-    "multi_lock_isolation_explicitly_verified": false,
-    "fault_outage_recovery_verified": false
+    "multi_lock_isolation_explicitly_verified": true,
+    "fault_outage_recovery_verified": false,
+    "multi_lock_test": {
+      "controller": "CORE5 OS 4.3",
+      "front_door_lock_unlock": "passed: correct physical bolt and tile; Garage Door unchanged",
+      "garage_door_lock_unlock": "passed: correct physical bolt and tile; Front Door unchanged",
+      "evidence": "User replied both pass to the explicit two-lock routing test"
+    }
+  },
+  "hardware_task_6_1": {
+    "native_commands": "verified",
+    "core5_two_lock_routing": "verified",
+    "core1_physical_thumbturn_live_app_updates": "verified",
+    "schlage_app_external_changes": "not separately reported",
+    "battery_reading_comparison": "pending current comparison",
+    "physical_jam": "not reported",
+    "documented_fault_fixture": "local device/command/proxy regression coverage available"
   }
 }
