@@ -22,6 +22,30 @@ function Updates.coordinator()
   return first
 end
 
+function Updates.release_updater()
+  local worker = setmetatable({}, { __index = GitHub })
+  function worker:downloadOutdatedDrivers(...)
+    return GitHub.downloadOutdatedDrivers(self, ...):next(function(names)
+      -- Some controller versions lack GetDriverFileName. Keep our account last
+      -- even when the template cannot identify the running file itself.
+      table.sort(names, function(a, b)
+        if a == b then
+          return false
+        end
+        if a == "schlage_account.c4z" then
+          return false
+        end
+        if b == "schlage_account.c4z" then
+          return true
+        end
+        return a < b
+      end)
+      return names
+    end)
+  end
+  return worker
+end
+
 function Updates.settings(options)
   options = options or {}
   local self = { values = {}, filenames = options.filenames or filenames, shared = options.shared or Shared }
@@ -86,7 +110,7 @@ end
 
 function Updates.new(options)
   return setmetatable({
-    github = options.github or GitHub,
+    github = options.github or Updates.release_updater(),
     filenames = options.filenames or filenames,
     schedule = options.schedule,
     setting = options.setting,

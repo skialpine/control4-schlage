@@ -188,4 +188,27 @@ settings:execute("SCHLAGE_GET_UPDATE_SETTINGS", { SOURCE = "44" })
 T.eq("verified Schlage peer receives both settings", #sent, 3)
 settings:execute("SCHLAGE_GET_UPDATE_SETTINGS", { SOURCE = "999" })
 T.eq("unrelated device does not get a settings response", #sent, 3)
+
+T.section("Controller fallback still installs the account last")
+local stock = require("lib.github-updater")
+local saved_download, saved_filename = stock.downloadOutdatedDrivers, C4.GetDriverFileName
+stock.downloadOutdatedDrivers = function()
+  return deferred.new():resolve({ "schlage_account.c4z", "schlage_lock.c4z" })
+end
+C4.GetDriverFileName = nil
+local tcp = require("c4_fixtures").captureTcpClient({ holdReplies = true })
+local result
+Updates.release_updater()
+  :updateAll("skialpine/control4-schlage", { "schlage_account.c4z", "schlage_lock.c4z" }, false, false)
+  :next(function(value)
+    result = value
+  end)
+T.contains("companion is first without GetDriverFileName", tcp.writes[1], "schlage_lock.c4z")
+T.eq("update waits for companion reply", #tcp.writes, 1)
+tcp.reply()
+T.contains("account is sent only after companion reply", tcp.writes[2], "schlage_account.c4z")
+tcp.reply()
+T.eq("both installed files finish in the fallback path", #result, 2)
+tcp.restore()
+stock.downloadOutdatedDrivers, C4.GetDriverFileName = saved_download, saved_filename
 T.finish()

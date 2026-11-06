@@ -1,6 +1,6 @@
 {
-  "stage": "Updater-enabled bootstrap 2026110601; GitHub prerelease publication pending",
-  "created_utc": "2026-11-06T07:16:27.714994+00:00",
+  "stage": "Bootstrap 2026110601 delivered; newer GitHub prerelease 2026110602 in preparation",
+  "created_utc": "2026-11-06T07:22:25.017832+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
     "single_account_automatic": true,
@@ -9,7 +9,7 @@
   },
   "tests": {
     "lua_suites": 51,
-    "lua_assertions": 2116,
+    "lua_assertions": 2120,
     "python_tests": 51,
     "format_and_project_checks": "passed",
     "packaged_account_lifecycle": "passed without source imports",
@@ -24,7 +24,8 @@
     "local_diagnostics_redaction": "passed",
     "programming_events_conditions": "passed",
     "release_version_validation": "passed",
-    "packaged_assets_and_lifecycle": "passed"
+    "packaged_assets_and_lifecycle": "passed",
+    "controller_filename_fallback_update_order": "passed"
   },
   "tasks": {
     "complete": 26,
@@ -32,20 +33,22 @@
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "80814f6f8098ae357254a77e8b24b881a7a20f8d315b09c413cc8c6c7f541509",
-      "bytes": 238107,
+      "sha256": "e96f48b0e7ea0933aedd6b791008b807bad8cf4fe16cd59a0176153e0a17d6d2",
+      "bytes": 238260,
       "version": "2026110601",
-      "standalone_combo": true
+      "standalone_combo": true,
+      "lua_sha256": "a3bcefa5e336e99acee3ca24eb84d92faeb8c58a158ddea153e7221e37370285"
     },
     "schlage_lock.c4z": {
-      "sha256": "772472f01e8ed84d86dbf0f1030902eb65cc554d6d8665c6cfe4ab97c12ff519",
-      "bytes": 106385,
+      "sha256": "343852c304d15b39e34c6f81ec09bc14d6bd38a4388f1f3c9c24384cc2f16bf1",
+      "bytes": 106509,
       "version": "2026110601",
-      "standalone_combo": false
+      "standalone_combo": false,
+      "lua_sha256": "328e643e217a0a6e0cb92a9c9f89a7300dec5b8d19c9456361af7df9d0bea712"
     }
   },
   "bundle": {
-    "sha256": "6b69780fc3a8bb7e602859be08a659b1710ecc875f315ad2b440b90f8e48b247"
+    "sha256": "7858577189feae0967c410a4f536f9d0e1ea53048b7762682ca1a90c0e6ecab7"
   },
   "live_lock_control_validated": true,
   "core5_validated": false,
@@ -169,5 +172,13 @@
     "independent_composer_icons": true,
     "external_telemetry": false,
     "live_controller_update_validated": false
+  },
+  "artifact_role": "OneDrive bootstrap packages; published prerelease uses version 2026110602",
+  "release_target": {
+    "repository": "skialpine/control4-schlage",
+    "tag": "v2026110602-beta.1",
+    "version": "2026110602",
+    "publication_verified": false,
+    "controller_install_verified": false
   }
 }

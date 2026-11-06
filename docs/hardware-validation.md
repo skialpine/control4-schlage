@@ -597,3 +597,22 @@ Failed or expired targets do not become the toggle baseline; desired targets
 remain separate from physical-state reporting. Regression scenarios cover
 double/triple taps, authentication delay, both initial bolt states, and rejection
 of unknown state. The revised toggle behavior still needs live validation.
+
+## Template integrations and updater bootstrap
+
+Following the user's request to include appropriate template features, added
+the GitHub updater, shared update settings, local allowlisted diagnostics,
+Composer events/conditions, and independent account/lock icons. External
+telemetry remains disabled. Initial synchronization, repeat snapshots, and
+reassignment do not create bolt movement events; stable programming IDs are
+restored after reload. The template libraries remain unmodified.
+
+Bootstrap version 2026110601 is delivered locally for one-time Composer
+installation. Published prerelease v2026110602-beta.1 is the intended newer
+update target. A project-specific wrapper preserves companion-before-account
+ordering even without C4:GetDriverFileName. Local tests exercise the actual
+template TCP installer with held replies in that fallback path, in addition to
+shared settings, channel selection, timers, failures, redaction, and events.
+These tests do not establish that Director on the user's controller accepts
+the update command; use docs/updater-commissioning.md for that check. Existing
+hardware gates and CORE 5 validation remain open.
