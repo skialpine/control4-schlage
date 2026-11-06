@@ -30,5 +30,6 @@ pending command delays starting a check; updates can reload drivers, so use
 Automatic Updates Off during controlled testing if needed. A manual check is
 still available. Channels select published GitHub releases, never arbitrary
 commits or template updates. Development releases remain prereleases until
-hardware acceptance is complete. A public release source and actual controller
-download/install still need verification beyond the mocked tests.
+hardware acceptance is complete. The public release API and both download
+assets are verified, including template release selection against the live
+release metadata. Actual controller download/install still needs verification.

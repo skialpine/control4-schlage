@@ -1,6 +1,6 @@
 {
-  "stage": "Bootstrap 2026110601 delivered; newer GitHub prerelease 2026110602 in preparation",
-  "created_utc": "2026-11-06T07:22:25.017832+00:00",
+  "stage": "Published 2026110602 release copied to OneDrive; live controller update validation pending",
+  "created_utc": "2026-11-06T07:30:21.523633+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
     "single_account_automatic": true,
@@ -28,27 +28,25 @@
     "controller_filename_fallback_update_order": "passed"
   },
   "tasks": {
-    "complete": 26,
+    "complete": 27,
     "total": 32
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "e96f48b0e7ea0933aedd6b791008b807bad8cf4fe16cd59a0176153e0a17d6d2",
-      "bytes": 238260,
-      "version": "2026110601",
-      "standalone_combo": true,
-      "lua_sha256": "a3bcefa5e336e99acee3ca24eb84d92faeb8c58a158ddea153e7221e37370285"
+      "sha256": "d9b8619168500355f8d4999dfecc51985dfd5cefa4557b3dc4907a373d61f729",
+      "bytes": 238264,
+      "version": "2026110602",
+      "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "343852c304d15b39e34c6f81ec09bc14d6bd38a4388f1f3c9c24384cc2f16bf1",
-      "bytes": 106509,
-      "version": "2026110601",
-      "standalone_combo": false,
-      "lua_sha256": "328e643e217a0a6e0cb92a9c9f89a7300dec5b8d19c9456361af7df9d0bea712"
+      "sha256": "18a2ff48f8df1df5ede530dafee5e5be369595acc5f8f2cd3c71d1c1ddf7903e",
+      "bytes": 106513,
+      "version": "2026110602",
+      "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "7858577189feae0967c410a4f536f9d0e1ea53048b7762682ca1a90c0e6ecab7"
+    "sha256": "43ad7a26bb52e57f1c346ae3c56e817e7e1a639c73ea542ceca4058c2535da0e"
   },
   "live_lock_control_validated": true,
   "core5_validated": false,
@@ -173,12 +171,16 @@
     "external_telemetry": false,
     "live_controller_update_validated": false
   },
-  "artifact_role": "OneDrive bootstrap packages; published prerelease uses version 2026110602",
+  "artifact_role": "Published CI release files in OneDrive root and Drivers; optional older bootstrap in Bootstrap-2026110601",
   "release_target": {
     "repository": "skialpine/control4-schlage",
     "tag": "v2026110602-beta.1",
     "version": "2026110602",
-    "publication_verified": false,
-    "controller_install_verified": false
+    "publication_verified": true,
+    "controller_install_verified": false,
+    "public_unauthenticated_downloads_verified": true,
+    "template_selection_against_live_release_metadata_verified": true,
+    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42180456907",
+    "source_commit": "9e3aab56762e4cd2e46287b884b88fbe512c5264"
   }
 }

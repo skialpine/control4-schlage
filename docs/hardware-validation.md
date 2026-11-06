@@ -616,3 +616,24 @@ shared settings, channel selection, timers, failures, redaction, and events.
 These tests do not establish that Director on the user's controller accepts
 the update command; use docs/updater-commissioning.md for that check. Existing
 hardware gates and CORE 5 validation remain open.
+
+### Published updater source
+
+Published https://github.com/skialpine/control4-schlage/releases/tag/v2026110602-beta.1
+from the successful GitHub CI run 42180456907 at tagged commit
+9e3aab56762e4cd2e46287b884b88fbe512c5264. The initial combined branch/tag push
+started the main Build run but no tag Build/Release run; the first release was
+therefore published from that successful CI artifact at the exact tagged SHA.
+Both packages were verified as version 2026110602. Unauthenticated public API
+and asset downloads work, and downloaded bytes match the CI artifacts. The
+template updater, using the actual public release metadata, identifies both
+assets as newer than bootstrap 2026110601 on Prerelease and excludes the beta
+from Stable. No controller update was performed by development tools.
+
+At the user's request the published 2026110602 files, bundle, and PDFs were
+copied to the OneDrive Control4 folder, with both driver files also in Drivers.
+Bootstrap-2026110601 holds the optional initial-upgrade test packages. Automatic
+installation, preserved credentials/selections on that installation, and new
+Composer programming controls still need live checks. OpenSpec progress is
+27/32 tasks complete; the five remaining tasks are the existing hardware and
+integrated acceptance work.

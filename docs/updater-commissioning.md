@@ -5,6 +5,12 @@ development release is **v2026110602-beta.1**, packaged as version **2026110602*
 The bootstrap is built from the same source with an older XML version so the
 release updater can be exercised immediately. It is not a production release.
 
+The main OneDrive Control4 folder and Drivers subfolder now contain the latest
+published version **2026110602** for direct installation. The optional older
+bootstrap is in **Bootstrap-2026110601** if testing an immediate automatic
+upgrade; otherwise install the latest files directly and check for future
+updates through the account.
+
 1. Use Composer's Add or Update Driver to install both bootstrap `.c4z` files.
 2. Keep the existing Schlage account sign-in, physical-lock selections, and
    generic Door Lock relay bindings. Confirm they are still present.

@@ -52,7 +52,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 7.1 Integrate the template updater and shared settings with one account coordinator, bounded timers, idle-command checks, manual action, persistent status, and lifecycle cleanup; verify mocked channel, failure, duplicate-flight, and settings synchronization scenarios.
 - [x] 7.2 Add increasing same-day release revisions and tag/package consistency checks while retaining template-managed tools; verify local and CI version selection and invalid tags.
 - [x] 7.3 Run tests, build and package checks; copy the bootstrap packages to OneDrive and document update setup plus the assessment of other useful template features.
-- [ ] 7.4 Publish a reviewable GitHub prerelease and verify the update source; record actual controller automatic-update validation separately from local checks.
+- [x] 7.4 Publish a reviewable GitHub prerelease and verify the update source; record actual controller automatic-update validation separately from local checks.
 
 ## 8. Useful template integrations (requested during review)
 
