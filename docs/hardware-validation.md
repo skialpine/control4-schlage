@@ -1020,3 +1020,26 @@ Earlier files were backed up with a suffix that Composer does not load as a
 driver. The user can now run Check for Updates with Update Channel Prerelease,
 confirm 2026110607, enable Low Battery Push Notifications on the account, and
 run Test Battery Alert. No phone-delivery result has yet been supplied.
+
+
+### Composer definition refresh and successful live TEST notification
+
+After the GitHub update, the CORE5 account reported version 2026110607 and
+`GetDriverConfigInfo("config")` contained the new battery option, but Composer
+still displayed the earlier property layout. Reopening Composer did not resolve
+it. The active package in the synced Drivers directory matched the published
+CI package exactly and included every new battery property. The user reloaded
+the driver in Composer and reported that it worked. The user explicitly asked
+that future deliveries no longer write packages into the Drivers directory.
+`AGENTS.md` and the commissioning guide now require root-folder delivery only,
+leaving Composer to import or synchronize its local database. Existing files
+were not removed as part of this workflow change.
+
+The user then supplied a Control4 app notification screenshot from the TEST
+action. Its subject and body were labeled TEST, the body used the visible
+Control4 generic Door Lock name, and it included the supplied 100% battery
+reading. This confirms live driver-owned notification setup and test push
+delivery on CORE5. No screenshot or private project data is committed. It does
+not establish a real low-battery daily reminder, next-day suppression on hardware,
+or native template modification after a changed message; those policy/lifecycle
+cases remain locally tested rather than independently observed on the controller.

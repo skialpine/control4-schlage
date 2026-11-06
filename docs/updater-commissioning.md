@@ -6,14 +6,18 @@ The bootstrap shares source with that first release and has an older XML
 version so the release updater can be exercised immediately. It does not contain
 the later confirmation improvements. It is not a production release.
 
-The main OneDrive Control4 folder and Drivers subfolder now contain the latest
-published version **2026110606** for direct installation. The optional older
+The main OneDrive Control4 folder contains the latest published version
+**2026110607** for direct installation. Future deliveries go to that root folder
+only. **Do not copy or overwrite packages in the Drivers subfolder**: Composer
+manages its local driver database. Externally copying there can make the versions
+appear equal while Composer retains an older property layout. Import or sync
+through Composer when its local driver definition needs updating. The optional older
 bootstrap is in **Bootstrap-2026110601** if testing an immediate automatic
 upgrade; otherwise install the latest files directly and check for future
 updates through the account.
 
-1. From installed version 2026110605, use the update action below to test
-   upgrading to **v2026110606-beta.1**. Alternatively install both latest `.c4z`
+1. From an earlier installed version, use the update action below to test
+   upgrading to **v2026110607-beta.1**. Alternatively install both latest `.c4z`
    files directly with Composer's Add or Update Driver. The optional older
    bootstrap remains available for a first update test.
 2. Keep the existing Schlage account sign-in, physical-lock selections, and
@@ -23,12 +27,25 @@ updates through the account.
 4. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-5. Reopen both Properties pages and verify Driver Version **2026110606**.
+5. Reopen both Properties pages and verify Driver Version **2026110607**.
    Verify credentials remain saved, the account signs in, and the selected
    lock and generic Door Lock control still match the physical bolt.
+   If the new battery settings are missing despite this version, import the
+   account file from the main Control4 folder using **Driver → Add or Update
+   Driver** to refresh Composer's local definition. Reopening Composer alone
+   did not resolve the observed stale layout; reloading the driver did.
 6. Leave Prerelease selected to receive further development releases, or select
    Stable to exclude them. Automatic Updates Off stops scheduled checks; a
    manual check still works.
+
+On **Schlage Account**, **Low Battery Push Notifications** applies to all locks
+on that account. It defaults Off; the default reminder time is 09:00 local and
+the threshold is 20 percent. Enable it and run **Test Battery Alert** to check
+delivery without changing a lock or consuming its daily allowance. A user-supplied
+CORE5 screenshot confirmed a TEST notification containing the visible Control4
+generic Door Lock name and its supplied 100% battery reading. Automatic daily
+delivery from a genuinely low battery remains covered by local policy tests;
+that live scenario has not yet been observed.
 
 No lock/unlock action is issued by the updater itself. Perform the initial
 update check with no command in progress. Pending/unsent intents are not

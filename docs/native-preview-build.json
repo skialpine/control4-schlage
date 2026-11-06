@@ -1,5 +1,5 @@
 {
-  "stage": "2026110607 daily battery alerts published and delivered to OneDrive; controller push delivery and task 6.2 outage/recovery remain pending",
+  "stage": "2026110607 published; CORE5 TEST push and visible Control4 name verified after Composer reload; task 6.2 outage/recovery remains pending",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -451,8 +451,8 @@
     "native_agent_read_contract_verified_on_core5": true,
     "native_send_contract_verified_in_saved_project": true,
     "native_template_configuration_reference": "https://github.com/The1TrueJoe/openComposer/blob/40ee90c20cb24ec57ce46a5389cba6daa13dbd56/crates/c4/src/agent_ops.rs",
-    "automatic_template_creation_live_validated": false,
-    "phone_delivery_live_validated": false,
+    "automatic_template_creation_live_validated": true,
+    "phone_delivery_live_validated": true,
     "bundled_tests_without_source_imports": {
       "account_assertions": 110,
       "daily_alert_assertions": 106,
@@ -465,6 +465,16 @@
     "source_commit": "6c12d1b651aa0da9ea5e82786563f3a4fdb28fe9",
     "tag_build_run": 42276611584,
     "release_run": 42276611283,
-    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026110607-beta.1"
+    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026110607-beta.1",
+    "composer_battery_properties_visible": true,
+    "composer_property_refresh": "User reloaded the driver after reopening Composer alone did not refresh the old property layout",
+    "live_push_scope": "CORE5 TEST action: Control4 app notification with TEST subject/body, visible generic Door Lock name and supplied 100% battery reading",
+    "automatic_daily_low_battery_live_validated": false,
+    "native_template_modification_live_validated": false
+  },
+  "delivery_policy": {
+    "future_packages": "OneDrive/Documents/Control4 root only",
+    "write_composer_drivers_directory": false,
+    "reason": "User requested Composer-managed local driver database after external copying masked a stale property layout"
   }
 }
