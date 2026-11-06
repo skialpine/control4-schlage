@@ -1,5 +1,5 @@
 {
-  "stage": "CORE1 presentation/delivery accepted; CORE5 OS 4.3 basic operation reported working; broader hardware and outage/recovery tests remain",
+  "stage": "Hardware behavior and delivered packages accepted on CORE1/CORE5 within recorded scopes; outage/recovery task 6.2 remains",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -33,7 +33,7 @@
     "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
   },
   "tasks": {
-    "complete": 30,
+    "complete": 31,
     "total": 32
   },
   "artifacts": {
@@ -424,15 +424,17 @@
       "front_door_lock_unlock": "passed: correct physical bolt and tile; Garage Door unchanged",
       "garage_door_lock_unlock": "passed: correct physical bolt and tile; Front Door unchanged",
       "evidence": "User replied both pass to the explicit two-lock routing test"
-    }
+    },
+    "schlage_app_feedback_and_battery_comparison_verified": true
   },
   "hardware_task_6_1": {
     "native_commands": "verified",
     "core5_two_lock_routing": "verified",
     "core1_physical_thumbturn_live_app_updates": "verified",
-    "schlage_app_external_changes": "not separately reported",
-    "battery_reading_comparison": "pending current comparison",
-    "physical_jam": "not reported",
-    "documented_fault_fixture": "local device/command/proxy regression coverage available"
+    "schlage_app_external_changes": "User confirmed both lock tiles update from Schlage Home actions",
+    "battery_reading_comparison": "User confirmed both Composer percentages match Schlage Home; exact current percentages not supplied",
+    "physical_jam": "not forced or claimed",
+    "documented_fault_fixture": "Accepted task alternative: lockState 2/4 normalize to jammed, command readback ends fault, native proxy reports fault and JAMMED=1; existing passing device/command/companion regression suites",
+    "complete": true
   }
 }

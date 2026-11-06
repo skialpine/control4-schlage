@@ -7,8 +7,8 @@ CORE1 / OS 3.4.3.741643-res test system. Native authentication, discovery,
 renewal, restart recovery, lock/unlock, and live app updates for reported
 external bolt changes are verified. The user has checked both installed driver
 versions and both Documentation tabs. Delivery acceptance (6.3) is complete.
-Rollback (6.4) was closed by explicit user acceptance. Two tasks remain:
-broader hardware coverage (6.1) and outage/recovery (6.2). The user now reports
+Rollback (6.4) was closed by explicit user acceptance. Hardware task 6.1 is now complete. The remaining task is outage/recovery
+(6.2). The user now reports
 successful loading and basic operation on CORE5 / OS 4.3; advanced checks on
 that controller and its current exact build remain unrecorded.
 
@@ -934,3 +934,34 @@ open for its remaining cases, including a separately reported Schlage-app
 external-change test and current battery comparison. Fault mapping already has
 local documented fixture coverage, which is distinct from a physical jam.
 Progress remains 30/32; outage/recovery task 6.2 is also still open.
+
+## Hardware behavior acceptance completed (2026-11-06)
+
+The user replied “yes for all” to two explicit checks on the tested lock setup:
+Schlage Home Lock/Unlock for each door updates its visible Control4 tile, and
+each Composer Battery percentage matches Schlage Home. Exact current battery
+percentages were not supplied, so no numerical values are invented. Together
+with the earlier CORE5 independent Front Door/Garage Door command routing and
+CORE1 physical-turn/native app checks, this completes the live behavior cases
+of task 6.1.
+
+The task permits a documented fault fixture instead of physically forcing a
+jam. Use the existing passing fixtures: test_schlage_device.lua maps raw
+lockState 2 and 4 to jammed with a separate fault flag;
+test_schlage_commands.lua stops jammed readback with outcome fault; and
+test_schlage_lock_driver.lua maps jammed to native LOCK_STATUS_CHANGED=fault,
+sets JAMMED=1, and does not label it as an external locked/unlocked movement.
+These were included in the release's passing 51 Lua suites. No physical jam or
+live mobile fault display is claimed.
+
+Tested hardware is CORE1 / OS 3.4.3.741643-res and user-reported CORE5 / OS 4.3
+(current exact build not separately reconfirmed), with two BE499WB Encode Plus
+locks, discovered as be499wifi. Firmware captured from one lock is main
+5.0.1300214, touchpad 2.0.1300219, BLE 2.2.1224075, and Wi-Fi 3.22.0.1. The
+second lock's matching model is user-confirmed; a separate complete firmware
+capture remains unavailable. This does not extend compatibility to other
+Encode models or firmware.
+
+Task 6.1 is complete; progress is 31/32. Task 6.2 remains for live outage,
+stale/offline rejection, recovery and no-delayed-unlock checks, with restart
+and local rejection/expiry fixtures already available as supporting evidence.
