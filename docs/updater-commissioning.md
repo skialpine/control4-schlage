@@ -6,12 +6,15 @@ The bootstrap is built from the same source with an older XML version so the
 release updater can be exercised immediately. It is not a production release.
 
 The main OneDrive Control4 folder and Drivers subfolder now contain the latest
-published version **2026110602** for direct installation. The optional older
+published version **2026110603** for direct installation. The optional older
 bootstrap is in **Bootstrap-2026110601** if testing an immediate automatic
 upgrade; otherwise install the latest files directly and check for future
 updates through the account.
 
-1. Use Composer's Add or Update Driver to install both bootstrap `.c4z` files.
+1. From installed version 2026110602, use the update action below to test
+   upgrading to **v2026110603-beta.1**. Alternatively install both latest `.c4z`
+   files directly with Composer's Add or Update Driver. The optional older
+   bootstrap remains available for a first update test.
 2. Keep the existing Schlage account sign-in, physical-lock selections, and
    generic Door Lock relay bindings. Confirm they are still present.
 3. On Schlage Account, select **Update Channel: Prerelease**. The setting is
@@ -19,7 +22,7 @@ updates through the account.
 4. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-5. Reopen both Properties pages and verify Driver Version **2026110602**.
+5. Reopen both Properties pages and verify Driver Version **2026110603**.
    Verify credentials remain saved, the account signs in, and the selected
    lock and generic Door Lock control still match the physical bolt.
 6. Leave Prerelease selected to receive further development releases, or select

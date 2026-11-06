@@ -637,3 +637,21 @@ installation, preserved credentials/selections on that installation, and new
 Composer programming controls still need live checks. OpenSpec progress is
 27/32 tasks complete; the five remaining tasks are the existing hardware and
 integrated acceptance work.
+
+## Follow-up confirmation timing preview (2026-11-06)
+
+The user supplied another CORE1 timing trace. Lock dispatched in 5 ms and was
+accepted in 148 ms; reads at 1.117 and 3.151 seconds still reported unlocked,
+then locked at 7.120 seconds. Unlock dispatched in 6 ms and was accepted in
+183 ms; reads at 1.117 and 3.113 seconds still reported locked, then unlocked
+at 7.120 seconds, with confirmation at 7.121 seconds. Both completed. Requests
+were about ten seconds apart, so this does not validate rapid opposite taps.
+The actual motor completion time was not measured. Ultra binding/persistence
+read traces do not establish a driver bottleneck.
+
+Version 2026110603 adds checks at five and eleven seconds and allows a fresh
+client-accepted background listing to complete confirmation after the write
+callback. Accepted read sequences and device revisions exclude pre-write and
+superseded data. Local regressions cover rejected/uncertain writes, jams,
+deadlines, cancellation, slow reads, and no mutation replay. Live confirmation
+timing and rapid-tap acceptance for this preview remain pending.

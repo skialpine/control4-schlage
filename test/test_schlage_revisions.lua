@@ -96,4 +96,95 @@ allowed = false
 held({ access_token = "synthetic" })
 T.eq("no listing leaks through a new cooldown", #lists, before_lists)
 T.eq("listing reports cooldown", failure.category, "rate_limited")
+T.section("Command confirmation from revision-checked discovery")
+local Commands = require("schlage.commands")
+local writes, outcome = {}, nil
+account.generation, account.destroyed = 0, false
+account.ensure = function(_, callback)
+  callback({ access_token = "synthetic" })
+end
+client.can_request = nil
+client:cancel()
+transport.write = function(_, _, _, _, callback)
+  writes[#writes + 1] = callback
+  return { cancel = function() end }
+end
+local registry = { devices = {} }
+local poller = { blocked_until = 0 }
+function poller:fresh()
+  return true
+end
+function poller:can_request()
+  return true
+end
+function poller:cooldown() end
+local commands = Commands.new({
+  account = account,
+  client = client,
+  transport = transport,
+  registry = registry,
+  poller = poller,
+  now = function()
+    return now
+  end,
+  schedule = function()
+    return { cancel = function() end }
+  end,
+  on_outcome = function(_, state)
+    outcome = state
+  end,
+})
+local function discover()
+  client:discover(function(devices)
+    if devices then
+      registry.devices = client.devices
+      commands:sync()
+    end
+  end)
+  return lists[#lists]
+end
+discover()(listing(1))
+local before_write = discover()
+commands:request("a", "LOCK")
+writes[#writes]({})
+before_write(listing(1))
+T.eq("retained matching pre-write state cannot confirm a command", outcome, "pending")
+discover()(listing(1))
+T.eq("fresh post-write discovery confirms without an individual GET", outcome, "confirmed")
+
+commands:request("a", "UNLOCK")
+discover()(listing(0))
+T.eq("discovery cannot finish while the write is still in flight", outcome, "pending")
+writes[#writes]({})
+commands:sync()
+T.eq("post-dispatch observation can confirm after acknowledgement", outcome, "confirmed")
+
+commands:request("a", "LOCK")
+writes[#writes](nil, { category = "http_error" })
+discover()(listing(1))
+T.eq("discovery of a target does not turn a rejected write into success", outcome, "rejected")
+commands:request("a", "UNLOCK")
+writes[#writes](nil, { category = "transport_error" })
+discover()(listing(0))
+T.eq("uncertain write can be reconciled without mutation replay", outcome, "confirmed")
+
+commands:request("a", "LOCK")
+writes[#writes]({})
+local superseded = discover()
+commands:request("a", "UNLOCK")
+writes[#writes]({})
+superseded(listing(0))
+T.eq("old command's listing cannot confirm a superseding command", outcome, "pending")
+discover()(listing(2))
+T.eq("fresh discovery jam ends confirmation as a fault", outcome, "fault")
+commands:request("a", "UNLOCK")
+writes[#writes]({})
+local late = discover()
+now = now + 31
+late(listing(0))
+T.eq("discovery past the deadline cannot confirm an old command", outcome, "pending")
+commands:cancel()
+discover()(listing(0))
+T.eq("cancelled command cannot be revived by discovery", outcome, "cancelled")
+T.eq("discovery reconciliation never replays a mutation", #writes, 7)
 T.finish()

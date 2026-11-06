@@ -53,7 +53,7 @@ local function fixture()
       end
     end,
   }
-  local client = { observed_at = { a = 0, b = 0 }, revisions = {} }
+  local client = { observed_at = { a = 0, b = 0 }, revisions = {}, accepted = {} }
   function client:mark_write(id)
     self.revisions[id] = (self.revisions[id] or 0) + 1
   end
@@ -369,14 +369,36 @@ T.eq("jam stops confirmation with fault", e.last(), "fault")
 e = fixture()
 e.commands:request("a", "UNLOCK")
 e.write_reply()
-for _, at in ipairs({ 1, 3, 7, 15, 29 }) do
+for _, at in ipairs({ 1, 3, 5, 7, 11, 15, 29 }) do
   e.advance(at)
   e.read_reply(nil, "unknown")
 end
 e.advance(30)
 T.eq("unknown state reaches unconfirmed by deadline", e.last(), "unconfirmed")
-T.eq("bounded number of reads", #e.reads, 5)
+T.eq("bounded number of reads", #e.reads, 7)
 T.eq("only one mutation despite missing state", #e.writes, 1)
+e = fixture()
+e.commands:request("a", "UNLOCK")
+e.write_reply()
+e.advance(1)
+e.read_reply(nil, "locked")
+e.advance(3)
+e.read_reply(nil, "locked")
+e.advance(5)
+e.read_reply(nil, "unlocked")
+T.eq("five-second check confirms without waiting for seven seconds", e.last(), "confirmed")
+T.eq("confirmation cancels remaining scheduled reads", #e.reads, 3)
+e.advance(30)
+T.eq("no reads after earlier confirmation", #e.reads, 3)
+e = fixture()
+e.commands:request("a", "UNLOCK")
+e.write_reply()
+e.advance(1)
+e.advance(6)
+T.eq("slow individual read does not overlap later offsets", #e.reads, 1)
+e.read_reply(nil, "locked")
+e.advance(7)
+T.eq("elapsed offsets are skipped rather than replayed in a burst", #e.reads, 2)
 e = fixture()
 e.commands:request("a", "UNLOCK")
 e.advance(15)

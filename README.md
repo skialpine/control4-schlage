@@ -187,8 +187,10 @@ companion subscription cancel pending work. Cancellation cannot recall a request
 already transmitted to the cloud.
 
 HTTP acceptance does not change the observed bolt state. Reported-state reads
-run approximately 1, 3, 7, 15, and 29 seconds after dispatch, with an absolute
-30-second deadline that includes network/authentication time. A matching read
+run approximately 1, 3, 5, 7, 11, 15, and 29 seconds after dispatch, with an
+absolute 30-second deadline that includes network/authentication time. A fresh
+background listing issued after dispatch can also confirm once the write
+callback completes; retained pre-write observations cannot. A matching read
 reports confirmed; a jam reports fault; missing or mismatched state can end as
 unconfirmed. A definite cloud rejection remains rejected even if a later read
 finds the target position. Timeouts, 401, and 429 responses never cause

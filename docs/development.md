@@ -196,7 +196,12 @@ when that write later times out or is rejected. Reads also carry issue sequence
 numbers within a revision. Old polls, late reads, and pre-removal responses
 cannot replace a newer observation or resurrect a removed lock. Accepted device
 observations can update presentation independently of command confirmation;
-HTTP acceptance alone does not confirm a bolt position. Readback starts before
+HTTP acceptance alone does not confirm a bolt position. Once the write callback
+has completed, background discovery can confirm a command using a client-accepted
+observation issued after its dispatch. Retained pre-write cache entries cannot
+confirm it. Individual checks run at 1, 3, 5, 7, 11, 15, and 29 seconds, with
+elapsed offsets skipped when a read runs slowly and no overlapping readbacks.
+Readback starts before
 the absolute 30-second deadline and pending transfers are cancelled at it.
 
 The unavailable private review-driver checklist is not claimed as completed.

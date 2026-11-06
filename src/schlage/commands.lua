@@ -1,7 +1,7 @@
 -- Volatile, per-lock command scheduling. Mutations are never automatically replayed.
 local Commands = {}
 Commands.__index = Commands
-local read_offsets = { 1, 3, 7, 15, 29 }
+local read_offsets = { 1, 3, 5, 7, 11, 15, 29 }
 local redact = require("schlage.redact")
 local public_trace_details = {
   [""] = true,
@@ -138,7 +138,34 @@ function Commands:sync()
   for id, slot in pairs(self.slots) do
     if not self:valid(id) then
       self:cancel_slot(slot)
+    else
+      local command = slot.active
+      -- Discovery may finish before the next individual read. Only use a
+      -- client-accepted observation issued after this write, never a retained
+      -- pre-write cache entry. Wait for the write callback before releasing
+      -- serialization, including when the observed target already matches.
+      if
+        command
+        and command.acknowledged ~= nil
+        and self.now() < command.deadline
+        and self.client.revisions[id] == command.revision
+        and (self.client.accepted[id] or 0) > command.read_sequence
+      then
+        local device = self.client.devices[id]
+        self:trace(command, "poll_readback", device.bolt)
+        self:reconcile(slot, command, device)
+      end
     end
+  end
+end
+
+function Commands:reconcile(slot, command, device)
+  if not device.supported or not device.connected then
+    self:finish(slot, command, "unconfirmed")
+  elseif device.bolt == "jammed" then
+    self:finish(slot, command, "fault")
+  elseif device.bolt == (command.locked and "locked" or "unlocked") then
+    self:finish(slot, command, command.rejected and "rejected" or "confirmed")
   end
 end
 
@@ -262,6 +289,8 @@ function Commands:pump(slot)
     command.started, command.deadline, command.read_index = self.now(), self.now() + 30, 0
     -- Advance on dispatch, including writes that later time out or are rejected.
     self.client:mark_write(command.id)
+    command.revision = self.client.revisions[command.id]
+    command.read_sequence = self.client.read_sequence or 0
     self:trace(command, "dispatched")
     self:report(slot, command, "pending")
     command.deadline_timer = self.schedule(30, function()
@@ -335,16 +364,8 @@ function Commands:readback(slot, command)
       self:trace(command, "readback", device and device.bolt or (err and err.category))
       if device then
         self.on_device(device)
-        if not device.supported or not device.connected then
-          self:finish(slot, command, "unconfirmed")
-          return
-        end
-        if device.bolt == "jammed" then
-          self:finish(slot, command, "fault")
-          return
-        end
-        if device.bolt == (command.locked and "locked" or "unlocked") then
-          self:finish(slot, command, command.rejected and "rejected" or "confirmed")
+        self:reconcile(slot, command, device)
+        if slot.active ~= command then
           return
         end
       elseif err and err.category == "unauthorized" then

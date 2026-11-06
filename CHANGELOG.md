@@ -18,6 +18,16 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026110603-beta.1 - 2026-11-06
+
+### Fixed
+
+- Check reported state at five and eleven seconds as well as the existing
+  confirmation times, reducing gaps while keeping a seven-read maximum.
+- Allow fresh background discovery to confirm a completed command without
+  waiting for the next individual read. Pre-write and superseded responses
+  cannot confirm commands, and rejected writes remain rejected.
+
 ## v2026110602-beta.1 - 2026-11-06
 
 ### Added
