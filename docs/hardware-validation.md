@@ -1065,3 +1065,14 @@ and PDF generation. No additional controller behavior is inferred from these
 checks. Task 6.2 remains deferred and unchecked; daily alert hardware follow-up
 remains unverified. OAuth work is on hold pending provider replies. The change
 is not archived as fully accepted.
+
+The stable tag v2026110608 was published from
+3f9ba0bc2330a39502e1ae4f1495424a4299d63b. Tag Build 42298446831 and Release
+42298446890 both passed. GitHub's latest release API identifies it as stable,
+not a prerelease or draft. All five public release assets match the tag CI
+artifacts, both driver downloads work without authentication, package versions
+are 2026110608, and CI scripts match the locally checked scripts. Both drivers,
+the bundle, both PDFs, commissioning guide, and release notes were delivered to
+the main OneDrive Control4 folder and verified byte for byte. Existing root
+files were backed up with a non-driver suffix. The Drivers directory was not
+written. No new controller installation or hardware test is claimed.

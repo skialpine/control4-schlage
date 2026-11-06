@@ -1,5 +1,5 @@
 {
-  "stage": "2026110607 published; CORE5 TEST push and visible Control4 name verified after Composer reload; task 6.2 outage/recovery remains pending",
+  "stage": "Initial stable 2026110608 published; tested 2026110607 runtime unchanged; outage/recovery deferred by user and daily battery follow-up unverified on hardware",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -41,20 +41,20 @@
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "63c7dbe9301e18cb360d650d109933defca3031ccc54f0f36c0efc7d02003067",
-      "bytes": 246815,
-      "version": "2026110607",
+      "sha256": "befcd7d20f26ac39d9bc5e6d4b94d1610cefd54bda7400f4008101c3c23d63aa",
+      "bytes": 247261,
+      "version": "2026110608",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "1e0cd91e753492788526cbfa39574a7b7a61005e192192b1bff44f9a6460ca5e",
-      "bytes": 108152,
-      "version": "2026110607",
+      "sha256": "f112df6b8e62c33f6844bce5c01d62570e6dae12a2eff82acd24f2a2b95cfe92",
+      "bytes": 108216,
+      "version": "2026110608",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "f8a3cbcec0ff8e6fa088e0e1889ea1349a7be65cf88e7c786160543876580243"
+    "sha256": "2c61ceb76c4df39198e0f8a67f60d2f5d7f4f9185afe1d43e4ce76cd6b108878"
   },
   "live_lock_control_validated": true,
   "core5_validated": true,
@@ -191,7 +191,7 @@
     "live_release_check_up_to_date_observed": true,
     "live_controller_update_validated_version": "2026110603"
   },
-  "artifact_role": "Published CI release files in OneDrive root and Drivers; optional older bootstrap in Bootstrap-2026110601",
+  "artifact_role": "Verified CI release files delivered to the main OneDrive Control4 folder only; Composer Drivers directory untouched",
   "release_target": {
     "repository": "skialpine/control4-schlage",
     "tag": "v2026110606-beta.1",
@@ -476,5 +476,44 @@
     "future_packages": "OneDrive/Documents/Control4 root only",
     "write_composer_drivers_directory": false,
     "reason": "User requested Composer-managed local driver database after external copying masked a stale property layout"
+  },
+  "initial_stable_release": {
+    "version": "2026110608",
+    "tag": "v2026110608",
+    "source_commit": "3f9ba0bc2330a39502e1ae4f1495424a4299d63b",
+    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026110608",
+    "build_run": 42298446831,
+    "release_run": 42298446890,
+    "ci_build_and_release": "passed",
+    "latest_stable_api_verified": true,
+    "all_five_assets_match_tag_ci": true,
+    "public_unauthenticated_driver_downloads_verified": true,
+    "bundled_scripts_match_published_2026110607": true,
+    "onedrive_root_delivery_verified": true,
+    "composer_drivers_directory_written": false,
+    "outage_recovery_acceptance": "deferred at user request; not passed",
+    "new_controller_validation_claimed": false,
+    "assets": {
+      "schlage_account.c4z": {
+        "sha256": "befcd7d20f26ac39d9bc5e6d4b94d1610cefd54bda7400f4008101c3c23d63aa",
+        "bytes": 247261
+      },
+      "schlage_lock.c4z": {
+        "sha256": "f112df6b8e62c33f6844bce5c01d62570e6dae12a2eff82acd24f2a2b95cfe92",
+        "bytes": 108216
+      },
+      "control4-schlage.zip": {
+        "sha256": "2c61ceb76c4df39198e0f8a67f60d2f5d7f4f9185afe1d43e4ce76cd6b108878",
+        "bytes": 419673
+      },
+      "Schlage.Account.Documentation.pdf": {
+        "sha256": "69faad413c870795fdcec415987ebe538abbed70aa81b7de919362a2d7bcc7b2",
+        "bytes": 39377
+      },
+      "Schlage.Lock.Documentation.pdf": {
+        "sha256": "72d85b48a8b9590ee7a96a22c8c88e55d4caf4b9107e455a9543e43c2f4fab17",
+        "bytes": 27175
+      }
+    }
   }
 }
