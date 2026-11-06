@@ -1,5 +1,5 @@
 {
-  "stage": "Published 2026110606 external native-notification fix copied to OneDrive; post-install restart/manual-turn acceptance pending",
+  "stage": "2026110606 external manual-change app updates verified by user and native manual=true logs; integrated commissioning remains pending",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -33,7 +33,7 @@
     "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
   },
   "tasks": {
-    "complete": 27,
+    "complete": 28,
     "total": 32
   },
   "artifacts": {
@@ -198,7 +198,9 @@
     "public_unauthenticated_downloads_verified": true,
     "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223642",
     "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42257223728",
-    "source_commit": "c65336a4edfb66067a8498ed8f95805e7d4dda96"
+    "source_commit": "c65336a4edfb66067a8498ed8f95805e7d4dda96",
+    "controller_companion_install_verified": true,
+    "controller_companion_install_evidence": "New manual=true driver log format and user-confirmed app updates on the requested 2026110606 retest; both packaged version fields were not separately supplied"
   },
   "previous_release_target": {
     "repository": "skialpine/control4-schlage",
@@ -310,8 +312,8 @@
     "initial_status_notification_added": true,
     "change_metadata_added": true,
     "duplicate_movement_notifications_suppressed": true,
-    "live_app_fix_verified": false,
-    "live_app_fix_evidence": "2026110605 external-change failure returned after restart; 2026110606 must be retested after installation and restart",
+    "live_app_fix_verified": true,
+    "live_app_fix_evidence": "Following the requested install/restart/manual-turn test, user confirmed correct app updates and supplied unlocked/locked LOCK_STATUS_CHANGED logs with manual=true",
     "live_last_action_description_check": "Not yet reported separately",
     "live_observed_transitions": [
       {
@@ -339,10 +341,10 @@
     "live_controller": "CORE1 OS 3.4.3",
     "live_rapid_opposite_intents_while_pending_tested": false,
     "live_command_driven_app_update_verified": true,
-    "live_external_change_app_update_verified": false,
+    "live_external_change_app_update_verified": true,
     "direct_manual_flag_notification_executed": true,
     "direct_manual_flag_notification_followed_by_recovery": true,
-    "reload_external_app_updates_verified": false,
+    "reload_external_app_updates_verified": true,
     "later_external_unlock_observations_local": [
       "09:40:48",
       "09:41:49",
@@ -355,7 +357,20 @@
       5
     ],
     "restart_failure_local": "09:54:32 locked: Composer changed and native LOCK_STATUS_CHANGED was sent, but app remained stale",
-    "baseline_app_cached_detail_correct": true
+    "baseline_app_cached_detail_correct": true,
+    "reload_verification_scope": "User-reported result following the requested restart test; no independent boot trace captured",
+    "live_manual_transitions_2026110606": [
+      {
+        "observed_controller_local": "10:04:36",
+        "bolt": "unlocked",
+        "manual": true
+      },
+      {
+        "observed_controller_local": "10:05:07",
+        "bolt": "locked",
+        "manual": true
+      }
+    ]
   },
   "external_change_candidate": {
     "version": "2026110606",
@@ -369,7 +384,7 @@
       "bundled_companion": "63 assertions passed with source imports excluded"
     },
     "controller_flag_test": "Direct MANUAL=true notification followed by recovery; restart without the notification reproduced the failure",
-    "controller_external_app_fix_verified": false,
-    "status": "published as v2026110606-beta.1 after restart reproduced the prior failure"
+    "controller_external_app_fix_verified": true,
+    "status": "published fix; live outside-change app behavior verified by user"
   }
 }

@@ -842,3 +842,28 @@ and test-controller restart, repeat physical-turn changes while keeping the
 app tile visible, before running any one-off Lua notification. Expected
 external transitions log LOCK_STATUS_CHANGED with manual=true. Live restart
 acceptance remains pending, and no remaining hardware task is marked complete.
+
+## External-change fix verified on hardware (2026-11-06)
+
+Following the requested 2026110606 install/restart/manual-turn test, the user
+confirmed correct app updates and supplied both observed transitions:
+
+| Controller-local observation | Reported bolt | Native notification |
+| --- | --- | --- |
+| 10:04:36 | unlocked | LOCK_STATUS_CHANGED; manual=true |
+| 10:05:07 | locked | LOCK_STATUS_CHANGED; manual=true |
+
+Both also fired the matching companion programming movement event. No received
+Control4 command or command-confirmed event appears in this excerpt, consistent
+with the outside-change test. These are observation times, not measurements of
+physical-turn-to-cloud latency. The new log format establishes that the
+2026110606 companion notification path is running. The live result is
+user-confirmed after the requested restart test; no independent boot trace or
+separate account/companion version-field capture was supplied.
+
+Task 5.4 is complete based on the existing state/telemetry/capability fixtures,
+Composer state verification, command-driven app checks, and now both outside
+locked/unlocked app changes. Progress is 28/32. The remaining integrated tasks
+cover broader manual/app and multi-lock scenarios, faults/outage/recovery,
+CORE5 validation, complete commissioning, and rollback. No new runtime change
+or release is needed for this result; retain v2026110606-beta.1.

@@ -38,7 +38,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 5.1 Adapt ESPHome's standard lock proxy handlers and implement explicit Schlage Wi-Fi lock/unlock requests; verify proxy dispatch, device-ID routing, request method/body, known-state toggle, and rejection of unknown/offline/unsupported targets.
 - [x] 5.2 Implement per-lock serialization, newest-unsent-intent coalescing, 30-second expiry, and lifecycle cancellation; verify rapid opposite commands, delayed authentication, disconnect/reconnect, removal, and restart never execute a stale queued unlock.
 - [x] 5.3 Implement bounded reported-state readback and per-device response revisions; verify confirmation, delayed state, jam, missing state, uncertain timeout, 401, 429, deadline expiry, and stale pre-write reads without automatic mutation replay.
-- [ ] 5.4 Publish independent online/bolt/fault/battery/outcome variables and proxy notifications, with only implemented XML capabilities; verify state-mapping scenarios, telemetry-only changes, disconnect with unchanged bolt position, and Navigator/Composer presentation. Document command outcomes and deferred features.
+- [x] 5.4 Publish independent online/bolt/fault/battery/outcome variables and proxy notifications, with only implemented XML capabilities; verify state-mapping scenarios, telemetry-only changes, disconnect with unchanged bolt position, and Navigator/Composer presentation. Document command outcomes and deferred features.
 
 ## 6. Integrated validation and installable delivery
 
