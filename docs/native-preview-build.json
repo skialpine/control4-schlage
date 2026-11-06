@@ -1,6 +1,6 @@
 {
-  "stage": "Published 2026110603 release copied to OneDrive; faster confirmation and controller update acceptance pending",
-  "created_utc": "2026-11-06T07:54:27.825128+00:00",
+  "stage": "Published 2026110604 local-time Properties preview copied to OneDrive; controller display acceptance pending",
+  "created_utc": "2026-11-06T15:44:23.787672+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
     "single_account_automatic": true,
@@ -35,20 +35,20 @@
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "6fbc5567a60b8edef7ce4b2617782aa8117061ca55a298747c5d7592573deb7d",
-      "bytes": 238524,
-      "version": "2026110603",
+      "sha256": "97dcf3804f70b0756f5a696f41f02860f2cc5c0e20b8e89516f2de76a0074bda",
+      "bytes": 238586,
+      "version": "2026110604",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "86084813698d0df17cf21c8ded237572a107ed6bfa16e8aa89b640a90da4bd34",
-      "bytes": 106513,
-      "version": "2026110603",
+      "sha256": "eae0efb23ff5cd4b0618bc18cfa4d8985e215c00b0e69432073e401c56ef4f12",
+      "bytes": 106631,
+      "version": "2026110604",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "6a43c9a5f9cc7fb96048138081b8c7a392499ab2d29b91a609c0ba47efbc4d87"
+    "sha256": "5350afebbc825a354144257044624f3308a081e1fe928f4302aeef9b419dc015"
   },
   "live_lock_control_validated": true,
   "core5_validated": false,
@@ -181,31 +181,33 @@
     "stable_programming_events_conditions": true,
     "independent_composer_icons": true,
     "external_telemetry": false,
-    "live_controller_update_validated": false,
-    "live_release_check_up_to_date_observed": true
+    "live_controller_update_validated": true,
+    "live_release_check_up_to_date_observed": true,
+    "live_controller_update_validated_version": "2026110603"
   },
   "artifact_role": "Published CI release files in OneDrive root and Drivers; optional older bootstrap in Bootstrap-2026110601",
   "release_target": {
     "repository": "skialpine/control4-schlage",
-    "tag": "v2026110603-beta.1",
-    "version": "2026110603",
+    "tag": "v2026110604-beta.1",
+    "version": "2026110604",
     "publication_verified": true,
     "controller_install_verified": false,
     "public_unauthenticated_downloads_verified": true,
-    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734826",
-    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734933",
-    "source_commit": "a410c93f016e23a7646510775c3a1aa958ac7e71"
+    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245457978",
+    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42245458145",
+    "source_commit": "2a640c8404f081437e6ff4fbfce5e2e8a044b75f"
   },
   "previous_release_target": {
     "repository": "skialpine/control4-schlage",
-    "tag": "v2026110602-beta.1",
-    "version": "2026110602",
+    "tag": "v2026110603-beta.1",
+    "version": "2026110603",
     "publication_verified": true,
-    "controller_install_verified": false,
+    "controller_install_verified": true,
     "public_unauthenticated_downloads_verified": true,
-    "template_selection_against_live_release_metadata_verified": true,
-    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42180456907",
-    "source_commit": "9e3aab56762e4cd2e46287b884b88fbe512c5264"
+    "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734826",
+    "release_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42183734933",
+    "source_commit": "a410c93f016e23a7646510775c3a1aa958ac7e71",
+    "controller_install_evidence": "User confirmed automatic overnight update to 2026110603; account continued discovering both locks"
   },
   "live_followup_command_timing": {
     "source": "user-supplied CORE1 log; physical motion time not measured",
@@ -248,5 +250,28 @@
       "confirmed_ms": 7121
     },
     "rapid_opposite_taps_tested": false
+  },
+  "release_history": [
+    {
+      "repository": "skialpine/control4-schlage",
+      "tag": "v2026110602-beta.1",
+      "version": "2026110602",
+      "publication_verified": true,
+      "controller_install_verified": false,
+      "public_unauthenticated_downloads_verified": true,
+      "template_selection_against_live_release_metadata_verified": true,
+      "ci_run_url": "https://github.com/skialpine/control4-schlage/actions/runs/42180456907",
+      "source_commit": "9e3aab56762e4cd2e46287b884b88fbe512c5264"
+    }
+  ],
+  "properties_timestamps": {
+    "format": "controller local time and time-zone abbreviation",
+    "properties": [
+      "Last Session Renewal",
+      "Last Update Check",
+      "Last Update"
+    ],
+    "non_utc_local_test_zone": "America/Denver",
+    "controller_display_verified": false
   }
 }

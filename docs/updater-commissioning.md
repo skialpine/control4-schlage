@@ -7,13 +7,13 @@ version so the release updater can be exercised immediately. It does not contain
 the later confirmation improvements. It is not a production release.
 
 The main OneDrive Control4 folder and Drivers subfolder now contain the latest
-published version **2026110603** for direct installation. The optional older
+published version **2026110604** for direct installation. The optional older
 bootstrap is in **Bootstrap-2026110601** if testing an immediate automatic
 upgrade; otherwise install the latest files directly and check for future
 updates through the account.
 
-1. From installed version 2026110602, use the update action below to test
-   upgrading to **v2026110603-beta.1**. Alternatively install both latest `.c4z`
+1. From installed version 2026110603, use the update action below to test
+   upgrading to **v2026110604-beta.1**. Alternatively install both latest `.c4z`
    files directly with Composer's Add or Update Driver. The optional older
    bootstrap remains available for a first update test.
 2. Keep the existing Schlage account sign-in, physical-lock selections, and
@@ -23,7 +23,7 @@ updates through the account.
 4. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-5. Reopen both Properties pages and verify Driver Version **2026110603**.
+5. Reopen both Properties pages and verify Driver Version **2026110604**.
    Verify credentials remain saved, the account signs in, and the selected
    lock and generic Door Lock control still match the physical bolt.
 6. Leave Prerelease selected to receive further development releases, or select
@@ -36,5 +36,6 @@ persisted across driver reloads. The fallback ordering also keeps the account
 last when a controller does not implement GetDriverFileName.
 
 Source tests, packaging checks, and mock Director TCP update ordering are
-verified locally. Actual controller download/install, retained selection and
-credentials, and behavior after that update remain live acceptance checks.
+verified locally. The user confirmed automatic installation of 2026110603
+overnight, with subsequent account discovery still returning both locks.
+Properties formatting on 2026110604 and post-update control remain live checks.

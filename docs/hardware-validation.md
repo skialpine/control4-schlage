@@ -669,3 +669,26 @@ scheduling, and real-client revision regressions also pass locally with source
 imports excluded. The user's earlier Up to date output verifies a release
 check on the controller, not download/reload installation. Live upgrade to
 2026110603, confirmation timing, and rapid opposite taps remain pending.
+
+## Automatic update and local Properties timestamps (2026-11-06)
+
+The user reported Driver Version 2026110603 and confirmed it had automatically
+updated overnight. Subsequent account logs show a successful release check
+(Up to date for that then-current release) and discovery of two locks. This
+establishes live automatic installation of 2026110603; it does not by itself
+validate every retained selection, generic Door Lock binding, or command.
+
+Version 2026110604 displays Last Session Renewal, Last Update Check, and Last
+Update using controller local time with its time-zone abbreviation. Cognito
+authentication, HTTP-date handling, epoch timestamps, and the documented
+LAST_SUCCESSFUL_UPDATE programming variable retain their existing time basis.
+The full local suite passes with TZ=America/Denver, including the existing
+renewal-display assertion and UTC authentication vectors. Display acceptance on
+the actual controller remains pending after installation.
+
+Tag Build 42245457978 and Release 42245458145 passed for
+v2026110604-beta.1 (source 2a640c8404f081437e6ff4fbfce5e2e8a044b75f).
+Unauthenticated public package downloads match tag CI artifacts. Both packages
+were copied to the OneDrive Control4 root and Drivers folders, along with the
+updated root bundle and PDFs; checksum checks passed and prior files were
+backed up. Actual local-time formatting on the controller remains to be checked.
