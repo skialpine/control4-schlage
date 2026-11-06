@@ -23,8 +23,11 @@ connecting the new one. Choose **Select a lock** to clear an assignment.
 The standard Control4 lock proxy accepts Lock, Unlock, and Toggle through
 Navigator and Composer programming. Keep the existing Home Assistant bridge and
 its bindings available during development. Basic Lock and Unlock have been
-reported working with matching state on CORE 1 / OS 3.4.3. Rapid command
-handling, faults, and recovery still require live validation.
+reported working with matching state on CORE 1 / OS 3.4.3 and CORE 5 / OS 4.3.
+Independent two-lock routing, external Schlage-app changes, and matching battery
+percentages have also passed user checks on CORE 5. Rapid command handling and
+outage/recovery still require live validation; jam handling uses documented
+local fault fixtures rather than a forced physical jam.
 
 Properties report online availability, the observed bolt state, name/model,
 battery percentage, coarse low-battery state, and last successful update.
@@ -141,6 +144,11 @@ excludes credentials, cloud lock IDs, scope hashes, names, and raw responses,
 and sends no external telemetry.
 
 ## Composer events and conditions
+
+Daily battery push alerts are configured once on the **Schlage Account** driver
+for all its locks. Its **Low Battery Push Notifications** On/Off setting needs
+no per-lock or notification-agent programming. See the account Documentation tab
+for local alert time, threshold, the automatic message, and the test action.
 
 The companion adds **Online**, **Offline**, **Locked**, **Unlocked**,
 **Jammed**, **Low Battery**, **Command Confirmed**, and **Command Failed**

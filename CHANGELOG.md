@@ -18,6 +18,18 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026110607-beta.1 - 2026-11-06
+
+### Added
+
+- Account-wide Low Battery Push Notifications On/Off, local reminder time and
+  battery threshold for all discovered locks, with once-per-local-date
+  suppression preserved across reloads.
+- Automatic Schlage-owned Control4 notification entries, visible Control4 lock
+  names in alert text, a Daily Low Battery Alert Composer event and message
+  variable, and a separately labeled test action. No manual agent programming is
+  required; controller push-delivery validation is pending.
+
 ## v2026110606-beta.1 - 2026-11-06
 
 ### Fixed

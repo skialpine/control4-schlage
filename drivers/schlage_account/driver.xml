@@ -75,6 +75,13 @@
       <property><name>Crypto Status</name><type>STRING</type><default/><readonly>true</readonly></property>
       <property><name>SRP Public Time (ms)</name><type>STRING</type><default/><readonly>true</readonly></property>
       <property><name>SRP Proof Time (ms)</name><type>STRING</type><default/><readonly>true</readonly></property>
+      <property><name>Battery Alerts</name><type>LABEL</type><default>Battery Alerts</default></property>
+      <property><name>Low Battery Push Notifications</name><type>LIST</type><default>Off</default><items><item>Off</item><item>On</item></items><tooltip>Automatically send daily Control4 push alerts for every low-battery lock on this account. No manual notification-agent programming is required.</tooltip></property>
+      <property><name>Battery Alert Time</name><type>STRING</type><default>09:00</default><tooltip>Account-wide controller local time in 24-hour HH:MM format. Alerts use the first fresh qualifying observation at or after this time.</tooltip></property>
+      <property><name>Battery Alert Threshold (%)</name><type>RANGED_INTEGER</type><default>20</default><minimum>0</minimum><maximum>100</maximum><tooltip>Alert when a supplied percentage is at or below this value, or when Schlage reports low battery. Applies to all locks on this account.</tooltip></property>
+      <property><name>Battery Alert Status</name><type>STRING</type><default>Waiting for fresh battery data</default><readonly>true</readonly></property>
+      <property><name>Battery Push Status</name><type>STRING</type><default>Not submitted</default><readonly>true</readonly></property>
+      <property><name>Last Battery Alert</name><type>STRING</type><default>Never</default><readonly>true</readonly><tooltip>Controller local time of the last daily event or automatic push attempt. Does not confirm phone delivery.</tooltip></property>
       <property><name>Updates</name><type>LABEL</type><default>Updates</default></property>
       <property><name>Automatic Updates</name><type>LIST</type><default>On</default><items><item>Off</item><item>On</item></items><tooltip>Shared across Schlage drivers. Checks published GitHub releases every six hours.</tooltip></property>
       <property><name>Update Channel</name><type>LIST</type><default>Stable</default><items><item>Stable</item><item>Prerelease</item></items><tooltip>Prerelease includes development releases. Stable excludes them.</tooltip></property>
@@ -89,6 +96,7 @@
       <action><name>Check Crypto</name><command>Check_Crypto</command></action>
       <action><name>Check for Updates</name><command>Check_for_Updates</command></action>
       <action><name>Diagnostics Snapshot</name><command>Diagnostics_Snapshot</command></action>
+      <action><name>Test Battery Alert</name><command>Test_Battery_Alert</command></action>
     </actions>
   </config>
   <capabilities/>

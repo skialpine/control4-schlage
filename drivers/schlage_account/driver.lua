@@ -14,13 +14,91 @@ local Poller = require("schlage.poller")
 local Commands = require("schlage.commands")
 local Updates = require("schlage.updates")
 local Diagnostics = require("schlage.diagnostics")
+local BatteryAlert = require("schlage.battery_alert")
+local Events = require("lib.events")
+local LockName = require("schlage.lock_name")
+local PushNotifications = require("schlage.push_notifications")
 local crypto = require("crypto")
 local bytes = require("crypto.utils").bytes
 local account, client, log_timer, bridge, poller, commands, updater, update_settings
+local battery_alert, battery_push, latest_battery_alert
 local function monotonic()
   return C4:GetTickCount() / 1000
 end
+local function configure_battery_alert()
+  if battery_push then
+    battery_push:cancel()
+    battery_push:configure(Properties["Low Battery Push Notifications"] == "On")
+  end
+  if battery_alert then
+    battery_alert:configure({
+      enabled = true,
+      push_enabled = Properties["Low Battery Push Notifications"] == "On",
+      at = Properties["Battery Alert Time"] or "09:00",
+      threshold = Properties["Battery Alert Threshold (%)"] or "20",
+    })
+  end
+end
 
+local function check_batteries_impl()
+  if
+    not battery_alert
+    or not bridge
+    or not bridge.registry.scope
+    or not account
+    or not account.session
+    or not poller
+    or not poller:fresh()
+  then
+    if battery_alert then
+      battery_alert:update({ online = false }, {})
+    end
+    return
+  end
+  local low = 0
+  for id, device in pairs(client.devices) do
+    battery_alert:update({
+      name = device.name,
+      online = device.connected,
+      supported = device.supported,
+      battery = device.battery,
+      low_battery = device.low_battery,
+      updated_at = client.observed_epoch[id],
+    }, { scope = bridge.registry.scope, id = id })
+    local observed = client.observed_at[id]
+    if
+      battery_alert.valid
+      and device.supported
+      and device.connected
+      and observed
+      and monotonic() >= observed
+      and monotonic() - observed < 120
+      and (device.low_battery == true or (device.battery ~= nil and device.battery <= battery_alert.threshold))
+    then
+      low = low + 1
+    end
+  end
+  if battery_alert.valid then
+    C4:UpdateProperty(
+      "Battery Alert Status",
+      string.format(
+        "%d low-battery lock%s; daily after %s local; automatic push %s",
+        low,
+        low == 1 and "" or "s",
+        Properties["Battery Alert Time"] or "09:00",
+        Properties["Low Battery Push Notifications"] == "On" and "On" or "Off"
+      )
+    )
+  end
+end
+
+local function check_batteries()
+  -- Notification problems must not interrupt cloud polling or lock commands.
+  local ok = pcall(check_batteries_impl)
+  if not ok then
+    C4:UpdateProperty("Battery Alert Status", "Battery alert check failed")
+  end
+end
 local function schedule(seconds, callback)
   local timer = C4:SetTimer(math.max(1, math.floor(seconds * 1000)), callback)
   return {
@@ -38,6 +116,9 @@ local function status(category)
 end
 
 local function empty_discovery()
+  if battery_push then
+    battery_push:cancel()
+  end
   if commands then
     commands:cancel()
   end
@@ -53,6 +134,10 @@ local function empty_discovery()
   C4:UpdateProperty("Discovered Locks", "Not retrieved")
   C4:UpdateProperty("Last Session Renewal", "Not yet observed")
   C4:UpdateProperty("Polling Status", "Waiting for sign in")
+  if battery_alert then
+    battery_alert:update({ online = false }, {})
+  end
+  C4:SetVariable("BATTERY_ALERT_MESSAGE", "")
 end
 
 local function discovery_text(value, fallback)
@@ -121,6 +206,15 @@ local function configure_logging()
 end
 
 function OnDriverInit()
+  if battery_push then
+    battery_push:stop()
+  end
+  battery_push = nil
+  if battery_alert then
+    battery_alert:stop()
+  end
+  battery_alert = nil
+  latest_battery_alert = 0
   if updater then
     updater:stop()
   end
@@ -156,11 +250,97 @@ function OnDriverInit()
   C4:UpdateProperty("Driver Status", "initializing")
   C4:UpdateProperty("Credentials", "Loading")
   C4:UpdateProperty("Last Session Renewal", "Not yet observed")
+  C4:AddVariable("BATTERY_ALERT_MESSAGE", "", "STRING", true, false)
+  C4:UpdateProperty("Last Battery Alert", "Never")
   bindings:restoreBindings()
 end
 
 function OnDriverLateInit()
   configure_logging()
+  if battery_push then
+    battery_push:stop()
+  end
+  battery_push = PushNotifications.new({
+    owner = C4:GetDeviceID(),
+    now = monotonic,
+    schedule = schedule,
+    token = function(identity)
+      return bytes.to_hex(crypto.sha256.sha256((identity.scope or "") .. "\0" .. (identity.id or ""))):sub(1, 24)
+    end,
+    valid = function(identity, test)
+      if test then
+        return true
+      end
+      if
+        not battery_alert
+        or not battery_alert.valid
+        or not account
+        or not account.session
+        or not bridge
+        or identity.scope ~= bridge.registry.scope
+        or not poller
+        or not poller:fresh()
+      then
+        return false
+      end
+      local device = client.devices[identity.id]
+      local observed = client.observed_at[identity.id]
+      local threshold = tonumber(Properties["Battery Alert Threshold (%)"]) or 20
+      return device
+        and device.supported
+        and device.connected
+        and observed
+        and monotonic() - observed < 120
+        and (device.low_battery == true or (device.battery ~= nil and device.battery <= threshold))
+    end,
+    status = function(value)
+      C4:UpdateProperty("Battery Push Status", value)
+    end,
+  })
+  if battery_alert then
+    battery_alert:stop()
+  end
+  for _, event in pairs(Events:getEvents().schlage_account or {}) do
+    C4:AddEvent(event.eventId, event.name, event.description)
+  end
+  Events:getOrAddEvent(
+    "schlage_account",
+    "daily_low_battery",
+    "Daily Low Battery Alert",
+    "NAME Daily Low Battery Alert"
+  )
+  battery_alert = BatteryAlert.new({
+    persist = persist,
+    push_ready = function()
+      return battery_push:ready()
+    end,
+    push = function(identity, message, test)
+      return battery_push:submit(identity, message, test)
+    end,
+    fire = function()
+      Events:fire("schlage_account", "daily_low_battery")
+    end,
+    message = function(message)
+      C4:SetVariable("BATTERY_ALERT_MESSAGE", message)
+    end,
+    status = function(value)
+      C4:UpdateProperty("Battery Alert Status", value)
+    end,
+    last = function(value, epoch)
+      if epoch and epoch >= (latest_battery_alert or 0) then
+        latest_battery_alert = epoch
+        C4:UpdateProperty("Last Battery Alert", value)
+      end
+    end,
+    name = function(identity, fallback)
+      if not bridge or identity.scope ~= bridge.registry.scope then
+        return fallback
+      end
+      local binding = bridge.registry:binding(identity.id)
+      return LockName.resolve(C4:GetDeviceID(), binding and binding.bindingId, fallback)
+    end,
+  })
+  configure_battery_alert()
   if updater then
     updater:stop()
   end
@@ -171,6 +351,9 @@ function OnDriverLateInit()
       return update_settings:get(name)
     end,
     busy = function()
+      if battery_push and (battery_push.active or #battery_push.jobs > 0) then
+        return true
+      end
       for _, slot in pairs(commands and commands.slots or {}) do
         if slot.active or slot.queue or slot.preparing then
           return true
@@ -257,6 +440,7 @@ function OnDriverLateInit()
       if devices and account.session then
         local scope = bytes.to_hex(crypto.sha256.sha256(Config.pool_id .. "\0" .. account.session.username))
         bridge:ingest(scope, devices)
+        check_batteries()
         if commands then
           commands:sync()
         end
@@ -268,6 +452,12 @@ function OnDriverLateInit()
         commands:sync()
       end
       C4:UpdateProperty("Polling Status", "Stale: locks offline")
+      if battery_alert then
+        battery_alert:update({ online = false }, {})
+      end
+      if battery_push then
+        battery_push:cancel()
+      end
     end,
   })
   client.can_request = function()
@@ -309,6 +499,15 @@ end
 
 function OnPropertyChanged(property)
   Transport.quiet()
+  if
+    property == "Low Battery Push Notifications"
+    or property == "Battery Alert Time"
+    or property == "Battery Alert Threshold (%)"
+  then
+    configure_battery_alert()
+    check_batteries()
+    return
+  end
   if update_settings and update_settings:changed(property) then
     if updater then
       updater:configure()
@@ -355,6 +554,10 @@ function ExecuteCommand(command, params)
   end
   if command == "Check_for_Updates" and updater then
     updater:check(true)
+    return
+  end
+  if command == "Test_Battery_Alert" and battery_alert then
+    battery_alert:check(true)
     return
   end
   if command == "Diagnostics_Snapshot" then
@@ -429,6 +632,14 @@ function ExecuteCommand(command, params)
 end
 
 function OnDriverDestroyed()
+  if battery_push then
+    battery_push:stop()
+  end
+  battery_push = nil
+  if battery_alert then
+    battery_alert:stop()
+  end
+  battery_alert = nil
   if updater then
     updater:stop()
   end

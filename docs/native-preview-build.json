@@ -1,5 +1,5 @@
 {
-  "stage": "Hardware behavior and delivered packages accepted on CORE1/CORE5 within recorded scopes; outage/recovery task 6.2 remains",
+  "stage": "Daily battery alerts implemented and locally verified for 2026110607; controller push delivery and outage/recovery validation remain pending",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -8,8 +8,8 @@
     "bulk_room_placement": false
   },
   "tests": {
-    "lua_suites": 51,
-    "lua_assertions": 2161,
+    "lua_suites": 54,
+    "lua_assertions": 2312,
     "python_tests": 51,
     "format_and_project_checks": "passed",
     "packaged_account_lifecycle": "passed without source imports",
@@ -30,11 +30,14 @@
     "bounded_confirmation_cadence": "passed: seven maximum reads, no overlap, skipped elapsed offsets",
     "native_proxy_initialization_and_transition_metadata": "passed: initialization, later state changes, duplicates, telemetry, offline, fault/unknown, rebind, reload and reassignment",
     "packaged_native_proxy_adapter_without_source_imports": "passed: 63 assertions",
-    "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown"
+    "external_native_notification_flags": "passed: pending targets, outside changes, sticky confirmed/expired outcomes, initialization and fault/unknown",
+    "daily_battery_alerts": "passed: local dates, threshold/flag, missing/offline/stale data, reload, identity changes, no backlog, independent event/push suppression",
+    "native_notification_entries": "passed: separate owned entries, readback before send, existing notifications unchanged, cancel/Off/uncertain errors",
+    "control4_alert_names": "passed: generic Door Lock, native lock proxy, companion, then Schlage fallback"
   },
   "tasks": {
-    "complete": 31,
-    "total": 32
+    "complete": 33,
+    "total": 35
   },
   "artifacts": {
     "schlage_account.c4z": {
@@ -436,5 +439,27 @@
     "physical_jam": "not forced or claimed",
     "documented_fault_fixture": "Accepted task alternative: lockState 2/4 normalize to jammed, command readback ends fault, native proxy reports fault and JAMMED=1; existing passing device/command/companion regression suites",
     "complete": true
+  },
+  "daily_battery_alerts": {
+    "version": "2026110607",
+    "settings_scope": "Schlage Account; all supported discovered locks, including those without companion instances",
+    "automatic_push_default": "Off",
+    "local_time_default": "09:00",
+    "threshold_default_percent": 20,
+    "composer_event": "Daily Low Battery Alert",
+    "message_variable": "BATTERY_ALERT_MESSAGE",
+    "native_agent_read_contract_verified_on_core5": true,
+    "native_send_contract_verified_in_saved_project": true,
+    "native_template_configuration_reference": "https://github.com/The1TrueJoe/openComposer/blob/40ee90c20cb24ec57ce46a5389cba6daa13dbd56/crates/c4/src/agent_ops.rs",
+    "automatic_template_creation_live_validated": false,
+    "phone_delivery_live_validated": false,
+    "bundled_tests_without_source_imports": {
+      "account_assertions": 110,
+      "daily_alert_assertions": 106,
+      "push_assertions": 29,
+      "name_resolution_assertions": 6,
+      "companion_assertions": 63
+    },
+    "delivery_status": "Local build verified; CI publication and OneDrive delivery in progress"
   }
 }

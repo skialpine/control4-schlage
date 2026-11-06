@@ -9,8 +9,10 @@ has been reported working, while rapid changes and recovery remain under test.
 Native authentication, discovery, renewal, and restart recovery have been tested
 on CORE 1 / OS 3.4.3.741643-res, with two Encode Plus BE499WB locks. Captured
 firmware is main 5.0.1300214 and Wi-Fi 3.22.0.1. Polling, companion installation
-and command behavior still require full live validation. CORE 5 / OS 4.3 is
-untested. The account package requires OS 3.4.1 or later.
+and command recovery still require full live validation. CORE 5 / OS 4.3 has
+also passed user-reported lock/unlock, independent two-lock routing, external
+Schlage-app state changes, and battery comparisons. Outage/recovery validation
+is pending. The account package requires OS 3.4.1 or later.
 
 ## Installation and sign-in
 
@@ -32,6 +34,56 @@ untested. The account package requires OS 3.4.1 or later.
 1. Record **SRP Public Time (ms)** and **SRP Proof Time (ms)**. Either phase
    exceeding 250 ms blocks authentication on that controller. Confirm another
    driver's timer remains responsive during sign-in.
+
+## Daily low-battery alerts
+
+On **Schlage Account → Properties**, set **Low Battery Push Notifications** to
+**On** to enable automatic Control4 app push alerts for all supported locks on
+that account. **Off** stops automatic push for all of them and cancels pending
+notification work. It defaults Off. No per-lock setup or additional programming
+in the Push Notification agent is needed. The existing Control4 Push
+Notification agent and working app notification service are required.
+
+- **Battery Alert Time** defaults to **09:00**, in the controller's local time.
+  Enter a 24-hour time such as `18:30`.
+- **Battery Alert Threshold (%)** defaults to **20**. A lock qualifies when its
+  supplied percentage is at or below the threshold, or Schlage reports its
+  low-battery flag. Unknown battery values do not imply low battery.
+- Each qualifying lock gets at most one automatic push attempt per local date,
+  on the first fresh observation at or after the selected time. Normal account
+  polling drives the check; there are no extra Schlage reads. Offline,
+  unsupported, and stale locks do not generate reminders. Missed days are not
+  replayed. Reboots, repeated polls, and Off/On changes do not reset the daily
+  allowance. Enabling push after the daily Composer event can still send once
+  that day.
+
+The message includes the visible **Control4 generic Door Lock name** and
+supplied battery percentage, for example
+`Low battery: Front Patio Door (15%). Replace the lock batteries.` If that tile
+is unavailable, the name falls back to the native lock proxy, companion, then
+Schlage account name. Alerts also cover discovered locks that have no companion.
+A low battery flag can qualify without a percentage; no percentage is invented.
+
+The driver automatically maintains its own separate per-lock notification
+entries. It does not reuse or change existing messages for other drivers.
+**Battery Push Status** shows queued, submitted, cancelled, or failed work;
+submission to Control4 does not confirm phone delivery. Failed or uncertain
+daily submissions are not blindly retried that day. **Last Battery Alert** uses
+controller local time. Turning the option Off leaves the driver's notification
+entries available for reuse.
+
+For a delivery check, enable the option and run **Actions → Test Battery
+Alert**. The test is explicitly labeled `TEST`, works without making the battery
+low, does not move a lock, and does not consume the daily allowance. With
+automatic push Off, it only exercises the Composer event. Native template
+creation and phone delivery still need confirmation on the controller for this
+build.
+
+For custom automation, use the account's **Daily Low Battery Alert** event and
+**BATTERY_ALERT_MESSAGE** variable. This event fires once per qualifying lock
+per local date even when automatic push is Off; the message is set before event
+programming runs. If you program an additional push on this event while the
+automatic option is On, both paths can send a notification.
 
 ## Renewal, restart, and errors
 

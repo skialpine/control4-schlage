@@ -6,6 +6,46 @@ Connect a Control4 installation directly to a Schlage Home account and share aut
 
 ## ADDED Requirements
 
+### Requirement: Account-wide daily low-battery alerts
+The account SHALL offer Low Battery Push Notifications On/Off (default Off) for all supported discovered locks, without manual agent setup. Account-wide settings SHALL include a local HH:MM time (default 09:00) and threshold (default 20%). Fresh online data qualifies when Schlage reports low battery or a supplied percentage is at/below the threshold. Missing data alone SHALL NOT qualify.
+
+#### Scenario: Battery remains low
+- **WHEN** qualifying observations arrive at or after the reminder time on successive local dates
+- **THEN** the event and enabled automatic push attempt each occur at most once per physical lock per local date, including across reloads and repeated polls.
+
+#### Scenario: Battery recovers or observation is unavailable
+- **WHEN** telemetry no longer qualifies, the lock is offline or unsupported, or its observation is older than 120 seconds
+- **THEN** no reminder is emitted from that observation, and no missed-day backlog is replayed after recovery.
+
+#### Scenario: Account or settings change
+- **WHEN** credentials, automatic push, reminder time, or threshold change
+- **THEN** encrypted per-identity daily markers prevent duplicate reminders for the same physical account/lock identity and queued pushes from obsolete settings are cancelled.
+
+#### Scenario: Alert names the visible lock
+- **WHEN** a qualifying cloud lock is connected to a Schlage companion and a generic Control4 Door Lock
+- **THEN** the notification body uses that generic Door Lock's current Control4 name and includes supplied battery percentage
+- **AND** name resolution falls back to the native lock proxy, companion, then Schlage name when the corresponding project objects are unavailable, without selecting an unrelated Auto-Lock button.
+
+#### Scenario: Notification test
+- **WHEN** the installer invokes Test Battery Alert
+- **THEN** a clearly labeled test event and, if automatic push is On, a test push are attempted without changing battery/bolt telemetry or consuming the daily reminder allowance.
+
+#### Scenario: Native notification entry management
+- **WHEN** automatic push requires a message
+- **THEN** the driver creates or updates only its own per-lock notification entry, verifies that entry's subject/message, and uses SEND_NOTIFICATION with the matching TEMPLATE_ID
+- **AND** existing notifications for other devices remain unchanged and uncertain configuration or submission is not blindly replayed.
+
+#### Scenario: Push unavailable or disabled
+- **WHEN** automatic push is Off or the native agent is unavailable
+- **THEN** no automatic notification is submitted, the Composer event remains usable, and statuses distinguish queued/submitted/cancelled/failed attempts from phone delivery.
+
+### Requirement: Daily battery Composer programming
+The account SHALL expose a stable Daily Low Battery Alert Composer event and BATTERY_ALERT_MESSAGE variable independently of automatic push. It SHALL set the message before firing the event once per qualifying physical lock per local date.
+
+#### Scenario: Installer adds custom notification programming
+- **WHEN** a qualifying daily alert runs with automatic push Off
+- **THEN** event programming sees the current lock's message and can invoke a notification or other custom action without enabling built-in automatic push.
+
 ### Requirement: GitHub release updates
 The drivers SHALL reuse the template's GitHub Releases updater for installed packages, with shared automatic-update/channel settings, a manual check, readable status, and preserved credentials/selections. One account SHALL coordinate checks, waiting for its command queues to be idle. Release versions SHALL increase and match their packaged drivers.
 

@@ -965,3 +965,45 @@ Encode models or firmware.
 Task 6.1 is complete; progress is 31/32. Task 6.2 remains for live outage,
 stale/offline rejection, recovery and no-delayed-unlock checks, with restart
 and local rejection/expiry fixtures already available as supporting evidence.
+
+
+## 2026-11-06: account-wide daily battery notifications (2026110607)
+
+The user requested automatic daily low-battery push notifications, clarified
+that the On/Off option must live on Schlage Account and apply to all its locks,
+and requested the visible Control4 lock name in the message. A separate daily
+Composer event remains available for custom automation.
+
+The CORE5's native Push Notification agent returned its template list through
+`C4:SendUIRequest(agentId, "GET_TEMPLATE_LIST", {})`. A user-saved project
+containing a temporary notification action confirmed `SEND_NOTIFICATION` with
+`TEMPLATE_ID`. That existing notification was a command-format reference only;
+the implementation does not use or modify it. The user can remove that temporary
+programming action. No private project export or existing notification text is
+committed.
+
+Native template add/modify fields were reviewed against openComposer source at
+40ee90c20cb24ec57ce46a5389cba6daa13dbd56 (`crates/c4/src/agent_ops.rs` and
+`agents.rs`). The driver creates its own separate entry for each account/lock,
+reads the resulting message back before submitting it, and cancels queued work
+on Off, lifecycle changes, stale data or battery recovery. Local tests verify
+that unrelated notification entries remain unchanged and that two lock messages
+cannot overwrite each other. Native template creation/modification and phone
+delivery have **not yet been exercised with this driver on a controller**.
+
+The option defaults Off. Account-wide defaults are 09:00 controller local time
+and 20 percent; Schlage's independent low flag also qualifies. Only fresh,
+online supported observations qualify. Daily event and automatic push markers
+are stored encrypted by physical identity, separately, before dispatch. Reloads,
+repeated polls, normal/low flapping and Off/On cannot repeat an attempt on the
+same local date; missed days are not replayed. Notifications use a bound generic
+Door Lock's Control4 name, with native proxy, companion and Schlage-name fallbacks.
+A labeled Test Battery Alert action checks event/push wiring without changing
+lock or battery telemetry or consuming the daily allowance.
+
+All 54 Lua suites (2,312 assertions), 51 Python tests, formatting/project checks,
+and strict OpenSpec validation passed. Package tests with source imports excluded
+passed for the account (110 assertions), daily alert policy (106), native push
+adapter (29), visible name resolver (6), and companion regression (63). Both
+versioned packages and both documentation PDFs built successfully. Live push
+acceptance and the pre-existing task 6.2 outage/recovery check remain pending.

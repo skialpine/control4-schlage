@@ -1,6 +1,13 @@
 require("c4_shim")
 local T = require("testlib")
 local properties, requests, lines = {}, {}, {}
+local battery_events = {}
+function C4:FireEventByID(id)
+  local event = require("lib.events"):getEvents().schlage_account.daily_low_battery
+  if id == event.eventId then
+    battery_events[#battery_events + 1] = Variables.BATTERY_ALERT_MESSAGE
+  end
+end
 Properties =
   { ["Log Level"] = "6 - Ultra", ["Log Mode"] = "Print and Log", ["Schlage Email"] = "", ["Schlage Password"] = "" }
 function C4:UpdateProperty(name, value)
@@ -146,6 +153,60 @@ local ok, err, output = T.capture(function()
     end
     T.excludes("listing omits cloud identifiers", listing, "synthetic-")
   end
+  T.eq("normal or missing battery data creates no daily events", #battery_events, 0)
+  enter("Battery Alert Time", "00:00")
+  local function battery_snapshot()
+    ExecuteCommand("Discover_Locks")
+    requests[#requests].callback(
+      nil,
+      200,
+      {},
+      JSON:newArray({
+        {
+          deviceId = "low-a",
+          name = "Patio",
+          devicetypeId = "be499wifi",
+          connected = true,
+          attributes = { lockState = 1, batteryLevel = 20, batteryLowState = 0 },
+        },
+        {
+          deviceId = "low-b",
+          name = "Garage",
+          devicetypeId = "be499wifi",
+          connected = true,
+          attributes = { lockState = 0, batteryLevel = 80, batteryLowState = 1 },
+        },
+        {
+          deviceId = "offline",
+          name = "Offline",
+          devicetypeId = "be499wifi",
+          connected = false,
+          attributes = { batteryLevel = 1, batteryLowState = 1 },
+        },
+        {
+          deviceId = "unsupported",
+          name = "Unsupported",
+          devicetypeId = "future-lock",
+          connected = true,
+          attributes = { batteryLevel = 1, batteryLowState = 1 },
+        },
+      })
+    )
+  end
+  battery_snapshot()
+  T.eq("account emits events for all qualifying locks without companions", #battery_events, 2)
+  local emitted = table.concat(battery_events, " ")
+  T.contains("daily message names first lock", emitted, "Patio (20%)")
+  T.contains("daily message names second lock", emitted, "Garage (80%)")
+  T.excludes("no daily message for offline lock", emitted, "Offline")
+  T.excludes("no daily message for unsupported lock", emitted, "Unsupported")
+  battery_snapshot()
+  T.eq("repeat discovery cannot duplicate daily account events", #battery_events, 2)
+  ExecuteCommand("Test_Battery_Alert")
+  T.eq("account test action emits a separate event", #battery_events, 3)
+  T.contains("account test message explicitly labeled", battery_events[3], "TEST:")
+  battery_snapshot()
+  T.eq("test does not reset the daily allowance", #battery_events, 3)
   Properties["Log Mode"] = "Print and Log"
   OnPropertyChanged("Log Mode")
   local redact = require("schlage.redact")

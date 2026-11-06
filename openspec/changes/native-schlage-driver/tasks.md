@@ -62,6 +62,12 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 8.2 Integrate stable programming events and conditions for availability, reported bolt/fault, battery, and command outcomes; verify initial synchronization, repeats, reload, and reassignment do not fabricate movement events.
 - [x] 8.3 Add independent Composer icons and document the option-by-option template assessment, commissioning controls, and remaining live acceptance checks; verify packaged assets and documentation.
 
+## 9. Daily low-battery alerts (requested during commissioning)
+
+- [x] 9.1 Add account-wide settings, fresh-state evaluation for all discovered locks, encrypted per-identity daily suppression, message/status presentation, and a stable Composer event; verify local-date rollover, reload, identity changes, repeated polls, missing/offline data, recovery, invalid settings, and a separately labeled test action.
+- [x] 9.2 Integrate account-wide automatic Control4 push On/Off with verified agent commands and no manual agent configuration; verify missing agent, safe submission, independent daily suppression, and clear status without claiming phone delivery.
+- [ ] 9.3 Document setup for both notification paths, run regression/format/build/package checks, and deliver updated packages to OneDrive; record controller push-delivery validation separately from local tests.
+
 ## Workflow follow-up
 
 - Review the completed implementation and live validation record before production cutover or publication.

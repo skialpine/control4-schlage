@@ -12,6 +12,7 @@ The existing Home Assistant bridge adds a dependency between Control4 and Schlag
 - Validate Cognito calculations against pycognito and the Hubitat Schlage implementation, using pyschlage for endpoint and device-state behavior.
 - Integrate the template's GitHub Releases updater with shared automatic-update/channel settings, coordinated account/companion installation, manual checks, and monotonically increasing release revisions.
 - Add local allowlisted diagnostics, stable Composer programming events/conditions, and independent driver icons using the applicable template infrastructure, without enabling external telemetry or commercial licensing.
+- Add an account-wide automatic daily low-battery push On/Off option covering all discovered locks, with a controller-local reminder time, percentage threshold, persistent duplicate suppression, and a Composer event for optional custom actions. Automatic push requires no manual notification-agent programming.
 - Prove authentication on a real controller before completing lock functionality. Deliver an installable OSS driver bundle and commissioning documentation after live validation.
 - Initial scope is the Encode Wi-Fi family already reachable through the Schlage Home cloud. Exact controller/OS and lock models must be recorded during commissioning; untested models are not claimed as supported.
 - Defer PIN management, schedules, activity-history UI, MQTT push, Bluetooth, HomeKit, Z-Wave, and offline control to separate changes. Internet and the Schlage cloud remain runtime dependencies.
