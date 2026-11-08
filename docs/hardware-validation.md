@@ -1172,3 +1172,13 @@ scripts match the tested local bundles. Both drivers, the bundle, PDFs, guide,
 and notes were delivered to the main OneDrive Control4 folder with byte-for-byte
 verification. The Drivers directory was untouched. Follow-up bookkeeping also
 requires independent review before its commit. No new hardware result is claimed.
+
+### Post-update Properties reported correct (2026-11-08)
+
+After installing the property lifecycle prerelease, the user reported that
+Properties were still correct after the update. This supplies live feedback
+for the post-update Properties check on 2026110802. It is one reported update,
+not proof that every Composer cache issue is resolved or a measured refresh
+latency result. Lock/Unlock and app-state feedback on this version have not yet
+been separately confirmed. The release remains a prerelease; Stable/Latest stays
+v2026110608, and deferred hardware checks remain unchanged.

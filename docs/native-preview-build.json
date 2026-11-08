@@ -1,5 +1,5 @@
 {
-  "stage": "Property lifecycle prerelease 2026110802-beta.1 published after independent source review; local and CI checks passed; live Composer refresh acceptance pending; Stable/Latest remains 2026110608",
+  "stage": "Property lifecycle prerelease 2026110802-beta.1: user reports Properties stayed correct after update; Lock/Unlock and app-state acceptance pending; Stable/Latest remains 2026110608",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -599,8 +599,8 @@
     "ci_scripts_match_locally_tested_bundles": true,
     "onedrive_root_delivery_verified": true,
     "composer_drivers_directory_written": false,
-    "new_controller_validation_claimed": false,
-    "composer_post_update_refresh_acceptance": "pending; not established by local tests",
+    "new_controller_validation_claimed": true,
+    "composer_post_update_refresh_acceptance": "user reports Properties stayed correct after this update; one observation, no general guarantee",
     "outage_recovery_acceptance": "deferred at user request; not passed",
     "assets": {
       "schlage_account.c4z": {
@@ -623,6 +623,8 @@
         "sha256": "0aafb8ddb710be3e5784c45044b0ed3b333b210b38b5ac59dbc070364e82fa7e",
         "bytes": 27176
       }
-    }
+    },
+    "composer_post_update_properties_reported_correct": true,
+    "lock_operation_and_app_state_acceptance": "pending on this version"
   }
 }
