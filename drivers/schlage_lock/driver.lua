@@ -139,7 +139,6 @@ function OnDriverInit()
   end
   log:setLogName("Schlage Lock")
   companion = nil
-  C4:UpdateProperty("Driver Status", "Initializing")
   for _, variable in ipairs({
     { "ONLINE", "0", "BOOL" },
     { "BOLT_STATE", "unknown", "STRING" },
@@ -156,6 +155,7 @@ function OnDriverInit()
 end
 
 function OnDriverLateInit()
+  C4:UpdateProperty("Driver Status", "Initializing")
   configure_logging()
   programming = Programming.new()
   programming:start()

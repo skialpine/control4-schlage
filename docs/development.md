@@ -15,6 +15,19 @@ the template logger. Driver lifecycle tests cover startup, all output modes,
 level changes, and sentinel secret filtering. Run those against bundled scripts
 as well as source when updating the template.
 
+DriverWorks prohibits UpdateProperty during OnDriverInit. Both drivers publish
+startup properties in OnDriverLateInit; variable registration and binding
+restoration stay in Init. The account disables presentation before re-init
+cleanup so cancellation and account invalidation cannot publish properties or
+variable values through callbacks during Init. Cancellation still runs. LateInit
+publishes defaults before restoring authentication, so fresh synchronous results
+cannot be overwritten by startup presentation. Driver tests count early API
+attempts rather than relying on exceptions that a transport pcall might swallow.
+
+All changes require independent review before every commit, including follow-up
+documentation or release bookkeeping. Review the final complete diff after
+formatting/build generation and re-review any changes made afterward.
+
 `scaffold-inventory.json` records hashes before and after integration: all 16
 OpenSpec and generated skill files were preserved byte-for-byte. Subsequent task
 tracking edits are intentional. Shared `src/lib`, `vendor`, and shared tests

@@ -89,6 +89,16 @@ Use a committed VERSION in YYYYMMDDRR format: a UTC release date and two-digit i
 
 ### 8. Useful template integrations
 
+Property publication starts in OnDriverLateInit, as required by DriverWorks.
+OnDriverInit retains variable registration and binding restoration and cancels
+old asynchronous work. Account cleanup must not publish property/variable state
+while reinitialization is in progress; LateInit publishes startup presentation
+and the restored session/discovery lifecycle supplies current observations.
+This corrects API timing, but does not claim to fix Composer's stale project
+view. File > Refresh is a documented manual alternative to investigate before
+restarting Composer. Every commit requires independent review of the complete
+diff before it is made.
+
 Use template event and conditional helpers for stable Composer programming IDs, emitting observed transitions rather than initial-sync or repeated snapshots. Keep availability, reported bolt, low battery, and command outcome independent. Add local diagnostics through an allowlist plus the template redactor; never include lock IDs, account scopes, credentials, raw responses, or user-defined names. Give account and companion Composer entries independent project icons, leaving generic Door Lock Navigator icons native. Retain the existing disabled external cloud diagnostics and OSS-only licensing policy. Review remaining template options in docs/template-feature-review.md.
 
 ### 9. Daily low-battery reminders

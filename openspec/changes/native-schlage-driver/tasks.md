@@ -77,6 +77,12 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 10.2 Adapt Schlage logging configuration to keep all raw dumps disabled after the new logger applies Ultra/Print settings; verify account and companion initialization, setting changes, secret filtering, and crypto/connection regressions without editing template-managed libraries.
 - [x] 10.3 Run source and packaged-script regressions, format/static/spec checks, and package/PDF/version verification; publish a new versioned update and verify public assets and OneDrive root-only delivery. Keep deferred live acceptance unchanged.
 
+## 11. Property publication lifecycle (requested 2026-11-08)
+
+- [x] 11.1 Move startup property publication to OnDriverLateInit in both drivers, retaining variable registration and binding restoration in OnDriverInit; suppress presentation from account cleanup during reinitialization while still cancelling old work.
+- [x] 11.2 Verify fresh and live reinitialization with counters for early property/list updates, cancellation of old responses, saved-session recovery, discovery/polling presentation, and companion proxy/programming behavior; run source and bundled-script regressions and package checks.
+- [ ] 11.3 Obtain independent review of the complete diff before every commit, resolve findings, and publish a verified prerelease with root-only OneDrive delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
+
 ## Workflow follow-up
 
 - Review the completed implementation and live validation record before production cutover or publication.

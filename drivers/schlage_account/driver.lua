@@ -22,6 +22,7 @@ local crypto = require("crypto")
 local bytes = require("crypto.utils").bytes
 local account, client, log_timer, bridge, poller, commands, updater, update_settings
 local battery_alert, battery_push, latest_battery_alert
+local presentation_ready = false
 local function monotonic()
   return C4:GetTickCount() / 1000
 end
@@ -131,6 +132,11 @@ local function empty_discovery()
   if client then
     client:cancel()
   end
+  -- Reinitialization still cancels old work above, but Director does not allow
+  -- property or variable publication until OnDriverLateInit.
+  if not presentation_ready then
+    return
+  end
   C4:UpdateProperty("Discovered Locks", "Not retrieved")
   C4:UpdateProperty("Last Session Renewal", "Not yet observed")
   C4:UpdateProperty("Polling Status", "Waiting for sign in")
@@ -208,6 +214,7 @@ local function configure_logging()
 end
 
 function OnDriverInit()
+  presentation_ready = false
   if battery_push then
     battery_push:stop()
   end
@@ -249,15 +256,19 @@ function OnDriverInit()
   poller, bridge = nil, nil
   Transport.quiet()
   log:setLogName("Schlage Account")
-  C4:UpdateProperty("Driver Status", "initializing")
-  C4:UpdateProperty("Credentials", "Loading")
-  C4:UpdateProperty("Last Session Renewal", "Not yet observed")
   C4:AddVariable("BATTERY_ALERT_MESSAGE", "", "STRING", true, false)
-  C4:UpdateProperty("Last Battery Alert", "Never")
   bindings:restoreBindings()
 end
 
 function OnDriverLateInit()
+  presentation_ready = true
+  C4:UpdateProperty("Driver Status", "initializing")
+  C4:UpdateProperty("Credentials", "Loading")
+  C4:UpdateProperty("Last Session Renewal", "Not yet observed")
+  C4:UpdateProperty("Last Battery Alert", "Never")
+  C4:UpdateProperty("Discovered Locks", "Not retrieved")
+  C4:UpdateProperty("Polling Status", "Waiting for sign in")
+  C4:SetVariable("BATTERY_ALERT_MESSAGE", "")
   configure_logging()
   if battery_push then
     battery_push:stop()

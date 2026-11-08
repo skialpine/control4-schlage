@@ -2,6 +2,26 @@ require("c4_shim")
 local T = require("testlib")
 local properties, requests, lines = {}, {}, {}
 local battery_events = {}
+local in_init, early_updates, registrations = false, {}, {}
+local function record_update(api, name)
+  if in_init then
+    early_updates[#early_updates + 1] = api .. ":" .. name
+  end
+end
+local native_add_variable, native_set_variable = C4.AddVariable, C4.SetVariable
+local native_property_list = C4.UpdatePropertyList
+function C4:AddVariable(name, ...)
+  registrations[#registrations + 1] = { name = name, in_init = in_init }
+  return native_add_variable(self, name, ...)
+end
+function C4:SetVariable(name, ...)
+  record_update("SetVariable", name)
+  return native_set_variable(self, name, ...)
+end
+function C4:UpdatePropertyList(name, ...)
+  record_update("UpdatePropertyList", name)
+  return native_property_list(self, name, ...)
+end
 function C4:FireEventByID(id)
   local event = require("lib.events"):getEvents().schlage_account.daily_low_battery
   if id == event.eventId then
@@ -11,6 +31,7 @@ end
 Properties =
   { ["Log Level"] = "6 - Ultra", ["Log Mode"] = "Print and Log", ["Schlage Email"] = "", ["Schlage Password"] = "" }
 function C4:UpdateProperty(name, value)
+  record_update("UpdateProperty", name)
   Properties[name] = value
   properties[name] = value
 end
@@ -51,8 +72,12 @@ local function enter(name, value)
 end
 local ok, err, output = T.capture(function()
   dofile("drivers/schlage_account/driver.lua")
-  OnDriverInit()
-  OnDriverLateInit()
+  in_init = true
+  OnDriverInit("DIT_ADDING")
+  in_init = false
+  T.eq("fresh Init publishes no properties, lists, or variable values", early_updates, {})
+  T.eq("alert variable is registered during Init", registrations[1], { name = "BATTERY_ALERT_MESSAGE", in_init = true })
+  OnDriverLateInit("DIT_ADDING")
   local function quiet(label)
     T.falsy(label, DEBUGPRINT or DEBUG_URL or DEBUG_RFN or DEBUG_WEBSOCKET or DEBUG_TIMER)
   end
@@ -66,9 +91,14 @@ local ok, err, output = T.capture(function()
   T.eq("structured Ultra logging remains available", require("lib.logging"):getLogLevel(), 6)
   -- Install at the shared URL boundary: no real account or network is used.
   urlDo = function(method, url, data, headers, callback, _, options)
-    requests[#requests + 1] =
+    local request =
       { method = method, url = url, data = data, headers = headers, callback = callback, options = options }
-    return { Cancel = function() end }
+    requests[#requests + 1] = request
+    return {
+      Cancel = function()
+        request.cancelled = true
+      end,
+    }
   end
   T.eq("no saved credentials initially", properties["Credentials"], "Not configured")
   enter("Schlage Email", tokens[1])
@@ -126,6 +156,54 @@ local ok, err, output = T.capture(function()
     end
   end
   T.truthy("automatic discovery creates a stable connection", found_binding)
+  ExecuteCommand("Discover_Locks")
+  local old_discovery = requests[#requests]
+  local prior_discovery = properties["Discovered Locks"]
+  in_init = true
+  OnDriverInit("DIT_UPDATING")
+  in_init = false
+  T.eq("live reinitialization publishes no early updates, including cleanup callbacks", early_updates, {})
+  T.truthy("live reinitialization cancels the pending discovery transfer", old_discovery.cancelled)
+  T.eq(
+    "Init does not replace the last published discovery presentation",
+    properties["Discovered Locks"],
+    prior_discovery
+  )
+  local count_after_init = #requests
+  old_discovery.callback(nil, 200, {}, JSON:newArray({ { deviceId = "obsolete", devicetypeId = "be499wifi" } }))
+  T.eq("old discovery cannot publish between Init and LateInit", properties["Discovered Locks"], prior_discovery)
+  T.eq("old discovery cannot restart requests", #requests, count_after_init)
+  OnDriverLateInit("DIT_UPDATING")
+  T.eq(
+    "LateInit initializes discovery while session refresh is pending",
+    properties["Discovered Locks"],
+    "Not retrieved"
+  )
+  T.eq(
+    "LateInit initializes polling before starting authentication",
+    properties["Polling Status"],
+    "Waiting for sign in"
+  )
+  T.eq("saved session automatically starts refresh in LateInit", #requests, count_after_init + 1)
+  T.eq("saved session refresh uses Cognito", requests[#requests].method, "POST")
+  requests[#requests].callback(nil, 200, {}, {
+    AuthenticationResult = { AccessToken = tokens[3], IdToken = tokens[4], ExpiresIn = 3600 },
+  })
+  T.eq("restored session starts discovery without credential entry", requests[#requests].method, "GET")
+  requests[#requests].callback(
+    nil,
+    200,
+    {},
+    JSON:newArray({
+      { deviceId = "synthetic-1", devicetypeId = "be499wifi", connected = true, attributes = { lockState = 1 } },
+      { deviceId = "synthetic-2", devicetypeId = "be499wifi", connected = true, attributes = { lockState = 0 } },
+    })
+  )
+  T.eq("post-update discovery properties publish in LateInit", properties["Discovered Locks"], "2 locks found")
+  T.eq("post-update polling presentation is current", properties["Polling Status"], "Read succeeded")
+  T.eq("post-update account remains signed in", properties["Driver Status"], "signed_in")
+  T.eq("account restarts with saved credentials", properties["Credentials"], "Saved for S***@example.invalid")
+  T.eq("restoring account does not fabricate battery events", #battery_events, 0)
   Properties["Log Mode"] = "Off"
   OnPropertyChanged("Log Mode")
   for _, count in ipairs({ 0, 1, 6 }) do
