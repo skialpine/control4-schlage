@@ -1,5 +1,5 @@
 {
-  "stage": "Template v0.9.80 maintenance 2026110801 published; source and bundled regressions passed; outage/recovery deferred and daily battery follow-up unverified on hardware",
+  "stage": "Template v0.9.80 maintenance 2026110801 is a prerelease pending live testing; stale Composer discovery/polling properties under investigation; Stable/Latest restored to 2026110608",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -533,7 +533,7 @@
     "packaged_assertions": 475,
     "source_imports_excluded": true,
     "raw_logging_suppression": "applied after logger settings; shared logger unchanged",
-    "latest_stable_api_verified": true,
+    "latest_stable_api_verified": false,
     "all_five_assets_match_tag_ci": true,
     "public_unauthenticated_driver_downloads_verified": true,
     "ci_scripts_match_locally_tested_bundles": true,
@@ -562,6 +562,11 @@
         "sha256": "d3e1acdfd226c2efb34f5167dd829ce43e93f449de1db07ff46e9133a8e13d1c",
         "bytes": 27176
       }
-    }
+    },
+    "current_classification": "prerelease; not Latest",
+    "stable_latest_tag": "v2026110608",
+    "release_classification_corrected_at_user_request": true,
+    "live_report": "Account version 2026110801 signed in and logged 2 discovered devices; Composer discovery and polling properties showed startup values",
+    "live_acceptance": "not passed; under investigation"
   }
 }

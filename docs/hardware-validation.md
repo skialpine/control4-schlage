@@ -1110,3 +1110,14 @@ both PDFs, commissioning guide, and release notes were copied to the main
 OneDrive Control4 folder and verified byte for byte; the Drivers directory was
 not written. Source/template maintenance is complete, while task 6.2 remains
 deferred and unchecked. No new live controller result is claimed.
+
+### Release classification correction (2026-11-08)
+
+The user reported 2026110801 signed in and logged discovery of two devices,
+while Composer showed startup values for discovery and polling. Diagnosis is
+ongoing; this is not a live acceptance pass. The user required all new releases
+to remain prereleases until tested. Version v2026110801 was changed to a
+prerelease and v2026110608 restored as Latest, verified through the GitHub API.
+The release workflow now always creates prereleases with make_latest=false;
+stable/Latest promotion requires explicit live-test acceptance. This correction
+supersedes the stable classification recorded above.
