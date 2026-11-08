@@ -1,5 +1,5 @@
 {
-  "stage": "Template v0.9.80 maintenance 2026110801 is a prerelease pending live testing; stale Composer discovery/polling properties under investigation; Stable/Latest restored to 2026110608",
+  "stage": "Template v0.9.80 maintenance 2026110801 is a prerelease; account discovery/polling and Composer restart workaround confirmed; lock-operation acceptance pending; Stable/Latest remains 2026110608",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -566,7 +566,10 @@
     "current_classification": "prerelease; not Latest",
     "stable_latest_tag": "v2026110608",
     "release_classification_corrected_at_user_request": true,
-    "live_report": "Account version 2026110801 signed in and logged 2 discovered devices; Composer discovery and polling properties showed startup values",
-    "live_acceptance": "not passed; under investigation"
+    "live_report": "Account version 2026110801 signed in, logged 2 devices, and Lua properties showed 2 locks found / Read succeeded; restarting Composer refreshed its stale display",
+    "live_acceptance": "account discovery/polling display verified; lock-operation acceptance pending",
+    "composer_display_issue_resolved": true,
+    "composer_restart_workaround_live_confirmed": true,
+    "account_discovery_polling_live_confirmed": true
   }
 }

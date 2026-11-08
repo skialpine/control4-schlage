@@ -1121,3 +1121,16 @@ prerelease and v2026110608 restored as Latest, verified through the GitHub API.
 The release workflow now always creates prereleases with make_latest=false;
 stable/Latest promotion requires explicit live-test acceptance. This correction
 supersedes the stable classification recorded above.
+
+### Composer display refresh confirmed (2026-11-08)
+
+Lua readback on the installed 2026110801 account returned `2 locks found` and
+`Read succeeded`, matching the successful discovery log while Composer still
+displayed startup values. The user then reported that restarting Composer
+resolved the issue and supplied a screenshot showing version 2026110801,
+signed_in, 2 locks found, and Read succeeded. This confirms the account's
+discovery/polling values and the Composer refresh workaround, not a discovery
+regression. It does not establish new lock-operation acceptance or new SRP
+timings; existing displayed timing values may be retained properties. No driver
+runtime change was needed. The maintenance release remains a prerelease pending
+further live acceptance, and earlier deferred tests remain deferred.

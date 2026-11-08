@@ -2,8 +2,8 @@
 
 The current maintenance prerelease is **v2026110801**, packaged as
 **2026110801**, using template v0.9.80 with credential-safe logging integration.
-It requires the Prerelease channel and remains under live investigation.
-Stable/Latest remains **v2026110608**. See
+It requires the Prerelease channel and remains pending lock-operation
+acceptance. Stable/Latest remains **v2026110608**. See
 [maintenance release notes](releases/2026110801.md).
 
 The initial stable release is **v2026110608**, packaged as version
@@ -33,13 +33,17 @@ not the recommended install.
 1. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-1. Reopen both Properties pages and verify Driver Version **2026110801**. Verify
+1. Restart Composer after the controller update, reconnect, and reopen both
+   Properties pages. The user observed stale discovery/polling values after the
+   2026110801 update even though Lua readback was correct; restarting Composer
+   refreshed the display. Verify Driver Version **2026110801**. Verify
    credentials remain saved, the account signs in, and the selected lock and
    generic Door Lock control still match the physical bolt. If the new battery
    settings are missing despite this version, import the account file from the
    main Control4 folder using **Driver → Add or Update Driver** to refresh
-   Composer's local definition. Reopening Composer alone did not resolve the
-   observed stale layout; reloading the driver did.
+   Composer's local definition. The earlier 2026110607 missing-property-layout
+   problem required reloading the definition; restarting alone did not resolve
+   that separate issue.
 1. New releases start as prereleases and become Stable/Latest only after the
    user confirms live testing. Leave Stable selected to receive accepted stable
    releases, or select Prerelease for test builds. Automatic Updates Off stops
