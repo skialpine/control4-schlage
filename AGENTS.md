@@ -1,5 +1,10 @@
 # Local delivery policy
 
+- Every commit requires an independent review of all proposed changes first. The
+  reviewer must inspect the complete diff, including code, tests, docs,
+  configuration, and bookkeeping. Resolve findings and have changed content
+  reviewed again before committing. This also applies to follow-up commits.
+
 - Publish new driver releases as prereleases, never directly as Latest. Keep the
   last accepted stable release as Latest until the user confirms live testing of
   the new version. Passing local tests or CI is not live acceptance. Promote a

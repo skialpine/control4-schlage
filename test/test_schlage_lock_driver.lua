@@ -1,6 +1,17 @@
 require("c4_shim")
 local T = require("testlib")
 local messages, properties, variables, added, provider = {}, {}, {}, {}, 42
+local in_init, early_updates = false, {}
+local function record_update(api, name)
+  if in_init then
+    early_updates[#early_updates + 1] = api .. ":" .. name
+  end
+end
+local native_property_list = C4.UpdatePropertyList
+function C4:UpdatePropertyList(name, ...)
+  record_update("UpdatePropertyList", name)
+  return native_property_list(self, name, ...)
+end
 function C4:GetDevicesByC4iName(name)
   return name == "schlage_account.c4z" and { [42] = "Schlage Account" } or {}
 end
@@ -8,13 +19,15 @@ function C4:GetBoundProviderDevice()
   return provider
 end
 function C4:UpdateProperty(name, value)
+  record_update("UpdateProperty", name)
   properties[name] = value
 end
 function C4:AddVariable(name, value, kind, readonly)
-  added[#added + 1] = { name = name, kind = kind, readonly = readonly }
+  added[#added + 1] = { name = name, kind = kind, readonly = readonly, in_init = in_init }
   variables[name] = value
 end
 function C4:SetVariable(name, value)
+  record_update("SetVariable", name)
   variables[name] = value
 end
 function C4:SendToProxy(binding, command, params, kind)
@@ -37,11 +50,15 @@ local function count(command)
   return n
 end
 dofile("drivers/schlage_lock/driver.lua")
-OnDriverInit()
+in_init = true
+OnDriverInit("DIT_ADDING")
+in_init = false
+T.eq("companion Init publishes no properties", early_updates, {})
 T.eq("all programming variables registered during Init", #added, 9)
 T.truthy("programming state is read-only", added[1].readonly)
+T.truthy("companion variable registration stays in Init", added[1].in_init)
 T.eq("no network or proxy operation during Init", #messages, 0)
-OnDriverLateInit()
+OnDriverLateInit("DIT_ADDING")
 Properties["Log Mode"], Properties["Log Level"] = "Print and Log", "6 - Ultra"
 OnPropertyChanged("Log Mode")
 local function quiet(label)
@@ -209,6 +226,7 @@ function C4:SendToDevice(id, command, params)
   direct[#direct + 1] = { id = id, command = command, params = params }
 end
 function C4:UpdatePropertyList(name, choices, value)
+  record_update("UpdatePropertyList", name)
   menus[name] = { choices = choices, value = value }
   Properties[name] = value
   OnPropertyChanged(name) -- exercise protection against property-update callbacks
@@ -239,8 +257,11 @@ local function catalog_reply()
     }),
   })
 end
-OnDriverInit()
-OnDriverLateInit()
+in_init = true
+OnDriverInit("DIT_STARTUP")
+in_init = false
+T.eq("startup Init publishes no properties, lists, or variable values", early_updates, {})
+OnDriverLateInit("DIT_STARTUP")
 catalog_reply()
 T.contains("available locks are actual Properties dropdown options", menus.Lock.choices, "Front Door,Garage Door")
 T.eq("single account displayed automatically", menus["Schlage Account"].value, "42: Schlage Account")
@@ -295,5 +316,28 @@ T.eq(
   "locked"
 )
 T.eq("physical lock reassignment creates no movement event", count("LOCK_STATUS_CHANGED"), movement_count)
+local old_nonce = last("REFRESH_STATE").params.NONCE
+local old_message_count = #messages
+in_init = true
+OnDriverInit("DIT_UPDATING")
+in_init = false
+T.eq("live companion Init publishes no properties, lists, or variable values", early_updates, {})
+T.eq("live companion Init sends no proxy messages", #messages, old_message_count)
+OnDriverLateInit("DIT_UPDATING")
+T.eq("LateInit publishes companion offline until a fresh snapshot", variables.ONLINE, "0")
+ExecuteCommand("SCHLAGE_SNAPSHOT", {
+  SOURCE = "42",
+  NONCE = old_nonce,
+  JSON = JSON:encode({
+    id = "garage",
+    scope = "menu-scope",
+    sequence = 2,
+    online = true,
+    supported = true,
+    bolt = "unlocked",
+  }),
+})
+T.eq("pre-update companion snapshot cannot reactivate a new instance", variables.ONLINE, "0")
+T.eq("reinitialization does not replay movement events", count("LOCK_STATUS_CHANGED"), movement_count)
 OnDriverDestroyed()
 T.finish()

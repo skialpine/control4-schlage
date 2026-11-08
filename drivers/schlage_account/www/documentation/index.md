@@ -7,10 +7,13 @@ stable release is version **2026110608**. Control and state feedback have passed
 user testing on the combinations below. It uses Schlage's cloud; there is no
 local Wi-Fi control or Home Assistant runtime dependency.
 
-Maintenance version **2026110801** updates shared infrastructure to template
-v0.9.80, including smaller library bundles and a connection rename fix. Log
-Level and Log Mode retain credential-safe structured output at Ultra. Existing
-account credentials, lock selections, and Navigator bindings are retained.
+Prerelease **2026110802** uses template v0.9.80 and corrects startup property
+publication timing. Log Level and Log Mode retain credential-safe structured
+output at Ultra. Existing account credentials, lock selections, and Navigator
+bindings are retained. Whether this prevents Composer's stale post-update
+Properties display remains under live testing. For an old display, try **File →
+Refresh**; restarting Composer is the verified fallback. If property definitions
+are missing, synchronize/import the current driver in Composer.
 
 Native authentication, discovery, renewal, and restart recovery have been tested
 on CORE 1 / OS 3.4.3.741643-res, with two Encode Plus BE499WB locks. Captured

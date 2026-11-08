@@ -1134,3 +1134,25 @@ regression. It does not establish new lock-operation acceptance or new SRP
 timings; existing displayed timing values may be retained properties. No driver
 runtime change was needed. The maintenance release remains a prerelease pending
 further live acceptance, and earlier deferred tests remain deferred.
+
+### Property lifecycle prerelease preparation (2026-11-08)
+
+The user authorized correcting startup property publication and required an
+independent review of all changes before any commit. The account and companion
+now publish startup properties in OnDriverLateInit. Account reinitialization
+still cancels old work and restores bindings, but cleanup callbacks do not
+publish property/variable presentation during OnDriverInit. Variables remain
+registered in Init. LateInit publishes defaults before session recovery starts.
+
+The new tests failed against the previous runtime's early API calls, then passed
+after the correction. Counters detect attempted early calls even if a pcall
+would swallow an exception. Tests cover fresh and live reinitialization,
+cancelled discovery, stale responses, saved-session refresh and automatic
+discovery, companion startup/update paths, and no fabricated movement events.
+Source checks passed: 58 Lua suites / 2,546 assertions and 53 Python tests.
+Eight packaged-script suites with source imports excluded passed 500 assertions.
+Formatting/static checks, strict OpenSpec validation, and the build passed.
+Version 2026110802 is prepared as a prerelease; independent final review precedes
+commit/publication. There is no new live result and no claim that this fixes
+Composer's stale display. File > Refresh remains a documented but unverified
+alternative to the previously observed restart workaround.

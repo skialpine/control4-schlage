@@ -1,10 +1,10 @@
 # Updater commissioning
 
-The current maintenance prerelease is **v2026110801**, packaged as
-**2026110801**, using template v0.9.80 with credential-safe logging integration.
-It requires the Prerelease channel and remains pending lock-operation
-acceptance. Stable/Latest remains **v2026110608**. See
-[maintenance release notes](releases/2026110801.md).
+The current test build is **v2026110802-beta.1**, packaged as **2026110802**,
+using template v0.9.80 with corrected startup property publication. It requires
+the Prerelease channel. Post-update Composer display and lock-operation
+acceptance remain pending. Stable/Latest remains **v2026110608**. See
+[property lifecycle release notes](releases/2026110802.md).
 
 The initial stable release is **v2026110608**, packaged as version
 **2026110608**. Its runtime matches the tested **2026110607** prerelease; the
@@ -13,7 +13,7 @@ testing is deferred, and scheduled daily battery alert follow-up checks remain
 unverified on hardware. See [release notes](releases/2026110608.md).
 
 The main OneDrive Control4 folder contains the latest published version
-**2026110801** for direct installation. Future deliveries go to that root folder
+**2026110802** for direct installation. Future deliveries go to that root folder
 only. **Do not copy or overwrite packages in the Drivers subfolder**: Composer
 manages its local driver database. Externally copying there can make the
 versions appear equal while Composer retains an older property layout. Import or
@@ -22,21 +22,23 @@ optional older bootstrap in **Bootstrap-2026110601** is a historical test build,
 not the recommended install.
 
 1. From an earlier installed version, use the update action below to test
-   upgrading to **v2026110801**. Alternatively install both latest `.c4z` files
+   upgrading to **v2026110802-beta.1**. Alternatively install both latest `.c4z` files
    directly with Composer's Add or Update Driver. The optional older bootstrap
    remains available for a first update test.
 1. Keep the existing Schlage account sign-in, physical-lock selections, and
    generic Door Lock relay bindings. Confirm they are still present.
-1. To test maintenance version 2026110801, select **Update Channel:
+1. To test version 2026110802, select **Update Channel:
    Prerelease**. Stable excludes it and retains the accepted 2026110608 release.
    The setting is shared with installed Schlage companions.
 1. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-1. Restart Composer after the controller update, reconnect, and reopen both
-   Properties pages. The user observed stale discovery/polling values after the
-   2026110801 update even though Lua readback was correct; restarting Composer
-   refreshed the display. Verify Driver Version **2026110801**. Verify
+1. For this prerelease test, leave Composer open during the controller update
+   and inspect both Properties pages. Verify Driver Version **2026110802** and
+   whether discovery/polling update without restarting. If the display remains
+   stale, try **File → Refresh** before restarting Composer. File Refresh is
+   documented but not yet verified for this problem; restarting Composer
+   refreshed the 2026110801 display. Verify
    credentials remain saved, the account signs in, and the selected lock and
    generic Door Lock control still match the physical bolt. If the new battery
    settings are missing despite this version, import the account file from the
