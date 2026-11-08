@@ -53,6 +53,17 @@ local ok, err, output = T.capture(function()
   dofile("drivers/schlage_account/driver.lua")
   OnDriverInit()
   OnDriverLateInit()
+  local function quiet(label)
+    T.falsy(label, DEBUGPRINT or DEBUG_URL or DEBUG_RFN or DEBUG_WEBSOCKET or DEBUG_TIMER)
+  end
+  quiet("Ultra startup never enables raw protocol or callback dumps")
+  for _, mode in ipairs({ "Off", "Print", "Log", "Print and Log" }) do
+    enter("Log Mode", mode)
+    enter("Log Level", "3 - Info")
+    enter("Log Level", "6 - Ultra")
+    quiet("Ultra setting changes keep raw dumps off: " .. mode)
+  end
+  T.eq("structured Ultra logging remains available", require("lib.logging"):getLogLevel(), 6)
   -- Install at the shared URL boundary: no real account or network is used.
   urlDo = function(method, url, data, headers, callback, _, options)
     requests[#requests + 1] =

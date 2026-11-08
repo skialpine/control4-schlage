@@ -1,5 +1,9 @@
 # Updater commissioning
 
+The current maintenance release is **v2026110801**, packaged as
+**2026110801**, using template v0.9.80 with credential-safe logging integration.
+See [maintenance release notes](releases/2026110801.md).
+
 The initial stable release is **v2026110608**, packaged as version
 **2026110608**. Its runtime matches the tested **2026110607** prerelease;
 the stable publication updates the version and documentation. Outage/recovery
@@ -7,7 +11,7 @@ testing is deferred, and scheduled daily battery alert follow-up checks remain
 unverified on hardware. See [release notes](releases/2026110608.md).
 
 The main OneDrive Control4 folder contains the latest published version
-**2026110608** for direct installation. Future deliveries go to that root folder
+**2026110801** for direct installation. Future deliveries go to that root folder
 only. **Do not copy or overwrite packages in the Drivers subfolder**: Composer
 manages its local driver database. Externally copying there can make the versions
 appear equal while Composer retains an older property layout. Import or sync
@@ -16,7 +20,7 @@ older bootstrap in **Bootstrap-2026110601** is a historical test build, not the
 recommended install.
 
 1. From an earlier installed version, use the update action below to test
-   upgrading to **v2026110608**. Alternatively install both latest `.c4z`
+   upgrading to **v2026110801**. Alternatively install both latest `.c4z`
    files directly with Composer's Add or Update Driver. The optional older
    bootstrap remains available for a first update test.
 2. Keep the existing Schlage account sign-in, physical-lock selections, and
@@ -27,7 +31,7 @@ recommended install.
 4. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-5. Reopen both Properties pages and verify Driver Version **2026110608**.
+5. Reopen both Properties pages and verify Driver Version **2026110801**.
    Verify credentials remain saved, the account signs in, and the selected
    lock and generic Door Lock control still match the physical bolt.
    If the new battery settings are missing despite this version, import the

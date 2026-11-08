@@ -44,7 +44,20 @@ T.eq("no network or proxy operation during Init", #messages, 0)
 OnDriverLateInit()
 Properties["Log Mode"], Properties["Log Level"] = "Print and Log", "6 - Ultra"
 OnPropertyChanged("Log Mode")
-T.falsy("Ultra never enables raw companion tracing", DEBUGPRINT or DEBUG_URL or DEBUG_RFN)
+local function quiet(label)
+  T.falsy(label, DEBUGPRINT or DEBUG_URL or DEBUG_RFN or DEBUG_WEBSOCKET or DEBUG_TIMER)
+end
+quiet("Ultra never enables raw companion tracing")
+for _, mode in ipairs({ "Off", "Print", "Log", "Print and Log" }) do
+  Properties["Log Mode"] = mode
+  OnPropertyChanged("Log Mode")
+  Properties["Log Level"] = "3 - Info"
+  OnPropertyChanged("Log Level")
+  Properties["Log Level"] = "6 - Ultra"
+  OnPropertyChanged("Log Level")
+  quiet("Ultra setting changes keep raw companion dumps off: " .. mode)
+end
+T.eq("structured companion Ultra logging remains available", require("lib.logging"):getLogLevel(), 6)
 T.eq("startup offline", variables.ONLINE, "0")
 T.eq("startup asks its account for public state", last("REFRESH_STATE").binding, 5002)
 local nonce = last("REFRESH_STATE").params.NONCE

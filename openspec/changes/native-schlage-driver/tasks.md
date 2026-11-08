@@ -71,6 +71,12 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 9.2 Integrate account-wide automatic Control4 push On/Off with verified agent commands and no manual agent configuration; verify missing agent, safe submission, independent daily suppression, and clear status without claiming phone delivery.
 - [x] 9.3 Document setup for both notification paths, run regression/format/build/package checks, and deliver updated packages to OneDrive; record controller push-delivery validation separately from local tests.
 
+## 10. Template maintenance v0.9.80 (requested 2026-11-08)
+
+- [x] 10.1 Update Copier from v0.9.74 to v0.9.80 in an isolated checkout; review the rendered diff and preserve project-specific release tooling, optional-module choices, OpenSpec files, and credentials-free OSS configuration.
+- [x] 10.2 Adapt Schlage logging configuration to keep all raw dumps disabled after the new logger applies Ultra/Print settings; verify account and companion initialization, setting changes, secret filtering, and crypto/connection regressions without editing template-managed libraries.
+- [ ] 10.3 Run source and packaged-script regressions, format/static/spec checks, and package/PDF/version verification; publish a new versioned update and verify public assets and OneDrive root-only delivery. Keep deferred live acceptance unchanged.
+
 ## Workflow follow-up
 
 - Review the completed implementation and live validation record before production cutover or publication.

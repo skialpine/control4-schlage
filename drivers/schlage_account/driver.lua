@@ -188,9 +188,11 @@ local function discover(show_details)
 end
 
 local function configure_logging()
-  Transport.quiet()
   log:setLogLevel(Properties["Log Level"])
   log:setLogMode(Properties["Log Mode"])
+  -- The shared logger enables raw dumps at Ultra/Print; Schlage secrets must
+  -- remain protected even at that level. Apply this policy after its setters.
+  Transport.quiet()
   if log_timer then
     log_timer:Cancel()
     log_timer = nil

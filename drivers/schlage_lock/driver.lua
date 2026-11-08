@@ -45,9 +45,10 @@ local function publish_lock_status(state)
 end
 
 local function configure_logging()
-  DEBUGPRINT, DEBUG_URL, DEBUG_RFN, DEBUG_WEBSOCKET, DEBUG_TIMER = false, false, false, false, false
   log:setLogLevel(Properties["Log Level"] or "3 - Info")
   log:setLogMode(Properties["Log Mode"] or "Off")
+  -- Preserve structured Ultra logging without raw companion message dumps.
+  DEBUGPRINT, DEBUG_URL, DEBUG_RFN, DEBUG_WEBSOCKET, DEBUG_TIMER = false, false, false, false, false
   if log_timer then
     log_timer:Cancel()
     log_timer = nil
