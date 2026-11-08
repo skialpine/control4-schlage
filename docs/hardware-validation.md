@@ -1156,3 +1156,19 @@ Version 2026110802 is prepared as a prerelease; independent final review precede
 commit/publication. There is no new live result and no claim that this fixes
 Composer's stale display. File > Refresh remains a documented but unverified
 alternative to the previously observed restart workaround.
+
+The independent reviewer approved the complete 14-file staged source tree
+805b4e9a23a0ca3853705217464051fd530dd3c5 before the first commit, with no
+outstanding findings. They independently reran account lifecycle (133 assertions)
+and companion lifecycle (76 assertions). Commit 0c3d88c was created only after
+that approval; PR #2 passed Build 42502067943 and merged as
+ae750f1625c04dfc238527c4f740ff275653aa9b with the identical reviewed tree.
+
+Prerelease v2026110802-beta.1 passed tag Build 42502221673 and Release
+42502221530. GitHub confirms it is a prerelease and Stable/Latest remains
+v2026110608. All five public release assets match CI; both driver downloads work
+without authentication, package versions and bundle contents match, and CI Lua
+scripts match the tested local bundles. Both drivers, the bundle, PDFs, guide,
+and notes were delivered to the main OneDrive Control4 folder with byte-for-byte
+verification. The Drivers directory was untouched. Follow-up bookkeeping also
+requires independent review before its commit. No new hardware result is claimed.

@@ -81,7 +81,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 
 - [x] 11.1 Move startup property publication to OnDriverLateInit in both drivers, retaining variable registration and binding restoration in OnDriverInit; suppress presentation from account cleanup during reinitialization while still cancelling old work.
 - [x] 11.2 Verify fresh and live reinitialization with counters for early property/list updates, cancellation of old responses, saved-session recovery, discovery/polling presentation, and companion proxy/programming behavior; run source and bundled-script regressions and package checks.
-- [ ] 11.3 Obtain independent review of the complete diff before every commit, resolve findings, and publish a verified prerelease with root-only OneDrive delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
+- [x] 11.3 Obtain independent review of the complete diff before every commit, resolve findings, and publish a verified prerelease with root-only OneDrive delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
 
 ## Workflow follow-up
 
