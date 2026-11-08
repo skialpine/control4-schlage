@@ -1,5 +1,5 @@
 {
-  "stage": "Initial stable 2026110608 published; tested 2026110607 runtime unchanged; outage/recovery deferred by user and daily battery follow-up unverified on hardware",
+  "stage": "Template v0.9.80 maintenance 2026110801 published; source and bundled regressions passed; outage/recovery deferred and daily battery follow-up unverified on hardware",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -8,9 +8,9 @@
     "bulk_room_placement": false
   },
   "tests": {
-    "lua_suites": 54,
-    "lua_assertions": 2312,
-    "python_tests": 51,
+    "lua_suites": 58,
+    "lua_assertions": 2521,
+    "python_tests": 53,
     "format_and_project_checks": "passed",
     "packaged_account_lifecycle": "passed without source imports",
     "packaged_dropdown_selection_without_source_imports": "passed",
@@ -36,25 +36,25 @@
     "control4_alert_names": "passed: generic Door Lock, native lock proxy, companion, then Schlage fallback"
   },
   "tasks": {
-    "complete": 34,
-    "total": 35
+    "complete": 37,
+    "total": 38
   },
   "artifacts": {
     "schlage_account.c4z": {
-      "sha256": "befcd7d20f26ac39d9bc5e6d4b94d1610cefd54bda7400f4008101c3c23d63aa",
-      "bytes": 247261,
-      "version": "2026110608",
+      "sha256": "6c3091f11da53c66734c34c332ddd26eb7cd9bcd4994f9cb38cb4ef3b6a29d56",
+      "bytes": 179784,
+      "version": "2026110801",
       "standalone_combo": true
     },
     "schlage_lock.c4z": {
-      "sha256": "f112df6b8e62c33f6844bce5c01d62570e6dae12a2eff82acd24f2a2b95cfe92",
-      "bytes": 108216,
-      "version": "2026110608",
+      "sha256": "108f97c269f450f9e92ae96b4b3cba8ec4cba4bd07c4e58b32f3968e69cfde6d",
+      "bytes": 109473,
+      "version": "2026110801",
       "standalone_combo": false
     }
   },
   "bundle": {
-    "sha256": "2c61ceb76c4df39198e0f8a67f60d2f5d7f4f9185afe1d43e4ce76cd6b108878"
+    "sha256": "d2ac5bba926cac129060180679e52a6cd86c99a8edbc48f22752c2c25654a0f1"
   },
   "live_lock_control_validated": true,
   "core5_validated": true,
@@ -513,6 +513,54 @@
       "Schlage.Lock.Documentation.pdf": {
         "sha256": "72d85b48a8b9590ee7a96a22c8c88e55d4caf4b9107e455a9543e43c2f4fab17",
         "bytes": 27175
+      }
+    }
+  },
+  "template_maintenance_release": {
+    "version": "2026110801",
+    "tag": "v2026110801",
+    "template_tag": "v0.9.80",
+    "template_commit": "2da61295cab1af22b89d18a2dad36c94a4e3f00f",
+    "source_commit": "3fd884e67ed6bbffca2d6e2b358890f069e7719d",
+    "pull_request": "https://github.com/skialpine/control4-schlage/pull/1",
+    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026110801",
+    "pr_build_run": 42498322912,
+    "build_run": 42498500755,
+    "release_run": 42498500885,
+    "ci_build_and_release": "passed",
+    "shared_files_match_clean_upstream_render": 73,
+    "packaged_suites": 8,
+    "packaged_assertions": 475,
+    "source_imports_excluded": true,
+    "raw_logging_suppression": "applied after logger settings; shared logger unchanged",
+    "latest_stable_api_verified": true,
+    "all_five_assets_match_tag_ci": true,
+    "public_unauthenticated_driver_downloads_verified": true,
+    "ci_scripts_match_locally_tested_bundles": true,
+    "onedrive_root_delivery_verified": true,
+    "composer_drivers_directory_written": false,
+    "outage_recovery_acceptance": "deferred at user request; not passed",
+    "new_controller_validation_claimed": false,
+    "assets": {
+      "schlage_account.c4z": {
+        "sha256": "6c3091f11da53c66734c34c332ddd26eb7cd9bcd4994f9cb38cb4ef3b6a29d56",
+        "bytes": 179784
+      },
+      "schlage_lock.c4z": {
+        "sha256": "108f97c269f450f9e92ae96b4b3cba8ec4cba4bd07c4e58b32f3968e69cfde6d",
+        "bytes": 109473
+      },
+      "control4-schlage.zip": {
+        "sha256": "d2ac5bba926cac129060180679e52a6cd86c99a8edbc48f22752c2c25654a0f1",
+        "bytes": 353841
+      },
+      "Schlage.Account.Documentation.pdf": {
+        "sha256": "16114ab22ccb322c05d13651cbf894d75cc0d7a85c990224809a907355bfcfb0",
+        "bytes": 39787
+      },
+      "Schlage.Lock.Documentation.pdf": {
+        "sha256": "d3e1acdfd226c2efb34f5167dd829ce43e93f449de1db07ff46e9133a8e13d1c",
+        "bytes": 27176
       }
     }
   }

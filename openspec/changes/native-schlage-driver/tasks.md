@@ -75,7 +75,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 
 - [x] 10.1 Update Copier from v0.9.74 to v0.9.80 in an isolated checkout; review the rendered diff and preserve project-specific release tooling, optional-module choices, OpenSpec files, and credentials-free OSS configuration.
 - [x] 10.2 Adapt Schlage logging configuration to keep all raw dumps disabled after the new logger applies Ultra/Print settings; verify account and companion initialization, setting changes, secret filtering, and crypto/connection regressions without editing template-managed libraries.
-- [ ] 10.3 Run source and packaged-script regressions, format/static/spec checks, and package/PDF/version verification; publish a new versioned update and verify public assets and OneDrive root-only delivery. Keep deferred live acceptance unchanged.
+- [x] 10.3 Run source and packaged-script regressions, format/static/spec checks, and package/PDF/version verification; publish a new versioned update and verify public assets and OneDrive root-only delivery. Keep deferred live acceptance unchanged.
 
 ## Workflow follow-up
 

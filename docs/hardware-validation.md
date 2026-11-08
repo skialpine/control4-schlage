@@ -1099,3 +1099,14 @@ strict OpenSpec validation, and the build passed. Version 2026110801 uses smalle
 crypto/big-number bundles while retaining native crypto checks. No new hardware
 acceptance is claimed; outage/recovery and daily battery follow-up remain as
 previously recorded.
+
+PR #1 passed its GitHub build and was merged as
+3fd884e67ed6bbffca2d6e2b358890f069e7719d. Stable release v2026110801 passed tag
+Build 42498500755 and Release 42498500885. GitHub's latest release API identifies
+it as stable. All five release assets match tag CI, both driver downloads work
+without authentication, and the CI Lua scripts match the locally tested
+bundles. Versions and bundle contents were verified. Both packages, the bundle,
+both PDFs, commissioning guide, and release notes were copied to the main
+OneDrive Control4 folder and verified byte for byte; the Drivers directory was
+not written. Source/template maintenance is complete, while task 6.2 remains
+deferred and unchecked. No new live controller result is claimed.
