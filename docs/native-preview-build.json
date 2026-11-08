@@ -1,5 +1,5 @@
 {
-  "stage": "Property lifecycle prerelease 2026110802-beta.1: user reports Properties stayed correct after update; Lock/Unlock and app-state acceptance pending; Stable/Latest remains 2026110608",
+  "stage": "Property lifecycle 2026110802: user reports correct post-update Properties, working Lock/Unlock and app status; exact tested release promoted to Stable/Latest",
   "created_utc": "2026-11-06T17:00:21.857876+00:00",
   "commissioning": {
     "per_companion_lock_dropdown": true,
@@ -575,7 +575,7 @@
   "property_lifecycle_release": {
     "version": "2026110802",
     "tag": "v2026110802-beta.1",
-    "classification": "prerelease",
+    "classification": "stable; Latest",
     "source_commit": "ae750f1625c04dfc238527c4f740ff275653aa9b",
     "source_reviewed_tree": "805b4e9a23a0ca3853705217464051fd530dd3c5",
     "independent_review_before_first_commit": true,
@@ -592,7 +592,7 @@
     "packaged_assertions": 500,
     "source_imports_excluded": true,
     "early_api_call_regressions": "passed for fresh and live reinitialization",
-    "stable_latest_tag": "v2026110608",
+    "stable_latest_tag": "v2026110802-beta.1",
     "release_classification_verified": true,
     "all_five_assets_match_tag_ci": true,
     "public_unauthenticated_driver_downloads_verified": true,
@@ -625,6 +625,13 @@
       }
     },
     "composer_post_update_properties_reported_correct": true,
-    "lock_operation_and_app_state_acceptance": "pending on this version"
+    "lock_operation_and_app_state_acceptance": "user confirmed Lock, Unlock and status in app all work on 2026-11-08",
+    "promotion_date": "2026-11-08",
+    "promotion_basis": "User live acceptance: post-update Properties stayed correct, then Lock, Unlock and app status all work",
+    "promotion_retains_original_tag_and_assets": true,
+    "latest_stable_api_verified": true,
+    "asset_digests_unchanged_after_promotion": true,
+    "new_physical_turn_test_separately_reported": false,
+    "new_latency_measurement_reported": false
   }
 }

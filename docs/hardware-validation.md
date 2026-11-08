@@ -1182,3 +1182,23 @@ not proof that every Composer cache issue is resolved or a measured refresh
 latency result. Lock/Unlock and app-state feedback on this version have not yet
 been separately confirmed. The release remains a prerelease; Stable/Latest stays
 v2026110608, and deferred hardware checks remain unchanged.
+
+### Property lifecycle live acceptance and stable promotion (2026-11-08)
+
+Following the earlier report that Properties stayed correct after updating to
+2026110802, the user confirmed: "lock, unlock and status in app all work." This
+completes the requested post-update Properties and basic lock/app checks for
+this revision. No new physical-turn test or latency measurement was separately
+reported; outage/recovery and scheduled daily battery follow-up remain deferred
+or unverified. Task 6.2 remains unchecked.
+
+The exact tested release was promoted to Stable/Latest after an independent
+review of the promotion approach. The original tag v2026110802-beta.1 and all
+five package/bundle/PDF assets were retained; nothing was rebuilt or replaced.
+GitHub's latest endpoint identifies that tag, its prerelease flag is false, and
+all five asset sizes and SHA-256 digests match the original CI-verified assets.
+The updater selects stable releases by GitHub's classification flags, so the
+retained historical tag suffix does not exclude it from the Stable channel.
+Already installed 2026110802 packages need no reinstallation. Future releases
+still start as prereleases pending live acceptance. The complete follow-up
+validation/docs/metadata diff requires independent review before committing.

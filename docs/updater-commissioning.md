@@ -1,9 +1,11 @@
 # Updater commissioning
 
-The current test build is **v2026110802-beta.1**, packaged as **2026110802**,
-using template v0.9.80 with corrected startup property publication. It requires
-the Prerelease channel. Post-update Composer display and lock-operation
-acceptance remain pending. Stable/Latest remains **v2026110608**. See
+The current accepted Stable/Latest release is **2026110802**, using template
+v0.9.80 with corrected startup property publication. The user confirmed that
+Properties stayed correct after the update and that Lock, Unlock, and app status
+all work. The original tag **v2026110802-beta.1** is retained; GitHub now marks
+that same tested release stable. Its package assets are unchanged. Both Stable
+and Prerelease channels include it. See
 [property lifecycle release notes](releases/2026110802.md).
 
 The initial stable release is **v2026110608**, packaged as version
@@ -21,31 +23,31 @@ sync through Composer when its local driver definition needs updating. The
 optional older bootstrap in **Bootstrap-2026110601** is a historical test build,
 not the recommended install.
 
-1. From an earlier installed version, use the update action below to test
-   upgrading to **v2026110802-beta.1**. Alternatively install both latest `.c4z` files
-   directly with Composer's Add or Update Driver. The optional older bootstrap
-   remains available for a first update test.
+1. From an earlier installed version, use the update action below to upgrade to
+   **2026110802** (retained tag **v2026110802-beta.1**). Alternatively install
+   both latest `.c4z` files directly with Composer's Add or Update Driver. The
+   optional older bootstrap remains available for a first update test.
 1. Keep the existing Schlage account sign-in, physical-lock selections, and
    generic Door Lock relay bindings. Confirm they are still present.
-1. To test version 2026110802, select **Update Channel:
-   Prerelease**. Stable excludes it and retains the accepted 2026110608 release.
-   The setting is shared with installed Schlage companions.
+1. Select **Update Channel: Stable** for accepted releases or **Prerelease** for
+   test builds. Both currently include 2026110802. The setting is shared with
+   installed Schlage companions. An already installed 2026110802 needs no
+   reinstallation when the release is promoted.
 1. Run **Check for Updates**. Observe **Update Status**, **Last Update Check**,
    and the account's Lua output. The companion package is installed first,
    followed by the account package.
-1. For this prerelease test, leave Composer open during the controller update
-   and inspect both Properties pages. Verify Driver Version **2026110802** and
-   whether discovery/polling update without restarting. If the display remains
-   stale, try **File → Refresh** before restarting Composer. File Refresh is
-   documented but not yet verified for this problem; restarting Composer
-   refreshed the 2026110801 display. Verify
-   credentials remain saved, the account signs in, and the selected lock and
-   generic Door Lock control still match the physical bolt. If the new battery
-   settings are missing despite this version, import the account file from the
-   main Control4 folder using **Driver → Add or Update Driver** to refresh
-   Composer's local definition. The earlier 2026110607 missing-property-layout
-   problem required reloading the definition; restarting alone did not resolve
-   that separate issue.
+1. Leave Composer open during the controller update and inspect both Properties
+   pages. Verify Driver Version **2026110802** and whether discovery/polling
+   update without restarting. If the display remains stale, try **File →
+   Refresh** before restarting Composer. File Refresh is documented but not yet
+   verified for this problem; restarting Composer refreshed the 2026110801
+   display. Verify credentials remain saved, the account signs in, and the
+   selected lock and generic Door Lock control still match the physical bolt. If
+   the new battery settings are missing despite this version, import the account
+   file from the main Control4 folder using **Driver → Add or Update Driver** to
+   refresh Composer's local definition. The earlier 2026110607
+   missing-property-layout problem required reloading the definition; restarting
+   alone did not resolve that separate issue.
 1. New releases start as prereleases and become Stable/Latest only after the
    user confirms live testing. Leave Stable selected to receive accepted stable
    releases, or select Prerelease for test builds. Automatic Updates Off stops
