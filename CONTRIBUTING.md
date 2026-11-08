@@ -48,14 +48,17 @@ then pull the change in with `copier update`.
   license gate (see [The License Gate](#the-license-gate))
 - `events.lua`: event firing and management
 - `http.lua`: HTTP client wrapper
-- `logging.lua`: structured logging with configurable levels
+- `logging.lua`: structured logging with configurable levels, the Log Level
+  property's list and the drivers-common-public dumps (see
+  [Log Level](#log-level))
 - `lru.lua`: LRU cache utility
 - `persist.lua`: persistent storage abstraction
 - `redact.lua`: masks credentials in log lines and diagnostics reports
 - `support-code.lua`: the Support Code that opens a DriverCentral build's Lua
   window (see [The Support Code](#the-support-code))
 - `update-settings.lua`: keeps Automatic Updates and Update Channel the same on
-  every item of the drivers the repo builds, in DriverCentral and OSS builds
+  every item of the drivers the repo builds, in DriverCentral and OSS builds. A
+  driver's Reset Driver leaves both as they are
 - `utils.lua`: general utilities (XML, device queries, table helpers, type
   coercion)
 - `values.lua`: value parsing, coercion, and formatting
@@ -317,6 +320,9 @@ runs `fn` with `print` collected and returns `ok, err, output`, and
 - `F.captureTcpClient()` swaps in a `C4:CreateTCPClient` that records every
   write and completes the connect synchronously. Read `.writes`, then
   `.restore()`.
+- `F.dofileBuild(path, build)` runs a Lua file as the `"drivercentral"` or
+  `"oss"` build compiles it, with its `#ifdef` blocks applied. A driver loaded
+  raw runs every arm.
 
 ### Persisted values
 
@@ -567,6 +573,53 @@ end
 ```
 
 The library clears the property at once, keeps its value out of the dispatcher's
-Trace output, and prints its answer to the Lua output whatever Log Mode is. A
-driver that shows more while the window is open (extra properties or log levels)
-passes `supportCode:onChange(function(open) ... end)`.
+Trace output, and prints its answer to the Lua output whatever Log Mode is.
+While the window is open, Log Level also offers Trace and Ultra (see
+[Log Level](#log-level)). A driver that shows more while the window is open
+(extra properties) passes `supportCode:onChange(function(open) ... end)`.
+
+### Log Level
+
+Every driver has the same Log Level property. An OSS build offers `0 - Fatal` to
+`6 - Ultra`; a DriverCentral build stops at `4 - Debug`, and offers `5 - Trace`
+and `6 - Ultra` only while the Support Code has the Lua window open, since they
+show nothing the open window doesn't. `driver.xml` lists Trace and Ultra inside
+an `#ifdef OSS`:
+
+```xml
+<property>
+  <name>Log Level</name>
+  <type>LIST</type>
+  <default>3 - Info</default>
+  <items>
+    <item>0 - Fatal</item>
+    <item>1 - Error</item>
+    <item>2 - Warning</item>
+    <item>3 - Info</item>
+    <item>4 - Debug</item>
+    <!-- #ifdef OSS -->
+    <item>5 - Trace</item>
+    <item>6 - Ultra</item>
+    <!-- #endif -->
+  </items>
+</property>
+```
+
+and its handler hands the value to the logger:
+
+```lua
+function OPC.Log_Level(propertyValue)
+  log:trace("OPC.Log_Level('%s')", propertyValue)
+  log:setLogLevel(propertyValue)
+end
+```
+
+`log:setLogLevel` never goes above what the build allows, and puts the property
+back to `4 - Debug` when it shows more. At Ultra with Print on it also turns on
+drivers-common-public's own dumps (`DEBUGPRINT`, `DEBUG_TIMER`, `DEBUG_RFN`,
+`DEBUG_URL`, `DEBUG_WEBSOCKET`), which print whole HTTP requests and websocket
+frames, logins included, and turns them off otherwise. Nothing else sets them.
+The Support Code calls `log:allowTraceAndUltra(allowed)` as the window opens and
+closes, which widens and narrows the list. A page that sets Log Level offers the
+levels `driver.xml` lists: `UpdateProperty` takes no other value, so Trace and
+Ultra during a Support Code hour are set in Composer.

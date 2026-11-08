@@ -1076,3 +1076,26 @@ the bundle, both PDFs, commissioning guide, and release notes were delivered to
 the main OneDrive Control4 folder and verified byte for byte. Existing root
 files were backed up with a non-driver suffix. The Drivers directory was not
 written. No new controller installation or hardware test is claimed.
+
+### Template v0.9.80 maintenance preparation (2026-11-08)
+
+The user approved updating the template from v0.9.74 to v0.9.80. Copier 9.19.1
+applied the update without conflicts in an isolated checkout. The project-specific
+release/version workflows and OSS-only configuration were preserved. All 73
+rendered shared library/vendor/test files match a fresh v0.9.80 render exactly;
+expressions, OAuth, and external diagnostics remain excluded.
+
+The first source test run caught two existing privacy assertions because the
+new logger enabled raw Control4 dumps after the driver's earlier suppression.
+The account and companion now suppress those switches after applying Log Level
+and Log Mode. Structured Ultra remains available. Added driver-level tests cover
+all output modes and level changes without modifying the shared logger.
+
+Source checks passed: 58 Lua suites / 2,521 assertions and 53 Python tests.
+Eight suites against the packaged scripts, with source imports excluded,
+passed 475 assertions, including Cognito/SRP, connection rename, commands,
+notifications, and driver privacy/lifecycle checks. Formatting/static checks,
+strict OpenSpec validation, and the build passed. Version 2026110801 uses smaller
+crypto/big-number bundles while retaining native crypto checks. No new hardware
+acceptance is claimed; outage/recovery and daily battery follow-up remain as
+previously recorded.

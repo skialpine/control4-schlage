@@ -33,6 +33,16 @@ Keep shared `src/lib/`, vendored modules, and shared tests template-managed. Sch
 
 ### 2. Native Cognito is the first implementation gate
 
+Template maintenance on 2026-11-08 updates the original v0.9.74 pin to v0.9.80
+(2da61295cab1af22b89d18a2dad36c94a4e3f00f). Keep `bitn crypto` selected and
+external diagnostics, expressions, and OAuth modules disabled. The updated logger
+sets raw Control4 debug switches when Ultra and Print are selected; each Schlage
+driver must disable those switches after applying logger settings. Preserve
+template-managed code and verify this integration through driver-level tests.
+The smaller vendor bundles retain runtime crypto checks; source and packaged
+Cognito/SRP tests must pass before release. This maintenance does not complete
+deferred outage/recovery or daily battery hardware acceptance.
+
 Implement a dedicated Cognito SRP adapter using the bundled big-number, SHA-256, HMAC/HKDF, and verified cryptographically secure randomness primitives. Reuse the primitives rather than calling generic `crypto.srp` unchanged: its default group generator, encoding rules, session key, and proof are designed around HomeKit conventions.
 
 Implement `InitiateAuth(USER_SRP_AUTH)` and `RespondToAuthChallenge(PASSWORD_VERIFIER)` over asynchronous HTTPS, including Cognito's signed integer padding, pool-specific identity hash, HKDF label, canonical challenge username, client secret hash, secret block, and English UTC timestamp. Derive golden vectors independently from pinned pycognito code. Never use the Hubitat example's general-purpose Random as the entropy source.

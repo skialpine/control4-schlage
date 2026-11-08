@@ -1,6 +1,6 @@
 # Template integration review
 
-Reviewed against the pinned Finite Labs template v0.9.74. This is an OSS driver;
+Reviewed against the pinned Finite Labs template v0.9.80. This is an OSS driver;
 template source updates remain explicit Copier updates reviewed in this repo.
 
 | Template feature | Decision for this driver |
@@ -35,3 +35,27 @@ public release API and both download assets are verified, including template
 release selection against live metadata. Automatic controller download/install
 was observed with the earlier prereleases. OAuth through Allegion's partner API
 is a separate potential integration and is on hold pending provider replies.
+
+## v0.9.74 to v0.9.80 maintenance
+
+Copier updated the pinned source to
+`2da61295cab1af22b89d18a2dad36c94a4e3f00f` without conflicts. The existing
+OSS-only build, increasing version/tag checks, release workflows, and optional
+module choices remain in place. Expressions, external cloud diagnostics, and
+OAuth are still excluded.
+
+- Included the connection rename fix, optional HTTP response/header/redirect
+  controls, variable/property separation, and build-aware test fixtures.
+- Updated bitn and crypto bundles remove upstream self-tests and benchmarks
+  from runtime packages. Runtime OpenSSL checks and project Cognito/SRP golden
+  vectors remain covered by the driver tests.
+- Adapted the drivers to disable raw debug dumps after the new logger's settings
+  are applied. Structured Trace/Ultra remains available; shared libraries are
+  unmodified from the Copier result.
+- The template's DriverCentral image renderer updates as managed tooling, but
+  no DriverCentral runtime or optional diagnostics service is enabled.
+
+The first source run reproduced the logging incompatibility in two existing
+privacy assertions. After the driver adaptation and additional mode/level
+checks, 58 Lua suites / 2,521 assertions and 53 Python tests passed. These local
+results do not complete deferred hardware acceptance.

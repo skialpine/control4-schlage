@@ -1,10 +1,19 @@
 # Local development
 
-The project is scaffolded from Finite Labs template v0.9.74, commit
+The project was originally scaffolded from Finite Labs template v0.9.74, commit
 `4aabee67ddc8ac71602e6d6367b41794e831f022`, using Copier 9.11.3 with
 `vendor_modules="bitn crypto"`, OSS documentation, and cloud diagnostics off.
-The selected GitHub owner is `skialpine`, verified from the local GitHub login.
-No repository has been created or published.
+The current pin is **v0.9.80**, commit
+`2da61295cab1af22b89d18a2dad36c94a4e3f00f`, updated with Copier 9.19.1.
+The published GitHub repository is `skialpine/control4-schlage`.
+
+The shared v0.9.80 logger enables raw Control4 dumps at Ultra with Print. Both
+Schlage drivers deliberately disable those switches after applying Log Level
+and Log Mode, preserving structured Ultra output without credential or raw
+companion-message dumps. Keep this policy in driver-specific code; do not patch
+the template logger. Driver lifecycle tests cover startup, all output modes,
+level changes, and sentinel secret filtering. Run those against bundled scripts
+as well as source when updating the template.
 
 `scaffold-inventory.json` records hashes before and after integration: all 16
 OpenSpec and generated skill files were preserved byte-for-byte. Subsequent task
@@ -40,8 +49,8 @@ The default build produces:
 - Documentation PDFs under `dist/oss/docs`
 - `dist/oss/control4-schlage.zip`
 
-These are development builds. The lock skeleton exposes no lock commands.
-A successful local build does not establish controller or lock compatibility.
+Local builds include native lock commands. A successful local build does not
+establish controller or lock compatibility.
 The initial controller minimum is 3.4.1, selected for native OpenSSL availability;
 actual support is subject to the measurements in `hardware-validation.md`.
 
@@ -52,8 +61,8 @@ and the complete OSS `make build` passed. Both packages were opened and their
 project identity and absence of licensing/diagnostics imports checked.
 
 `make verify` includes a clean Git working-tree requirement intended for CI;
-this workspace initially has no Git repository, so that check cannot establish
-local change cleanliness. Package checks can be run independently:
+stage intended source changes before using it to verify that a build introduced
+no additional changes. Package checks can be run independently:
 
 ```sh
 .venv/bin/python3 tools/package.py check-pdfs oss

@@ -7,6 +7,11 @@ stable release is version **2026110608**. Control and state feedback have passed
 user testing on the combinations below. It uses Schlage's cloud; there is no
 local Wi-Fi control or Home Assistant runtime dependency.
 
+Maintenance version **2026110801** updates shared infrastructure to template
+v0.9.80, including smaller library bundles and a connection rename fix. Log
+Level and Log Mode retain credential-safe structured output at Ultra. Existing
+account credentials, lock selections, and Navigator bindings are retained.
+
 Native authentication, discovery, renewal, and restart recovery have been tested
 on CORE 1 / OS 3.4.3.741643-res, with two Encode Plus BE499WB locks. Captured
 firmware is main 5.0.1300214 and Wi-Fi 3.22.0.1. CORE 5 / OS 4.3 has also passed
