@@ -1,6 +1,6 @@
 # Template integration review
 
-Reviewed against the pinned Finite Labs template v0.9.80. This is an OSS driver;
+Reviewed against the pinned Finite Labs template v0.9.103. This is an OSS driver;
 template source updates remain explicit Copier updates reviewed in this repo.
 
 | Template feature | Decision for this driver |
@@ -59,3 +59,30 @@ The first source run reproduced the logging incompatibility in two existing
 privacy assertions. After the driver adaptation and additional mode/level
 checks, 58 Lua suites / 2,521 assertions and 53 Python tests passed. These local
 results do not complete deferred hardware acceptance.
+
+## v0.9.80 to v0.9.103 maintenance
+
+Copier now pins commit `628f4eeb6d15076b1d734a4ace2dd471c4599a96`.
+
+- Included saved binding/event/conditional recovery, stable-ID preservation,
+  sorted programming conditions, safer send-wrapper arguments, deferred error
+  traces, and the short one-shot timer clamp.
+- Adapted Schlage's namespace-only event restoration to skip incomplete records
+  and repair scalar entries before shared upserts. Existing valid IDs and
+  unrelated namespaces remain intact.
+- Changed Log Level to the dynamic list the new logger supplies in LateInit.
+  Both drivers retain the rule against property publication during Init.
+- The template now recognizes more credential keys and URL logins. Its shared
+  HTTP logger also allows raw Ultra output; Schlage explicitly disables that
+  exception through `schlage.log_policy` in each driver. Raw Control4 dumps stay
+  disabled after logger setting changes. Shared library source remains managed
+  by Copier.
+- Preserved OSS-only builds in Makefile.local and CI. New DriverCentral listing
+  tooling is not run; releases remain prereleases until controller acceptance.
+- Companion embedding, custom UI, light helpers, expressions, OAuth, and cloud
+  diagnostics remain unused or disabled. They add no required Schlage behavior.
+
+Source tests cover corrupted records, stable IDs, sorted conditions, lifecycle
+ordering, crypto, transport, commands, updates, alerts, and strict Ultra masking.
+Local tests do not complete the deferred outage/recovery test or scheduled daily
+battery reminder acceptance.

@@ -18,6 +18,19 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026111401-beta.1 - 2026-11-14
+
+### Fixed
+
+- Recover lock programming when saved event or condition entries are incomplete,
+  while keeping valid event IDs and existing programming.
+
+### Changed
+
+- Update the shared template from v0.9.80 to v0.9.103, including connection
+  recovery and sorted Composer lock conditions.
+- Populate Log Level from the shared logger. Credentials remain masked at Ultra.
+
 ## v2026110607-beta.1 - 2026-11-06
 
 ### Added

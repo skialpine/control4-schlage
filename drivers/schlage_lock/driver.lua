@@ -1,3 +1,4 @@
+require("schlage.log_policy")
 require("lib.utils")
 local persist = require("lib.persist")
 local Companion = require("schlage.companion")

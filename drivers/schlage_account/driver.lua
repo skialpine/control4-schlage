@@ -1,3 +1,4 @@
+require("schlage.log_policy")
 require("lib.utils")
 local log = require("lib.logging")
 local persist = require("lib.persist")

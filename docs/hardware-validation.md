@@ -1202,3 +1202,26 @@ retained historical tag suffix does not exclude it from the Stable channel.
 Already installed 2026110802 packages need no reinstallation. Future releases
 still start as prereleases pending live acceptance. The complete follow-up
 validation/docs/metadata diff requires independent review before committing.
+
+### Template v0.9.103 preparation (2026-11-14)
+
+Version 2026111401 updates Copier from v0.9.80 to v0.9.103, commit
+`628f4eeb6d15076b1d734a4ace2dd471c4599a96`. Both entrypoints install a
+project-owned strict shared-HTTP redaction policy before loading other modules;
+raw dump suppression remains after logging settings. Log Level is a dynamic
+list populated after Init. Companion programming repairs scalar records only in
+its own namespace, skips incomplete declarations, and preserves valid IDs.
+
+Local validation passed: 61 Lua suites / 2,834 assertions, 63 Python tests,
+format/static checks, strict OpenSpec validation, and an OSS build. Thirteen
+suites / 667 assertions also passed against bundled scripts with source/vendor
+imports excluded, covering account/lock lifecycle, SRP/Cognito, transport,
+commands/revisions, updates, alerts, selection, programming, and log policy.
+No real cloud account or lock was used in these runs. The new policy tests
+exercise real shared HTTP logging with a stubbed URL transport.
+
+The Build workflow remains OSS-only; Makefile.local suppresses the template's
+unconditional DriverCentral listing recipe. Release creation remains forced to
+prerelease with make_latest=false. Independent review and publication checks are
+recorded separately after completion. The accepted 2026110802 Stable/Latest
+release and deferred outage/recovery and daily reminder acceptance are unchanged.
