@@ -1225,3 +1225,23 @@ unconditional DriverCentral listing recipe. Release creation remains forced to
 prerelease with make_latest=false. Independent review and publication checks are
 recorded separately after completion. The accepted 2026110802 Stable/Latest
 release and deferred outage/recovery and daily reminder acceptance are unchanged.
+
+### Template v0.9.103 prerelease publication (2026-11-14)
+
+The complete 60-file staged diff was independently approved at tree
+`e8eff0db88048ddb3af115a6a4b9d3d77042f7d5` before commit. GitHub rejected the
+first push for email privacy; an independently reviewed metadata-only amendment
+used the account's verified noreply address. No unreviewed source change was
+introduced. PR #3 merged as `ff1eb1e8e5aea822a2cd4fe9085e721c1d593410` after
+Build 43664659020 passed. Tag Build 43664813881 and Release 43664813929 passed.
+All 87 managed files under src/lib, vendor, test, and tools match a clean Copier
+v0.9.103 render byte-for-byte.
+
+GitHub published v2026111401-beta.1 as a prerelease. All five public assets were
+downloaded without authentication and matched the tag CI artifacts and GitHub
+asset digests. Both packaged Lua scripts match the locally tested bundles.
+Those exact release packages, documentation PDFs, bundle, and release notes were
+copied to the main OneDrive Control4 folder; no Drivers files were written.
+Stable/Latest still returns v2026110802-beta.1. Hashes and sizes are recorded in
+native-preview-build.json. New controller acceptance remains pending; these
+checks do not close deferred hardware testing.

@@ -87,7 +87,7 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 
 - [x] 12.1 Update Copier from v0.9.80 to v0.9.103; preserve OSS-only build/release policy and disabled optional modules.
 - [x] 12.2 Adapt companion event restoration for damaged saved records and the Log Level dynamic list; preserve strict credential masking at Ultra with project-owned integration code and regression tests.
-- [ ] 12.3 Run source and bundled-script regressions, formatting/spec/build/package checks; obtain independent full-diff review before committing and publish a prerelease with OneDrive root-only delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
+- [x] 12.3 Run source and bundled-script regressions, formatting/spec/build/package checks; obtain independent full-diff review before committing and publish a prerelease with OneDrive root-only delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
 
 ## Workflow follow-up
 
