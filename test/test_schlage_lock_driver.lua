@@ -59,6 +59,12 @@ T.truthy("programming state is read-only", added[1].readonly)
 T.truthy("companion variable registration stays in Init", added[1].in_init)
 T.eq("no network or proxy operation during Init", #messages, 0)
 OnDriverLateInit("DIT_ADDING")
+T.eq(
+  "driver installs strict Ultra redaction",
+  require("lib.redact").forLog({ pin = "PRIVATE_PIN" }).pin,
+  "***REDACTED***"
+)
+
 Properties["Log Mode"], Properties["Log Level"] = "Print and Log", "6 - Ultra"
 OnPropertyChanged("Log Mode")
 local function quiet(label)

@@ -633,5 +633,31 @@
     "asset_digests_unchanged_after_promotion": true,
     "new_physical_turn_test_separately_reported": false,
     "new_latency_measurement_reported": false
+  },
+  "template_maintenance_2026111401": {
+    "version": "2026111401",
+    "tag": "v2026111401-beta.1",
+    "template_tag": "v0.9.103",
+    "template_commit": "628f4eeb6d15076b1d734a4ace2dd471c4599a96",
+    "status": "local checks passed; prerelease publication and live acceptance pending",
+    "lua_suites": 61,
+    "lua_assertions": 2834,
+    "python_tests": 63,
+    "packaged_suites": 13,
+    "packaged_assertions": 667,
+    "source_imports_excluded": true,
+    "strict_ultra_redaction": "project policy loaded by both entrypoints; shared libraries unmodified",
+    "format_and_project_checks": "passed",
+    "openspec_strict": "passed",
+    "build": "passed",
+    "live_acceptance": "pending",
+    "stable_latest_retained": "v2026110802-beta.1",
+    "composer_drivers_directory_written": false,
+    "local_artifacts": {
+      "control4-schlage.zip": {
+        "sha256": "6a42ff41b3b6b8d2224e49f0a16a67eb06afb90af433a578db5fa6654596c83f",
+        "bytes": 394328
+      }
+    }
   }
 }

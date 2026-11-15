@@ -24,10 +24,36 @@ function Programming.new(options)
   )
 end
 
+-- The shared upsert helpers repair records missing IDs, but nested scalar
+-- values can still trip their Select traversal. Clear only invalid entries in
+-- our namespace; valid IDs and other drivers' programming remain untouched.
+local function repairNamespace(owner, getter, saver)
+  local all = owner[getter](owner)
+  local entries, changed = all[namespace], false
+  if type(entries) ~= "table" then
+    changed = entries ~= nil
+    all[namespace] = {}
+  else
+    for key, entry in pairs(entries) do
+      if type(entry) ~= "table" then
+        entries[key], changed = nil, true
+      end
+    end
+  end
+  if changed then
+    owner[saver](owner, all)
+  end
+end
+
 function Programming:start()
+  repairNamespace(self.events, "getEvents", "_saveEvents")
+  repairNamespace(self.conditions, "getConditionals", "_saveConditionals")
   -- Restore this namespace without deleting hundreds of unrelated event IDs.
-  for _, event in pairs(self.events:getEvents()[namespace] or {}) do
-    C4:AddEvent(event.eventId, event.name, event.description)
+  local saved = self.events:getEvents()[namespace]
+  for _, event in pairs(type(saved) == "table" and saved or {}) do
+    if type(event) == "table" and event.eventId ~= nil and event.name ~= nil and event.description ~= nil then
+      C4:AddEvent(event.eventId, event.name, event.description)
+    end
   end
   for _, item in ipairs(definitions) do
     self.events:getOrAddEvent(namespace, item[1], item[2], "NAME " .. item[2])

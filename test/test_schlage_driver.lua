@@ -78,6 +78,12 @@ local ok, err, output = T.capture(function()
   T.eq("fresh Init publishes no properties, lists, or variable values", early_updates, {})
   T.eq("alert variable is registered during Init", registrations[1], { name = "BATTERY_ALERT_MESSAGE", in_init = true })
   OnDriverLateInit("DIT_ADDING")
+  T.eq(
+    "driver installs strict Ultra redaction",
+    require("lib.redact").forLog({ pin = "PRIVATE_PIN" }).pin,
+    "***REDACTED***"
+  )
+
   local function quiet(label)
     T.falsy(label, DEBUGPRINT or DEBUG_URL or DEBUG_RFN or DEBUG_WEBSOCKET or DEBUG_TIMER)
   end

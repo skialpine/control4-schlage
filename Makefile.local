@@ -15,3 +15,8 @@ validation-timer: ## Build the read-only hardware timer probe outside release ar
 verify: verify-schlage-version
 verify-schlage-version:
 	python3 tools/package.py check-version oss "$(DRIVER_VERSION)"
+
+# This OSS-only project has no DriverCentral listing. The template's docs target
+# includes this recipe unconditionally; replace it locally, without forking it.
+docs-drivercentral:
+	@:

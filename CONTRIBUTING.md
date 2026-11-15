@@ -42,7 +42,8 @@ then pull the change in with `copier update`.
 **Common libraries (`src/lib/`):**
 
 - `bindings.lua`: binding management
-- `conditionals.lua`: conditional/programming UI management
+- `conditionals.lua`: conditional/programming UI management; gives each one a
+  `sort_order`
 - `driver-filenames.lua`: every `.c4z` the repo builds, written in by the build
 - `drivercentral.lua`: the DriverCentral product, its cloud client and the
   license gate (see [The License Gate](#the-license-gate))
@@ -53,7 +54,8 @@ then pull the change in with `copier update`.
   [Log Level](#log-level))
 - `lru.lua`: LRU cache utility
 - `persist.lua`: persistent storage abstraction
-- `redact.lua`: masks credentials in log lines and diagnostics reports
+- `redact.lua`: masks credentials in log lines below Ultra and in diagnostics
+  reports
 - `support-code.lua`: the Support Code that opens a DriverCentral build's Lua
   window (see [The Support Code](#the-support-code))
 - `update-settings.lua`: keeps Automatic Updates and Update Channel the same on
@@ -107,6 +109,11 @@ then pull the change in with `copier update`.
 - `drivers/*/www/`: documentation and icons
 - `CHANGELOG.md`, seeded by the template on first render and left alone after
   that
+- `resources/drivercentral/`: the DriverCentral listing, seeded once. Besides
+  the banners and photos it holds `description.md`, the listing's description.
+  It starts from the docs' Overview and Features, written to sell the driver
+  rather than document it. Its first image is the facts strip, uploaded through
+  DriverCentral's description editor, which gives the URL for its `src`
 - Any additional `src/` modules specific to this driver
 - Any additional `vendor/` libraries specific to this driver
 - `test/` suites written for this driver, and the local support files they
@@ -185,8 +192,9 @@ make build-nodocs  # Build without generating docs
 make verify        # After a build, check what CI checks after one
 make test          # Run the Lua test suite (test/test_*.lua) and tools/test_*.py
 make support-code  # Print today's Support Code (see The Support Code)
+make dc-release    # Download the newest release's DriverCentral upload (TAG=v... for another)
 make fmt           # Format all code (Lua, Python, Markdown)
-make check         # Assert formatting and build secrets without rewriting, as CI does
+make check         # Assert formatting, build secrets and conditional sort_order, as CI does
 make clean         # Remove build artifacts and dist/ (including driverpackager)
 make clean-all     # Remove everything (build artifacts, dist, deps, venv)
 ```
@@ -207,7 +215,8 @@ on a clean tree until something has populated `build/`.
 1. **Preprocess**: resolve `#ifdef`/`#ifndef` directives per distribution
 1. **Generate squishy**: create squish manifests from .c4zproj files
 1. **Update driver.xml**: stamp version date and modified timestamp
-1. **Generate docs**: Markdown -> HTML -> PDF, plus README
+1. **Generate docs**: Markdown -> HTML -> PDF, plus README and DriverCentral's
+   Revisions
 1. **Package**: run driverpackager to create .c4z files
 1. **Zip**: bundle the c4z and docs folders per distribution
 
@@ -223,6 +232,23 @@ Each distribution's outputs are grouped by type under `dist/<distribution>/`:
 per-driver Lua). `<repo>.zip` sits alongside them and contains `c4z/` and
 `docs/` only: `source/` is the driver's unencrypted Lua, which an encrypted
 driver must not ship.
+
+`dist/drivercentral/listing/` holds what a DriverCentral upload needs beyond the
+zip and the PDFs. `description.html` is the listing's description, made from
+`description.md` in `resources/drivercentral/`. `revisions.html` is the
+Revisions tab, every released `CHANGELOG.md` section as the DriverCentral build
+shows it. The product card, the banners and the listing photos are copied from
+`resources/drivercentral/`. A tag build's drivercentral CI artifact is the whole
+upload. `make dc-release` downloads the newest release's into
+`dist/release/<tag>/`, or another's with `TAG=v20261111`, and stops if any
+`.c4z` in it is not encrypted. It needs the GitHub CLI, signed in. When the
+artifact has expired, run the Build workflow on the tag again from the Actions
+tab.
+
+While `description.md` still has `FACTS-STRIP-URL` for the facts strip,
+`description.html` leaves the strip out and the build prints a warning. Upload
+`banners/facts-strip-2400x136.png` through DriverCentral's description editor
+and put the URL it gives in its place.
 
 Step 1 rewrites tracked files in place. Formatting covers `tools/*.py`, all Lua
 under `drivers/`, `src/`, `test/`, `tools/` and `vendor/`, and every Markdown
@@ -323,6 +349,10 @@ runs `fn` with `print` collected and returns `ok, err, output`, and
 - `F.dofileBuild(path, build)` runs a Lua file as the `"drivercentral"` or
   `"oss"` build compiles it, with its `#ifdef` blocks applied. A driver loaded
   raw runs every arm.
+- `F.virtualClock(opts)` runs `C4:SetTimer` and `C4:GetTime` on a virtual clock,
+  so a test plays minutes of timers at once and in a fixed order. Drive it with
+  `run(ms)` and `at(ms, fn)`, read `now()` and `errors` (what a timer or promise
+  callback threw), then `restore()`.
 
 ### Persisted values
 
@@ -445,9 +475,9 @@ security add-generic-password -s control4-driver-build -a NAME -w
 In CI, the Build workflow passes `make build` each build secret by name from the
 repository's GitHub Actions secrets (add each name under Settings > Secrets and
 variables > Actions), so `make build` and the tools it runs never see any other
-secret. The template passes its own: `SUPPORT_CODE_SECRET` with a DriverCentral
-build, and the four `INFLUXDB_*` with Cloud Monitoring. A driver's own go in the
-copier answer `extra_build_secrets`
+secret. The template passes its own: `SUPPORT_CODE_SECRET`, `SUPPORT_PHONE` and
+`SUPPORT_EMAIL` with a DriverCentral build, and the four `INFLUXDB_*` with Cloud
+Monitoring. A driver's own go in the copier answer `extra_build_secrets`
 (`uvx copier update --trust --data extra_build_secrets="NAME OTHER"`), and
 `make check` fails when `.env.default` and the workflow disagree. Each value is
 a single line.
@@ -462,7 +492,16 @@ encrypted (`encryption="2"` on its `<script>`, set in the build copy of
 `driver.xml`), and `make package` deletes the plain-text squished Lua in
 `dist/<build>/source`, so neither the `.c4z` nor a CI artifact carries the value
 in the clear. Only `build/` keeps it, and that is gitignored and never uploaded.
-Keep placeholders out of documentation: a PDF is not encrypted.
+Keep placeholders out of documentation, since a PDF is not encrypted. The two
+exceptions are the support contacts a DriverCentral build's docs give, which are
+meant to be read: the secret only keeps them out of the repository. Write the
+phone number as `[%%SUPPORT_PHONE%%](tel:__SUPPORT_PHONE__)` and the email
+address as `[%%SUPPORT_EMAIL%%](mailto:__SUPPORT_EMAIL__)`, each inside
+`#ifdef DRIVERCENTRAL`. The link takes the `__NAME__` form, since mdformat
+escapes a `%` in a link. Set `SUPPORT_PHONE` with dashes, `+1-NNN-NNN-NNNN`, so
+it also makes the `tel:` link. Only the docs and their PDFs give the contacts.
+The README comes from the OSS docs, which never show them, and the listing
+description, `resources/drivercentral/description.md`, gives neither.
 
 A DriverCentral build is packaged encrypted with or without a secret.
 `make package` then opens every package of an encrypted build and fails unless
@@ -575,37 +614,30 @@ end
 The library clears the property at once, keeps its value out of the dispatcher's
 Trace output, and prints its answer to the Lua output whatever Log Mode is.
 While the window is open, Log Level also offers Trace and Ultra (see
-[Log Level](#log-level)). A driver that shows more while the window is open
-(extra properties) passes `supportCode:onChange(function(open) ... end)`.
+[Log Level](#log-level)). A web tab's properties card follows the window by
+itself, once the driver calls `lib.ui.tab-properties`' `serve()`. A driver that
+shows more elsewhere while the window is open passes
+`supportCode:onChange(function(open) ... end)`.
 
 ### Log Level
 
 Every driver has the same Log Level property. An OSS build offers `0 - Fatal` to
 `6 - Ultra`; a DriverCentral build stops at `4 - Debug`, and offers `5 - Trace`
 and `6 - Ultra` only while the Support Code has the Lua window open, since they
-show nothing the open window doesn't. `driver.xml` lists Trace and Ultra inside
-an `#ifdef OSS`:
+show nothing the open window doesn't. The property is a `DYNAMIC_LIST` with no
+items, the same in both builds, and the logger fills its list:
 
 ```xml
 <property>
   <name>Log Level</name>
-  <type>LIST</type>
+  <type>DYNAMIC_LIST</type>
   <default>3 - Info</default>
-  <items>
-    <item>0 - Fatal</item>
-    <item>1 - Error</item>
-    <item>2 - Warning</item>
-    <item>3 - Info</item>
-    <item>4 - Debug</item>
-    <!-- #ifdef OSS -->
-    <item>5 - Trace</item>
-    <item>6 - Ultra</item>
-    <!-- #endif -->
-  </items>
 </property>
 ```
 
-and its handler hands the value to the logger:
+It can't be a `LIST`: Composer takes no `LIST` value that `driver.xml` doesn't
+list, so a level added at runtime would show and not stick. Its handler hands
+the value to the logger:
 
 ```lua
 function OPC.Log_Level(propertyValue)
@@ -614,12 +646,19 @@ function OPC.Log_Level(propertyValue)
 end
 ```
 
-`log:setLogLevel` never goes above what the build allows, and puts the property
-back to `4 - Debug` when it shows more. At Ultra with Print on it also turns on
-drivers-common-public's own dumps (`DEBUGPRINT`, `DEBUG_TIMER`, `DEBUG_RFN`,
-`DEBUG_URL`, `DEBUG_WEBSOCKET`), which print whole HTTP requests and websocket
-frames, logins included, and turns them off otherwise. Nothing else sets them.
-The Support Code calls `log:allowTraceAndUltra(allowed)` as the window opens and
-closes, which widens and narrows the list. A page that sets Log Level offers the
-levels `driver.xml` lists: `UpdateProperty` takes no other value, so Trace and
-Ultra during a Support Code hour are set in Composer.
+`log:setLogLevel` never goes above what the build allows, puts the property back
+to `4 - Debug` when it shows more, and sends the property its list. At Ultra
+with Print on it also turns on drivers-common-public's own dumps (`DEBUGPRINT`,
+`DEBUG_TIMER`, `DEBUG_RFN`, `DEBUG_URL`, `DEBUG_WEBSOCKET`), which print whole
+HTTP requests and websocket frames, logins included, and turns them off
+otherwise. Nothing else sets them. The Support Code calls
+`log:allowTraceAndUltra(allowed)` as the window opens and closes, which widens
+and narrows the list. A page that sets Log Level offers
+`log:getLogLevelNames()`.
+
+Below Ultra, a log line of ours masks credentials through `redact.forLog`, as
+`lib.http`'s request line does. At Ultra it prints them as they are, as the
+dumps do. Anything that leaves the controller, a Cloud Monitoring report among
+them, masks through `redact.value` at every level. The Support Code and what
+`SendSecretToDevice` and `SendSecretToProxy` send stay out of the log at every
+level.

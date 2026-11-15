@@ -31,6 +31,17 @@ Choose a reviewed tagged template release during implementation and retain Copie
 
 Keep shared `src/lib/`, vendored modules, and shared tests template-managed. Schlage-specific code belongs under `src/schlage/`, `drivers/schlage_account/`, `drivers/schlage_lock/`, and dedicated fixtures/tests. Select `bitn crypto`; generic OAuth, ESPHome protobuf/Noise, and BLE modules are unnecessary. A wholesale ESPHome fork would carry unrelated transports; hand-building the toolchain would duplicate available infrastructure.
 
+Template maintenance on 2026-11-14 pins v0.9.103
+(`628f4eeb6d15076b1d734a4ace2dd471c4599a96`). Retain the OSS-only build and
+existing optional-module selection. The new shared HTTP logger permits raw Ultra
+output, so both driver entrypoints first load a project policy binding its
+`forLog` function to the always-redacted implementation. Keep the existing raw
+dump suppression after logger changes. Log Level becomes a DYNAMIC_LIST filled
+in LateInit. Companion programming repairs non-table entries only in its own
+namespace, skips incomplete saved declarations, and uses shared upserts to
+restore known definitions while retaining valid IDs. Template libraries remain
+unmodified. Publishing this maintenance build does not establish live acceptance.
+
 ### 2. Native Cognito is the first implementation gate
 
 Template maintenance on 2026-11-08 updates the original v0.9.74 pin to v0.9.80

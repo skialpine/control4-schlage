@@ -2,8 +2,8 @@
 
 The project is distributed under AGPL-3.0; see LICENSE.
 
-- Finite Labs Control4 driver template v0.9.80, commit
-  `2da61295cab1af22b89d18a2dad36c94a4e3f00f`, by Finite Labs, LLC:
+- Finite Labs Control4 driver template v0.9.103, commit
+  `628f4eeb6d15076b1d734a4ace2dd471c4599a96`, by Finite Labs, LLC:
   <https://github.com/finitelabs/control4-driver-template>. Template-managed
   libraries, vendored bundles, tests, and tooling retain their upstream notices.
 

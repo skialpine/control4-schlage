@@ -3,17 +3,28 @@
 The project was originally scaffolded from Finite Labs template v0.9.74, commit
 `4aabee67ddc8ac71602e6d6367b41794e831f022`, using Copier 9.11.3 with
 `vendor_modules="bitn crypto"`, OSS documentation, and cloud diagnostics off.
-The current pin is **v0.9.80**, commit
-`2da61295cab1af22b89d18a2dad36c94a4e3f00f`, updated with Copier 9.19.1.
+The current pin is **v0.9.103**, commit
+`628f4eeb6d15076b1d734a4ace2dd471c4599a96`, updated with Copier 9.19.1.
 The published GitHub repository is `skialpine/control4-schlage`.
 
-The shared v0.9.80 logger enables raw Control4 dumps at Ultra with Print. Both
-Schlage drivers deliberately disable those switches after applying Log Level
-and Log Mode, preserving structured Ultra output without credential or raw
-companion-message dumps. Keep this policy in driver-specific code; do not patch
-the template logger. Driver lifecycle tests cover startup, all output modes,
-level changes, and sentinel secret filtering. Run those against bundled scripts
-as well as source when updating the template.
+The shared logger enables raw Control4 dumps at Ultra with Print, and shared
+HTTP logging normally bypasses redaction at Ultra. Both Schlage entrypoints load
+`schlage.log_policy` before other modules to keep `lib.redact.forLog` bound to
+the always-masked `value` implementation. They also disable raw dump switches
+after applying Log Level and Log Mode. Keep these adaptations in project code,
+without patching template libraries. The Log Level property is a DYNAMIC_LIST;
+the logger fills it after LateInit. Driver and HTTP policy tests cover Ultra,
+mode changes, startup timing, and sentinel secrets. Run driver tests against
+bundled scripts as well as source when updating the template.
+
+Companion programming restores only its own namespace. It removes non-table
+records before shared upsert helpers traverse them, skips incomplete declarations,
+and lets the helpers rebuild known entries without changing valid IDs. It never
+calls the global event restore that deletes unrelated IDs.
+
+`Makefile.local` overrides the template's unconditional DriverCentral listing
+recipe with a no-op because only the OSS distribution is built here. The Build
+workflow likewise uploads OSS artifacts only and passes no service credentials.
 
 DriverWorks prohibits UpdateProperty during OnDriverInit. Both drivers publish
 startup properties in OnDriverLateInit; variable registration and binding
