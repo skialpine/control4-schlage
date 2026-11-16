@@ -703,7 +703,7 @@
     "tag": "v2026111601-beta.1",
     "template_tag": "v0.9.109",
     "template_commit": "a8101b444d79e4e4c238fabd81d2c3c18935f8c7",
-    "status": "local checks passed; prerelease publication and live acceptance pending",
+    "status": "prerelease published and delivered; live acceptance pending",
     "lua_suites": 62,
     "lua_assertions": 2897,
     "python_tests": 70,
@@ -723,6 +723,48 @@
       "control4-schlage.zip": {
         "sha256": "257485bd2a35134026e696d33587c02f37acdec6836190ff3fdc54246a830bab",
         "bytes": 394164
+      }
+    },
+    "source_commit": "cd793b5e8bc6497939fe72fdb7866fafebef1b4f",
+    "reviewed_tree": "4abc62e2e9797ef24198a5f2399af407812b0430",
+    "independent_full_diff_review": "approved before commit; no blocking findings",
+    "pull_request": "https://github.com/skialpine/control4-schlage/pull/5",
+    "release_url": "https://github.com/skialpine/control4-schlage/releases/tag/v2026111601-beta.1",
+    "pr_build_run": 43819124279,
+    "build_run": 43819412483,
+    "release_run": 43819412509,
+    "ci_build_and_release": "passed",
+    "all_five_assets_match_tag_ci": true,
+    "public_unauthenticated_downloads_verified": true,
+    "ci_scripts_match_locally_tested_bundles": true,
+    "release_bundle_matches_standalone_packages": true,
+    "onedrive_root_delivery_verified": true,
+    "release_prerelease": true,
+    "latest_stable_api_verified": true,
+    "tasks_after_delivery": {
+      "complete": 46,
+      "total": 47
+    },
+    "assets": {
+      "control4-schlage.zip": {
+        "sha256": "0bed037a1576ef9620473e682f0bb5e841039f46843df14985127ef064e65a67",
+        "bytes": 355880
+      },
+      "Schlage.Account.Documentation.pdf": {
+        "sha256": "62b55dacbd1cc95277019c1740b3d7538847c2a281ca331103f4942a544fc232",
+        "bytes": 40151
+      },
+      "Schlage.Lock.Documentation.pdf": {
+        "sha256": "fa55a14ef52675db750aae656dceb5bf3becd4a354799df42d29a69981addb59",
+        "bytes": 27175
+      },
+      "schlage_account.c4z": {
+        "sha256": "a812f9475e91a2811bb5e1d98236452b4a06284246c6f009c4b078ef36ab070f",
+        "bytes": 180525
+      },
+      "schlage_lock.c4z": {
+        "sha256": "6cc7914fe26be69bbf14238e39e0bcf2024068eef0e0545950904440f4cafaa9",
+        "bytes": 110401
       }
     }
   }

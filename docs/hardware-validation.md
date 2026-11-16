@@ -1264,3 +1264,22 @@ selection retain the previous implementation.
 No cloud account or hardware was used for these checks. Independent review and
 prerelease publication follow local validation. Stable/Latest remains 2026110802;
 controller acceptance and deferred hardware tests are unchanged.
+
+### Template v0.9.109 prerelease publication (2026-11-16 UTC)
+
+The complete 23-file diff was independently approved at tree
+`4abc62e2e9797ef24198a5f2399af407812b0430` before commit. PR #5 merged as
+`cd793b5e8bc6497939fe72fdb7866fafebef1b4f` after Build 43819124279 passed.
+Tag Build 43819412483 and Release 43819412509 passed. No source changes were
+made after the approved review.
+
+GitHub published v2026111601-beta.1 as a prerelease. All five assets downloaded
+without authentication match tag CI and GitHub digests. Both packaged Lua files
+match the locally tested bundles and 2026111401; the release zip contains the
+same two standalone packages. Verified packages, PDFs, bundle and release notes
+were copied to the main OneDrive Control4 folder only. No Drivers files were
+written. Asset hashes and sizes are in native-preview-build.json.
+
+Stable/Latest still returns v2026110802-beta.1. No new controller acceptance is
+claimed, and deferred hardware testing remains open. Automatic companion setup
+is not enabled by this maintenance update.

@@ -14,14 +14,14 @@ stable publication updates the version and documentation. Outage/recovery
 testing is deferred, and scheduled daily battery alert follow-up checks remain
 unverified on hardware. See [release notes](releases/2026110608.md).
 
-The newest prerelease is **2026111401** (tag **v2026111401-beta.1**), using
-template v0.9.103. Select the Prerelease channel to install it for controller
+The newest prerelease is **2026111601** (tag **v2026111601-beta.1**), using
+template v0.9.109. Select the Prerelease channel to install it for controller
 testing. Saved sign-in, selected locks, lock/unlock, app status updates, and the
 Log Level dropdown need checking after this update. It has not been accepted as
-stable. See [prerelease notes](releases/2026111401.md).
+stable. See [prerelease notes](releases/2026111601.md).
 
 The main OneDrive Control4 folder contains the latest published prerelease
-**2026111401** for direct installation. Future deliveries go to that root folder
+**2026111601** for direct installation. Future deliveries go to that root folder
 only. **Do not copy or overwrite packages in the Drivers subfolder**: Composer
 manages its local driver database. Externally copying there can make the
 versions appear equal while Composer retains an older property layout. Import or
