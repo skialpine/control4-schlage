@@ -3,8 +3,8 @@
 The project was originally scaffolded from Finite Labs template v0.9.74, commit
 `4aabee67ddc8ac71602e6d6367b41794e831f022`, using Copier 9.11.3 with
 `vendor_modules="bitn crypto"`, OSS documentation, and cloud diagnostics off.
-The current pin is **v0.9.103**, commit
-`628f4eeb6d15076b1d734a4ace2dd471c4599a96`, updated with Copier 9.19.1.
+The current pin is **v0.9.109**, commit
+`a8101b444d79e4e4c238fabd81d2c3c18935f8c7`, updated with Copier 9.19.1.
 The published GitHub repository is `skialpine/control4-schlage`.
 
 The shared logger enables raw Control4 dumps at Ultra with Print, and shared
@@ -25,6 +25,11 @@ calls the global event restore that deletes unrelated IDs.
 `Makefile.local` overrides the template's unconditional DriverCentral listing
 recipe with a no-op because only the OSS distribution is built here. The Build
 workflow likewise uploads OSS artifacts only and passes no service credentials.
+
+The v0.9.109 build checks list spacing in preprocessed documentation. Keep
+that check enabled for the OSS build. The new shared companion setup helper is
+available in source, but Schlage does not call it or bundle it in the runtime;
+per-lock selection and room placement still belong to the installer.
 
 DriverWorks prohibits UpdateProperty during OnDriverInit. Both drivers publish
 startup properties in OnDriverLateInit; variable registration and binding

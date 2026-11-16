@@ -1,6 +1,6 @@
 # Template integration review
 
-Reviewed against the pinned Finite Labs template v0.9.103. This is an OSS driver;
+Reviewed against the pinned Finite Labs template v0.9.109. This is an OSS driver;
 template source updates remain explicit Copier updates reviewed in this repo.
 
 | Template feature | Decision for this driver |
@@ -86,3 +86,21 @@ Source tests cover corrupted records, stable IDs, sorted conditions, lifecycle
 ordering, crypto, transport, commands, updates, alerts, and strict Ultra masking.
 Local tests do not complete the deferred outage/recovery test or scheduled daily
 battery reminder acceptance.
+
+## v0.9.103 to v0.9.109 maintenance
+
+Copier pins commit `a8101b444d79e4e4c238fabd81d2c3c18935f8c7`.
+
+- Included the shared documentation preprocessor/list-spacing fix and the new
+  `check-docs` build check. Current Schlage docs have no conditional sections,
+  so the fix mainly protects future edits.
+- Included the managed companion setup library and its tests in source. It is
+  not called by Schlage and is not included in the bundled runtime. Automatic
+  creation/binding is a separate feature requiring explicit per-lock room
+  selection, lifecycle handling, and the generic Door Lock Navigator connection.
+  The existing one-companion-per-lock Properties dropdown workflow is retained.
+- Lighting and expression changes remain excluded by the existing module choices.
+  External diagnostics, UI, OAuth, and commercial service credentials stay off.
+- Retained strict Ultra redaction, raw dump suppression, startup publication
+  timing, and increasing prerelease versions. This is build/documentation
+  maintenance; the Schlage account and lock Lua sources are unchanged.

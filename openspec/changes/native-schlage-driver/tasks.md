@@ -89,6 +89,12 @@ Do not mark this group complete from mocks. If a hardware prerequisite fails, re
 - [x] 12.2 Adapt companion event restoration for damaged saved records and the Log Level dynamic list; preserve strict credential masking at Ultra with project-owned integration code and regression tests.
 - [x] 12.3 Run source and bundled-script regressions, formatting/spec/build/package checks; obtain independent full-diff review before committing and publish a prerelease with OneDrive root-only delivery. Keep Stable/Latest and deferred hardware acceptance unchanged.
 
+## 13. Template maintenance v0.9.109 (requested 2026-11-15)
+
+- [x] 13.1 Update Copier from v0.9.103 to v0.9.109 and document the scope; retain OSS-only builds, optional-module choices, strict logging policy, and installer-selected per-lock companions without invoking the new automatic companion helper.
+- [x] 13.2 Verify source/bundled regressions, documentation checks, format/static/spec checks and package versions; compare managed files with a clean render and confirm unused companion code is absent from the runtime.
+- [ ] 13.3 Obtain independent complete-diff review before each commit, publish a prerelease and verify public assets plus root-only OneDrive delivery. Retain Stable/Latest and deferred hardware acceptance.
+
 ## Workflow follow-up
 
 - Review the completed implementation and live validation record before production cutover or publication.

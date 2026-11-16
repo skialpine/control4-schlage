@@ -7,11 +7,13 @@ stable release is version **2026110608**. Control and state feedback have passed
 user testing on the combinations below. It uses Schlage's cloud; there is no
 local Wi-Fi control or Home Assistant runtime dependency.
 
-Prerelease **2026111401** updates the shared template to v0.9.103. It improves
-startup recovery from damaged saved programming entries and sorts lock
-conditions in Composer. Credentials remain masked at Ultra. Saved account
-credentials, lock selections, and Navigator connections are retained. This build
-still needs controller testing; **2026110802** remains the stable release.
+Prerelease **2026111601** updates the shared template to v0.9.109 and adds a
+build check for documentation list spacing. It includes the startup recovery and
+sorted Composer conditions from 2026111401. Locks continue to use one companion
+per physical lock and the existing Properties dropdowns. Saved credentials,
+selections, and Navigator connections are retained; credentials remain masked at
+Ultra. This build still needs controller testing; **2026110802** remains the
+stable release.
 
 If Composer shows old values after updating, try **File → Refresh** or restart
 Composer and reconnect. If settings are missing, synchronize/import the current

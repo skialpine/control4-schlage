@@ -697,5 +697,33 @@
         "bytes": 110570
       }
     }
+  },
+  "template_maintenance_2026111601": {
+    "version": "2026111601",
+    "tag": "v2026111601-beta.1",
+    "template_tag": "v0.9.109",
+    "template_commit": "a8101b444d79e4e4c238fabd81d2c3c18935f8c7",
+    "status": "local checks passed; prerelease publication and live acceptance pending",
+    "lua_suites": 62,
+    "lua_assertions": 2897,
+    "python_tests": 70,
+    "packaged_suites": 13,
+    "packaged_assertions": 667,
+    "source_imports_excluded": true,
+    "shared_files_match_clean_upstream_render": 89,
+    "bundled_lua_identical_to": "2026111401",
+    "automatic_companion_helper_bundled": false,
+    "format_and_project_checks": "passed",
+    "openspec_strict": "passed",
+    "build": "passed",
+    "live_acceptance": "pending",
+    "stable_latest_retained": "v2026110802-beta.1",
+    "composer_drivers_directory_written": false,
+    "local_artifacts": {
+      "control4-schlage.zip": {
+        "sha256": "257485bd2a35134026e696d33587c02f37acdec6836190ff3fdc54246a830bab",
+        "bytes": 394164
+      }
+    }
   }
 }
