@@ -18,6 +18,15 @@ Template for a new release entry (copy below the heading, fill in, uncomment):
 - Removed
 -->
 
+## v2026111601-beta.1 - 2026-11-16
+
+### Changed
+
+- Update the shared template from v0.9.103 to v0.9.109, including documentation
+  list-spacing fixes and an additional build check.
+- Keep the current per-lock Properties setup. The new shared companion setup
+  helper is available in source for a separate future integration.
+
 ## v2026111401-beta.1 - 2026-11-14
 
 ### Fixed

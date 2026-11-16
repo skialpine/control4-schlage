@@ -42,6 +42,14 @@ namespace, skips incomplete saved declarations, and uses shared upserts to
 restore known definitions while retaining valid IDs. Template libraries remain
 unmodified. Publishing this maintenance build does not establish live acceptance.
 
+Template maintenance requested on 2026-11-15 pins v0.9.109
+(`a8101b444d79e4e4c238fabd81d2c3c18935f8c7`). Enable the managed documentation
+spacing/check tooling with the existing OSS-only configuration. The managed
+companion setup library remains unused by Schlage; automatic creation requires
+a separate design for per-lock room choices, lifecycle cancellation, selection,
+and generic Door Lock relay wiring. Preserve the current runtime, strict Ultra
+masking, late property publication, and prerelease-only delivery policy.
+
 ### 2. Native Cognito is the first implementation gate
 
 Template maintenance on 2026-11-08 updates the original v0.9.74 pin to v0.9.80

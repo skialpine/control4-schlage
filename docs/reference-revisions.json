@@ -1,7 +1,7 @@
 {
   "template": {
-    "tag": "v0.9.103",
-    "commit": "628f4eeb6d15076b1d734a4ace2dd471c4599a96"
+    "tag": "v0.9.109",
+    "commit": "a8101b444d79e4e4c238fabd81d2c3c18935f8c7"
   },
   "pycognito": {
     "commit": "6b8de182c6918de133f452af30e87e3d8aecc20e",

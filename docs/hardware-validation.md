@@ -1245,3 +1245,22 @@ copied to the main OneDrive Control4 folder; no Drivers files were written.
 Stable/Latest still returns v2026110802-beta.1. Hashes and sizes are recorded in
 native-preview-build.json. New controller acceptance remains pending; these
 checks do not close deferred hardware testing.
+
+### Template v0.9.109 preparation (2026-11-16 UTC)
+
+The template update requested on November 15 local time uses UTC build version
+2026111601. Copier moved from v0.9.103 to v0.9.109 without conflicts. Managed
+sources, vendor libraries, tests and tools match all 89 files in a clean render.
+The new documentation list-spacing check passes for the OSS build.
+
+Local validation passed: 62 Lua suites / 2,897 assertions, 70 Python tests,
+13 bundled suites / 667 assertions with source imports excluded, formatting,
+static checks, strict OpenSpec validation, and build/package checks. Both bundled
+Lua files are byte-for-byte identical to 2026111401; the shared companion setup
+helper is not in either runtime. Package version and documentation change, while
+lock control, strict Ultra masking, startup property timing and per-lock dropdown
+selection retain the previous implementation.
+
+No cloud account or hardware was used for these checks. Independent review and
+prerelease publication follow local validation. Stable/Latest remains 2026110802;
+controller acceptance and deferred hardware tests are unchanged.
